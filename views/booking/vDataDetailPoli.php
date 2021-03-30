@@ -94,7 +94,7 @@
               <table class="table table-bordered table-hover table-striped tablesorter">
                 <tbody>
                   <tr>
-                    <td><b>Catatan Khusus</b><br><small>(Alergi obat/ makanan, HBsAg)</small></td>
+                    <td><b>Catatan Khusus</b><br><small>(Alergi obat/ makanan, HBsAg positif)</small></td>
                     <td>
                       <?php 
 
