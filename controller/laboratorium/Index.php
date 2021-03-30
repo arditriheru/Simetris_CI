@@ -27,7 +27,7 @@ class index extends CI_Controller
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('laboratorium/vMenu',$data);
-		$this->load->view('laboratorium/vIndex',$data);
+		$this->load->view('laboratorium/vDashboard',$data);
 		$this->load->view('templates/footer',$data);
 	}
 
