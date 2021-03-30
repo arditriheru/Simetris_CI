@@ -21,7 +21,7 @@
         </div>
       </div><!-- /.row -->
 
-      <div>
+      <div class="row">
         <div>
           content
         </div>
