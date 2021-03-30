@@ -29,13 +29,13 @@ class dataAntibody extends CI_Controller
 		$where2 = array('igg' 	=> 1);
 		$where3 = array('igm' 	=> 1);
 
-		$data['nonreaktif'] = $this->mSimetris->countData("rapidtest",$where1);
-		$data['iggreaktif'] = $this->mSimetris->countData("rapidtest",$where2);
-		$data['igmreaktif'] = $this->mSimetris->countData("rapidtest",$where3);
+		$data['nonreaktif'] = $this->mSimetris->countData("test_antibody",$where1);
+		$data['iggreaktif'] = $this->mSimetris->countData("test_antibody",$where2);
+		$data['igmreaktif'] = $this->mSimetris->countData("test_antibody",$where3);
 		$data['datadokter'] = $this->mSimetris->getData("mr_dokter")->result();
 		$data['dataunit'] 	= $this->mSimetris->getData("mr_unit")->result();
 		$data['record']		= $this->mSimetris->getData('mr_pasien');
-		$data['totaldata'] 	= $this->mSimetris->getData("rapidtest")->num_rows();
+		$data['totaldata'] 	= $this->mSimetris->getData("test_antibody")->num_rows();
 		$data['antibody'] 	= $this->mSimetris->dataAntibody()->result();
 
 		$this->load->view('templates/header',$data);
@@ -53,42 +53,26 @@ class dataAntibody extends CI_Controller
 
 	public function tambahDataAksi()
 	{
-		$this->_rules();
-
 		$id_catatan_medik 	= $this->input->post('id_catatan_medik');
 		$id_dokter 			= $this->input->post('id_dokter');
-		$id_unit 			= $this->input->post('id_unit');
+		$id_petugas 		= $this->session->userdata('laboratorium_id_petugas');
+		$igm 				= '3';
+		$igg 				= '3';
 		$tanggal 			= getDatenow();
 		$jam 				= getTimenow();
-		$sampel 			= 'Darah';
-		$pemeriksaan 		= 'SARS CoV-2 Antibody';
-		$igm 				= '3';
-		$nilai_rujukan 		= '0';
-		$metode 			= 'ICT';
-		$pemeriksa 			= $this->session->userdata('laboratorium_nama_petugas');
-		$tgl_periksa 		= getDatenow();
-		$jam_periksa 		= getTimenow();
-		$igg 				= '3';
-
+		
 		$data = array(
 
 			'id_catatan_medik' 	=> $id_catatan_medik,
 			'id_dokter' 		=> $id_dokter,
-			'id_unit' 			=> $id_unit,
+			'id_petugas' 		=> $id_petugas,
+			'igm' 				=> $igm,
+			'igg' 				=> $igg,
 			'tanggal' 			=> $tanggal,
 			'jam' 				=> $jam,
-			'sampel' 			=> $sampel,
-			'pemeriksaan' 		=> $pemeriksaan,
-			'igm' 				=> $igm,
-			'nilai_rujukan' 	=> $nilai_rujukan,
-			'metode' 			=> $metode,
-			'pemeriksa' 		=> $pemeriksa,
-			'tgl_periksa' 		=> $tgl_periksa,
-			'jam_periksa' 		=> $jam_periksa,
-			'igg' 				=> $igg,
 		);
 
-		$this->mSimetris->insertData('rapidtest',$data);
+		$this->mSimetris->insertData('test_antibody',$data);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4"><b>Data berhasil ditambahkan!</b></font>
@@ -114,46 +98,28 @@ class dataAntibody extends CI_Controller
 
 	public function updateDataAksi()
 	{
-		$this->_rules();
+		$id 				= $this->input->post('id_test_antibody');
+		$id_dokter 			= $this->input->post('id_dokter');
+		$igm 				= $this->input->post('igm');
+		$igg 				= $this->input->post('igg');
 
-		if($this->form_validation->run() == FALSE)
-		{
-			$this->updateData();
-		}else{
-			$id 				= $this->input->post('id_rapidtest');
-			$id_catatan_medik 	= $this->input->post('id_catatan_medik');
-			$id_dokter 			= $this->input->post('id_dokter');
-			$id_unit 			= $this->input->post('id_unit');
-			$igm 				= $this->input->post('igm');
-			$pemeriksa 			= $this->input->post('pemeriksa');
-			$tgl_periksa 		= $this->input->post('tgl_periksa');
-			$jam_periksa 		= $this->input->post('jam_periksa');
-			$igg 				= $this->input->post('igg');
+		$data = array(
 
-			$data = array(
+			'id_dokter' 		=> $id_dokter,
+			'igm' 				=> $igm,
+			'igg' 				=> $igg,
+		);
 
-				'id_catatan_medik' 	=> $id_catatan_medik,
-				'id_dokter' 		=> $id_dokter,
-				'id_unit' 			=> $id_unit,
-				'igm' 				=> $igm,
-				'pemeriksa' 		=> $pemeriksa,
-				'tgl_periksa' 		=> $tgl_periksa,
-				'jam_periksa' 		=> $jam_periksa,
-				'igg' 				=> $igg,
-			);
+		$where = array(
+			'id_test_antibody' 		=> $id
+		);
 
-			$where = array(
-				'id_rapidtest' 		=> $id
-			);
-
-			$this->mSimetris->updateData('rapidtest',$data,$where);
-			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="4"><b>Data berhasil diupdate!</b></font>
-				</div>');
-			redirect('laboratorium/dataAntibody/');
-
-		}
+		$this->mSimetris->updateData('test_antibody',$data,$where);
+		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<font size="4"><b>Data berhasil diupdate!</b></font>
+			</div>');
+		redirect('laboratorium/dataAntibody/');
 	}
 
 	public function printData($id)
@@ -169,8 +135,8 @@ class dataAntibody extends CI_Controller
 
 	public function deleteData($id)
 	{
-		$where = array('id_rapidtest' => $id);
-		$this->mSimetris->deleteData('rapidtest',$where);
+		$where = array('id_test_antibody' => $id);
+		$this->mSimetris->deleteData('test_antibody',$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4"><b>Data berhasil dihapus!</b></font>
