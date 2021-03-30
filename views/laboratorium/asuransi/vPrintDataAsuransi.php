@@ -46,23 +46,47 @@
 												<td><strong>Nama Pemeriksaan</strong></td>
 												<td class="text-center"><strong>Qty</strong></td>
 												<td class="text-center"><strong>Tarif (Rp)</strong></td>
+												<td class="text-center"><strong>Diskon (%)</strong></td>
 												<td class="text-right"><strong>Sub Total</strong></td>
 											</tr>
 										</thead>
 										<tbody>
 
-											<?php $no = 1; $grandtotal = 0; foreach ($data as $d): $subtotal = $d->tarif*$d->qty; $grandtotal += $subtotal; ?>
+											<?php
+											$no = 1; $grandtotal = 0; foreach ($data as $d):
+
+											if(isset($d->diskon)){
+												$diskon = $d->tarif*$d->qty*$d->diskon/100;
+											}else{
+												$diskon = 0;
+											}
+
+											$subtotal = $d->tarif*$d->qty-$diskon;
+											$grandtotal += $subtotal;
+
+											?>
 
 											<tr>
 												<td class="text-left"><p><?php echo $d->pemeriksaan; ?></p></td>
 												<td class="text-center"><p><?php echo $d->qty; ?></p></td>
 												<td class="text-center"><p><?php echo number_format($d->tarif,0,",","."); ?></p></td>
+												<td class="text-center">
+													<p>
+														<?php
+														if(isset($d->diskon)){
+															echo $d->diskon;
+														}else{
+															echo "0";
+														} ?>
+													</p>
+												</td>
 												<td class="text-right"><p><?php echo number_format($subtotal,0,",","."); ?></p></td>
 											</tr>
 
 										<?php endforeach; ?>
 
 										<tr>
+											<td class="no-line"></td>
 											<td class="no-line"></td>
 											<td class="no-line"></td>
 											<td class="no-line text-center"><strong>Grand Total</strong></td>
