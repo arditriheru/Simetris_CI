@@ -44,7 +44,7 @@ class login extends CI_Controller
 			$userdata = array(
 				'id_petugas'  		=> $cek->id_petugas,
 				'nama_petugas'     	=> $cek->nama,
-				'login'  				=> '1',
+				'login'  			=> '1',
 			);
 			$this->session->set_userdata($userdata);
 			$this->session->set_userdata('akses','Admin');
