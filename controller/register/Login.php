@@ -42,9 +42,9 @@ class login extends CI_Controller
 
 			$akses = $this->mSimetris->hakAkses($username,$password,$id);
 			$userdata = array(
-				'register_id_petugas'  		=> $cek->id_petugas,
-				'register_nama_petugas'     	=> $cek->nama,
-				'register_login'  			=> '1',
+				'register_id_petugas'  	=> $cek->id_petugas,
+				'register_nama_petugas' => $cek->nama,
+				'login'  				=> '1',
 				'hello'     			=> $cek->nama,
 			);
 

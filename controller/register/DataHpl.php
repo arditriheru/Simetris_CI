@@ -7,7 +7,7 @@ class dataHpl extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('register_login') !='1')
+		if($this->session->userdata('login') !='1')
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
