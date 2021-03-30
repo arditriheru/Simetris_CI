@@ -25,11 +25,16 @@ class dataJadwal extends CI_Controller
 		$data['title'] 		= "Jadwal";
 		$data['subtitle'] 	= "Dokter";
 
-		$where = array(
+		$where1 = array(
 			'dokter.status' => 1
 		);
 
-		$data['datadokter'] 		= $this->mSimetris->dataDokter("dokter",$where,"nama_dokter ASC")->result();
+		$where2 = array(
+			'dokter.status' => 1
+		);
+
+		$data['datajadwal'] 		= $this->mSimetris->dataJadwal($where2)->result();
+		$data['datadokter'] 		= $this->mSimetris->dataDokter("dokter",$where1,"nama_dokter ASC")->result();
 		$data['datajadwallibur'] 	= $this->mSimetris->dataJadwalLibur()->result();
 
 		$this->load->view('templates/header',$data);
