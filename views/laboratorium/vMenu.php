@@ -17,7 +17,6 @@
       <li><a href="<?php echo base_url('laboratorium/index') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <?php if($this->session->userdata('laboratorium_akses') =='Admin') { ?>
         <li><a href="http://192.168.1.250:8080/laboratorium/" target="_blank"><i class="fa fa-flask"></i> Laboratorium</a></li>
-        <li><a href="<?php echo base_url('laboratorium/dataAsuransi/') ?>"><i class="fa fa-file"></i> Asuransi</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-plus"></i> Test Antibody <b class="caret"></b></a>
@@ -34,6 +33,7 @@
                 <li><a href="<?php echo base_url('laboratorium/dataAntigen/lapCariData') ?>">Laporan</a></li>
               </ul>
             </li>
+            <li><a href="<?php echo base_url('laboratorium/dataAsuransi/') ?>"><i class="fa fa-file"></i> Klaim Asuransi</a></li>
             <li><a href="<?php echo base_url('laboratorium/dataAsuransi/index/1') ?>"><i class="fa fa-print"></i> Invoice Pemeriksaan</a></li>
           <?php } ?>
         </ul>
