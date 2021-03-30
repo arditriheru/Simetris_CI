@@ -467,12 +467,12 @@ function dataKamar($where)
 /*
 |--------------------------------------------------------------------------
 |
-| Model covid
+| Model laboratorium
 |
 |--------------------------------------------------------------------------
 */
 
-function dataRapidtest()
+function dataAntibody()
 {
 	$query = $this->db->query("
 		SELECT rapidtest.id_rapidtest, rapidtest.id_catatan_medik, rapidtest.tanggal, rapidtest.jam, rapidtest.igm, rapidtest.igg, mr_pasien.nama, mr_dokter.nama_dokter,
@@ -489,11 +489,11 @@ function dataRapidtest()
 		FROM rapidtest, mr_pasien, mr_dokter
 		WHERE rapidtest.id_catatan_medik=mr_pasien.id_catatan_medik
 		AND rapidtest.id_dokter=mr_dokter.id_dokter
-		ORDER BY rapidtest.id_rapidtest DESC LIMIT 50");
+		ORDER BY rapidtest.id_rapidtest DESC LIMIT 10");
 	return $query;
 }
 
-function detailDataRapidtest($where)
+function detailDataAntibody($where)
 {
 	$query = $this->db->query("
 		SELECT *, rapidtest.tanggal, mr_pasien.nama AS nama_pasien, mr_pasien.alamat AS alamat_pasien, mr_pasien.tgl_lahir AS tgl_lahir, mr_dokter.nama_dokter, mr_unit.nama_unit,
@@ -517,7 +517,7 @@ function detailDataRapidtest($where)
 	return $query;
 }
 
-function ExcelDataRapidtest($awal,$akhir)
+function ExcelDataAntibody($awal,$akhir)
 {
 	$query = $this->db->query("
 		SELECT *, rapidtest.tanggal, mr_pasien.nama AS nama_pasien, mr_pasien.alamat AS alamat_pasien, mr_pasien.tgl_lahir AS tgl_lahir, mr_dokter.nama_dokter, mr_unit.nama_unit,
@@ -538,6 +538,67 @@ function ExcelDataRapidtest($awal,$akhir)
 		AND rapidtest.id_catatan_medik=mr_pasien.id_catatan_medik
 		AND rapidtest.id_unit=mr_unit.id_unit
 		AND rapidtest.tanggal BETWEEN '$awal' AND '$akhir'");
+	return $query;
+}
+
+function dataAntigen()
+{
+	$query = $this->db->query("
+		SELECT *, mr_pasien.nama, mr_dokter.nama_dokter,
+		CASE
+		WHEN test_antigen.hasil=0 THEN 'Negatif'
+		WHEN test_antigen.hasil=1 THEN 'Positif'
+		WHEN test_antigen.hasil=3 THEN 'On Process'
+		END AS nama_hasil
+		FROM test_antigen
+		JOIN mr_pasien
+		ON test_antigen.id_catatan_medik = mr_pasien.id_catatan_medik
+		JOIN mr_dokter
+		ON test_antigen.id_dokter = mr_dokter.id_dokter
+		ORDER BY test_antigen.id_test_antigen DESC LIMIT 10");
+	return $query;
+}
+
+function detailDataAntigen($where)
+{
+	$query = $this->db->query("
+		SELECT *, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
+		IF(mr_pasien.sex='1', 'Laki-laki', 'Perempuan') AS nama_sex,
+		CASE
+		WHEN test_antigen.hasil=0 THEN 'Negatif'
+		WHEN test_antigen.hasil=1 THEN 'Positif'
+		WHEN test_antigen.hasil=3 THEN 'On Process'
+		END AS nama_hasil
+		FROM test_antigen
+		JOIN mr_pasien
+		ON test_antigen.id_catatan_medik = mr_pasien.id_catatan_medik
+		JOIN mr_dokter
+		ON test_antigen.id_dokter = mr_dokter.id_dokter
+		JOIN psdi_petugas
+		ON test_antigen.id_petugas = psdi_petugas.id_petugas
+		WHERE test_antigen.id_test_antigen = '$where'");
+	return $query;
+}
+
+function ExcelDataAntigen($awal,$akhir)
+{
+	$query = $this->db->query("
+		SELECT *, test_antigen.tanggal AS tgl_periksa, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
+		IF(mr_pasien.sex='1', 'Laki-laki', 'Perempuan') AS nama_sex,
+		CASE
+		WHEN test_antigen.hasil=0 THEN 'Negatif'
+		WHEN test_antigen.hasil=1 THEN 'Positif'
+		WHEN test_antigen.hasil=3 THEN 'On Process'
+		END AS nama_hasil
+		FROM test_antigen
+		JOIN mr_pasien
+		ON test_antigen.id_catatan_medik = mr_pasien.id_catatan_medik
+		JOIN mr_dokter
+		ON test_antigen.id_dokter = mr_dokter.id_dokter
+		JOIN psdi_petugas
+		ON test_antigen.id_petugas = psdi_petugas.id_petugas
+		WHERE test_antigen.tanggal BETWEEN '$awal' AND '$akhir'
+		ORDER BY id_test_antigen ASC");
 	return $query;
 }
 
