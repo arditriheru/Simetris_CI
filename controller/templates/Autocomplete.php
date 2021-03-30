@@ -5,7 +5,7 @@ class autocomplete extends CI_Controller {
 		parent::__construct(); 
 		$this->load->model('mCovid');
 	}
-	
+
 	public function index()
 	{
 		$data['record']=  $this->mCovid->getData();
