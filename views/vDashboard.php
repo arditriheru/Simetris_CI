@@ -1,6 +1,6 @@
 <?php 
-$data = file_get_contents('https://data.covid19.go.id/public/api/prov.json');
-$value = json_decode($data, true); ?>
+//$data = file_get_contents('https://data.covid19.go.id/public/api/prov.json');
+//$value = json_decode($data, true); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -173,6 +173,23 @@ $value = json_decode($data, true); ?>
     <div class="panel panel-info">
       <div class="panel-heading">
         <div class="row">
+          <a href="https://pcare.bpjs-kesehatan.go.id/vaksin">
+            <div class="col-xs-2">
+              <i class="fa fa-universal-access fa-4x"></i>
+            </div>
+            <div class="col-xs-10 text-right">
+              <h2>Pcare Vaksin</h2>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div><!-- menu -->
+
+  <div class="col-lg-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="row">
           <a href="<?php echo base_url('register/login') ?>">
             <div class="col-xs-2">
               <i class="fa fa-file-text-o fa-4x"></i>
@@ -224,7 +241,7 @@ $value = json_decode($data, true); ?>
     <div class="panel panel-info">
       <div class="panel-heading">
         <div class="row">
-          <a href="http://192.168.1.250:8080/laboratorium/">
+          <a href="<?php echo base_url('laboratorium/login') ?>">
             <div class="col-xs-2">
               <i class="fa fa-flask fa-4x"></i>
             </div>
@@ -281,23 +298,6 @@ $value = json_decode($data, true); ?>
             </div>
             <div class="col-xs-10 text-right">
               <h2>Poliklinik</h2>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div><!-- menu -->
-
-  <div class="col-lg-3">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <div class="row">
-          <a href="<?php echo base_url('covid/login') ?>">
-            <div class="col-xs-2">
-              <i class="fa fa-empire fa-4x"></i>
-            </div>
-            <div class="col-xs-10 text-right">
-              <h2>Rapidtest</h2>
             </div>
           </a>
         </div>
