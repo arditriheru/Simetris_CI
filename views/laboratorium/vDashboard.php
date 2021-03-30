@@ -20,9 +20,9 @@
         </div>
       </div><!-- /.row -->
 
-      <div>
-        <div>
-          content
+      <div class="row">
+        <div class="col-lg-12">
+          <img class="img-responsive" src="<?php echo base_url('assets/images/image-lab.jpg') ?>" width="100%" alt="">
         </div>
       </div><!-- /.row -->
 
