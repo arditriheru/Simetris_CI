@@ -475,69 +475,73 @@ function dataKamar($where)
 function dataAntibody()
 {
 	$query = $this->db->query("
-		SELECT rapidtest.id_rapidtest, rapidtest.id_catatan_medik, rapidtest.tanggal, rapidtest.jam, rapidtest.igm, rapidtest.igg, mr_pasien.nama, mr_dokter.nama_dokter,
+		SELECT test_antibody.id_test_antibody, test_antibody.id_catatan_medik, test_antibody.tanggal, test_antibody.jam, test_antibody.igm, test_antibody.igg, mr_pasien.nama, mr_dokter.nama_dokter,
 		CASE
-		WHEN rapidtest.igm='0' THEN 'Non Reaktif'
-		WHEN rapidtest.igm='1' THEN 'Reaktif'
-		WHEN rapidtest.igm='3' THEN 'On Process'
+		WHEN test_antibody.igm='0' THEN 'Non Reaktif'
+		WHEN test_antibody.igm='1' THEN 'Reaktif'
+		WHEN test_antibody.igm='3' THEN 'On Process'
 		END AS nama_igm,
 		CASE
-		WHEN rapidtest.igg='0' THEN 'Non Reaktif'
-		WHEN rapidtest.igg='1' THEN 'Reaktif'
-		WHEN rapidtest.igg='3' THEN 'On Process'
+		WHEN test_antibody.igg='0' THEN 'Non Reaktif'
+		WHEN test_antibody.igg='1' THEN 'Reaktif'
+		WHEN test_antibody.igg='3' THEN 'On Process'
 		END AS nama_igg
-		FROM rapidtest, mr_pasien, mr_dokter
-		WHERE rapidtest.id_catatan_medik=mr_pasien.id_catatan_medik
-		AND rapidtest.id_dokter=mr_dokter.id_dokter
-		ORDER BY rapidtest.id_rapidtest DESC LIMIT 10");
+		FROM test_antibody, mr_pasien, mr_dokter
+		WHERE test_antibody.id_catatan_medik=mr_pasien.id_catatan_medik
+		AND test_antibody.id_dokter=mr_dokter.id_dokter
+		ORDER BY test_antibody.id_test_antibody DESC LIMIT 10");
 	return $query;
 }
 
 function detailDataAntibody($where)
 {
 	$query = $this->db->query("
-		SELECT *, rapidtest.tanggal, mr_pasien.nama AS nama_pasien, mr_pasien.alamat AS alamat_pasien, mr_pasien.tgl_lahir AS tgl_lahir, mr_dokter.nama_dokter, mr_unit.nama_unit,
+		SELECT *, test_antibody.tanggal AS tgl_periksa, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
 		IF(mr_pasien.sex='1', 'Laki-laki', 'Perempuan') AS nama_sex,
 		CASE
-		WHEN rapidtest.igm='0' THEN 'Non Reaktif'
-		WHEN rapidtest.igm='1' THEN 'Reaktif'
-		WHEN rapidtest.igm='3' THEN 'On Process'
+		WHEN test_antibody.igm='0' THEN 'Non Reaktif'
+		WHEN test_antibody.igm='1' THEN 'Reaktif'
+		WHEN test_antibody.igm='3' THEN 'On Process'
 		END AS nama_igm,
 		CASE
-		WHEN rapidtest.igg='0' THEN 'Non Reaktif'
-		WHEN rapidtest.igg='1' THEN 'Reaktif'
-		WHEN rapidtest.igg='3' THEN 'On Process'
-		END AS nama_igg,
-		IF(rapidtest.nilai_rujukan='1', 'Reaktif', 'Non Reaktif') AS nama_nilai_rujukan
-		FROM rapidtest, mr_pasien, mr_dokter, mr_unit
-		WHERE rapidtest.id_dokter=mr_dokter.id_dokter
-		AND rapidtest.id_catatan_medik=mr_pasien.id_catatan_medik
-		AND rapidtest.id_unit=mr_unit.id_unit
-		AND rapidtest.id_rapidtest='$where'");
+		WHEN test_antibody.igg='0' THEN 'Non Reaktif'
+		WHEN test_antibody.igg='1' THEN 'Reaktif'
+		WHEN test_antibody.igg='3' THEN 'On Process'
+		END AS nama_igg
+		FROM test_antibody
+		JOIN mr_pasien
+		ON test_antibody.id_catatan_medik = mr_pasien.id_catatan_medik
+		jOIN mr_dokter
+		ON test_antibody.id_dokter = mr_dokter.id_dokter
+		JOIN psdi_petugas
+		ON test_antibody.id_petugas = psdi_petugas.id_petugas
+		where id_test_antibody ='$where'");
 	return $query;
 }
 
 function ExcelDataAntibody($awal,$akhir)
 {
 	$query = $this->db->query("
-		SELECT *, rapidtest.tanggal, mr_pasien.nama AS nama_pasien, mr_pasien.alamat AS alamat_pasien, mr_pasien.tgl_lahir AS tgl_lahir, mr_dokter.nama_dokter, mr_unit.nama_unit,
+		SELECT *, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
 		IF(mr_pasien.sex='1', 'Laki-laki', 'Perempuan') AS nama_sex,
 		CASE
-		WHEN rapidtest.igm='0' THEN 'Non Reaktif'
-		WHEN rapidtest.igm='1' THEN 'Reaktif'
-		WHEN rapidtest.igm='3' THEN 'On Process'
-		END AS hasil_igm,
+		WHEN test_antibody.igm='0' THEN 'Non Reaktif'
+		WHEN test_antibody.igm='1' THEN 'Reaktif'
+		WHEN test_antibody.igm='3' THEN 'On Process'
+		END AS nama_igm,
 		CASE
-		WHEN rapidtest.igg='0' THEN 'Non Reaktif'
-		WHEN rapidtest.igg='1' THEN 'Reaktif'
-		WHEN rapidtest.igg='3' THEN 'On Process'
-		END AS hasil_igg,
-		IF(rapidtest.nilai_rujukan='1', 'Reaktif', 'Non Reaktif') AS nama_nilai_rujukan
-		FROM rapidtest, mr_pasien, mr_dokter, mr_unit
-		WHERE rapidtest.id_dokter=mr_dokter.id_dokter
-		AND rapidtest.id_catatan_medik=mr_pasien.id_catatan_medik
-		AND rapidtest.id_unit=mr_unit.id_unit
-		AND rapidtest.tanggal BETWEEN '$awal' AND '$akhir'");
+		WHEN test_antibody.igg='0' THEN 'Non Reaktif'
+		WHEN test_antibody.igg='1' THEN 'Reaktif'
+		WHEN test_antibody.igg='3' THEN 'On Process'
+		END AS nama_igg
+		FROM test_antibody
+		JOIN mr_pasien
+		ON test_antibody.id_catatan_medik = mr_pasien.id_catatan_medik
+		JOIN mr_dokter
+		ON test_antibody.id_dokter = mr_dokter.id_dokter
+		JOIN psdi_petugas
+		ON test_antibody.id_petugas = psdi_petugas.id_petugas
+		WHERE test_antibody.tanggal BETWEEN '$awal' AND '$akhir'");
 	return $query;
 }
 
