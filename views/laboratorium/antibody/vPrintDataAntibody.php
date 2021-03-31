@@ -25,9 +25,9 @@
               <div class="col-xs-6 text-right">
                 <address>
                   <p><strong>Pengirim:</strong><br>
-                    <?php echo "(".$d->nama_unit.") - ".$d->nama_dokter; ?><br><br>
+                    <?php echo $d->nama_dokter; ?><br><br>
                     <strong>Pemeriksaan:</strong><br>
-                    <small><?php echo formatDateIndo($d->tanggal).' / '.$d->jam; ?></small></p>
+                    <small><?php echo formatDateIndo($d->tgl_periksa).' / '.$d->jam; ?></small></p>
                   </address>
                 </div>
               </div>
@@ -55,16 +55,16 @@
                       <tr>
                         <td class="text-center"><p>(IgM)</p></td>
                         <td class="text-center"><p><?php echo $d->nama_igm; ?></p></td>
-                        <td class="text-center"><p><?php echo $d->nama_nilai_rujukan; ?></p></td>
-                        <td class="text-center"><p><?php echo $d->metode; ?></p></td>
-                        <td class="text-center"><p><?php echo $d->sampel; ?></p></td>
+                        <td class="text-center"><p>Non Reaktif</p></td>
+                        <td class="text-center"><p>ICT</p></td>
+                        <td class="text-center"><p>Darah</p></td>
                       </tr>
                       <tr>
                         <td class="text-center"><p>(IgG)</p></td>
                         <td class="text-center"><p><?php echo $d->nama_igg; ?></p></td>
-                        <td class="text-center"><p><?php echo $d->nama_nilai_rujukan; ?></p></td>
-                        <td class="text-center"><p><?php echo $d->metode; ?></p></td>
-                        <td class="text-center"><p><?php echo $d->sampel; ?></p></td>
+                        <td class="text-center"><p>Non Reaktif</p></td>
+                        <td class="text-center"><p>ICT</p></td>
+                        <td class="text-center"><p>Darah</p></td>
                       </tr>
                     </tbody>
                   </table>
