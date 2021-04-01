@@ -19,25 +19,25 @@
           <?php foreach ($antibody as $d): ?>
 
             <div align="right">
-              <a href="<?php echo base_url('laboratorium/dataAntibody/deleteData/'.$d->id_rapidtest) ?>"
+              <a href="<?php echo base_url('laboratorium/dataAntibody/deleteData/'.$d->id_test_antibody) ?>"
                 onclick="javascript: return confirm('Anda yakin hapus?')">
-                <button type="button" class="btn btn-danger"><i class='fa fa-trash'></i> Hapus</button></a>
+                <button type="button" class="btn btn-danger"><i class='fa fa-trash'></i></button></a>
               </div>
 
               <div class="table-responsive">
                 <form method="post" action="<?php echo base_url('laboratorium/dataAntibody/updateDataAksi') ?>" role="form">
                   <div class="form-group">
                     <label>Nomor Rekam Medik</label>
-                    <input class="form-control" type="hidden" value="<?php echo $d->id_rapidtest ?>" name="id_rapidtest">
+                    <input class="form-control" type="hidden" value="<?php echo $d->id_test_antibody ?>" name="id_test_antibody">
                     <input class="form-control" type="text" value="<?php echo $d->id_catatan_medik ?>" name="id_catatan_medik" readonly="">
                   </div>
                   <div class="form-group">
-                    <label>Nama</label>
-                    <input class="form-control" type="text" id="nama" name="nama" 
-                    value="<?php echo $d->nama ?>" readonly>
+                    <label>Nama Pasien</label>
+                    <input class="form-control" type="text" id="nama" name="nama_pasien" 
+                    value="<?php echo $d->nama_pasien ?>" readonly>
                   </div>
                   <div class="form-group">
-                    <label>Dokter</label>
+                    <label>Dokter Pengirim</label>
                     <select class="form-control" type="text" name="id_dokter" required="">
                       <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_dokter ?></option>
                       <?php foreach($datadokter as $a): ?>
@@ -46,21 +46,8 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Asal</label>
-                    <select class="form-control" type="text" name="id_unit" required="">
-                      <option value="<?php echo $d->id_unit ?>"><?php echo $d->nama_unit ?></option>
-                      <?php foreach($dataunit as $a): ?>
-                        <option value="<?php echo $a->id_unit ?>"><?php echo $a->nama_unit ?></option>
-                      <?php endforeach ?>
-                    </select>
-                  </div>
-                  <div class="form-group">
                     <label>Tanggal Periksa</label>
-                    <input class="form-control" type="text" name="tgl_periksa" value="<?php echo $d->tgl_periksa ?>" readonly="">
-                  </div>
-                  <div class="form-group">
-                    <label>Jam Periksa</label>
-                    <input class="form-control" type="text" name="jam_periksa" value="<?php echo $d->jam_periksa ?>" readonly="">
+                    <input class="form-control" type="text" name="tanggal" value="<?php echo formatDateIndo($d->tanggal).' / '.$d->jam; ?>" readonly="">
                   </div>
                   <div class="form-group">
                     <label>IgM</label>
@@ -81,8 +68,8 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Pemeriksa</label>
-                    <input class="form-control" type="text" value="<?php echo $d->pemeriksa ?>" name="pemeriksa" readonly="">
+                    <label>Petugas Pemeriksa</label>
+                    <input class="form-control" type="text" value="<?php echo $d->nama_petugas ?>" name="pemeriksa" readonly="">
                   </div>
                   <button type="submit" name="submit" class="btn btn-success">Update</button>
                 </form>

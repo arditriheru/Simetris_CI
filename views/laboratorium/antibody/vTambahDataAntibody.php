@@ -81,11 +81,11 @@
                 placeholder="Masukkan Nomor Rekam Medik" name="id_catatan_medik" required="">
               </div>
               <div class="form-group">
-                <label>Nama</label>
+                <label>Nama Pasien</label>
                 <input class="form-control" type="text" id="nama" placeholder="Nama Anak (otomatis)" readonly>
               </div>
               <div class="form-group">
-                <label>Dokter</label>
+                <label>Dokter Pengirim</label>
                 <select class="form-control" type="text" name="id_dokter" required="">
                   <option value="">Pilih</option>
                   <?php foreach($datadokter as $d): ?>
@@ -93,23 +93,6 @@
                   <?php endforeach; ?>
                 </select>
               </div>
-              <div class="form-group">
-                <label>Asal Unit</label>
-                <select class="form-control" type="text" name="id_unit" required="">
-                  <option value="">Pilih</option>
-                  <?php foreach($dataunit as $d): ?>
-                    <option value="<?php echo $d->id_unit ?>"><?php echo $d->nama_unit ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <!-- <div class="form-group">
-                <label>Tanggal Periksa</label>
-                <input class="form-control" type="date" name="tgl_periksa" required="">
-              </div> -->
-              <!-- <div class="form-group">
-                <label>Jam Periksa</label>
-                <input class="form-control" type="text" name="jam_periksa" required="">
-              </div> -->
               <button type="submit" name="submit" class="btn btn-success">Submit</button>
             </form>
             <datalist id="data_mahasiswa">
@@ -192,10 +175,10 @@
                 ?>
                 <?php if($this->session->userdata('laboratorium_akses') =='Admin') { ?>
                   <td class="text-center">              
-                    <a href="<?php echo base_url('laboratorium/dataAntibody/printData/'.$d->id_rapidtest) ?>" target="_blank"><button type="button" class="btn btn-primary"><i class='fa fa-print'></i></button></a>
+                    <a href="<?php echo base_url('laboratorium/dataAntibody/printData/'.$d->id_test_antibody) ?>" target="_blank"><button type="button" class="btn btn-primary"><i class='fa fa-print'></i></button></a>
                   </td>
                   <td class="text-center">              
-                    <a href="<?php echo base_url('laboratorium/dataAntibody/updateData/'.$d->id_rapidtest) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-edit'></i></button></a>
+                    <a href="<?php echo base_url('laboratorium/dataAntibody/updateData/'.$d->id_test_antibody) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-edit'></i></button></a>
                   </td>
                 <?php } ?>
               </tr>

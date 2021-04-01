@@ -15,11 +15,10 @@
           <div class="row">
             <div class="col-xs-6">
               <address>
-                <p><strong>Identitas Pasien:</strong><br>
-                  <?php echo $d->id_catatan_medik; ?><br>
-                  <?php echo $d->nama_pasien; ?><br>
-                  <?php echo $d->nama_sex; ?><br>
-                  <?php echo getAge($d->tgl_lahir); ?></p>
+                <p><strong>Nomor RM </strong><?php echo $d->id_catatan_medik; ?><br>
+                  <strong>Nama Pasien </strong><?php echo $d->nama_pasien; ?><br>
+                  <strong>Sex </strong><?php echo $d->nama_sex; ?><br>
+                  <strong>Tgl Lahir </strong><?php echo formatDateIndo($d->tgl_lahir)." (".getAge($d->tgl_lahir).")"; ?></p>
                 </address>
               </div>
               <div class="col-xs-6 text-right">
@@ -50,7 +49,7 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td colspan="5"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SARS CoV-2 Antigen</p></td>
+                        <td colspan="5"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SARS CoV-2 Antigen</p></td>
                       </tr>
                       <tr>
                         <td class="text-center"><p>(IgM)</p></td>
