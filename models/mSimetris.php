@@ -496,7 +496,7 @@ function dataAntibody()
 function detailDataAntibody($where)
 {
 	$query = $this->db->query("
-		SELECT *, test_antibody.tanggal AS tgl_periksa, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
+		SELECT *, test_antibody.tanggal AS tgl_periksa, mr_pasien.nama AS nama_pasien, mr_pasien.tgl_lahir AS tgl_lahir, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
 		IF(mr_pasien.sex='1', 'Laki-laki', 'Perempuan') AS nama_sex,
 		CASE
 		WHEN test_antibody.igm='0' THEN 'Non Reaktif'
@@ -566,7 +566,7 @@ function dataAntigen()
 function detailDataAntigen($where)
 {
 	$query = $this->db->query("
-		SELECT *, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
+		SELECT *, mr_pasien.nama AS nama_pasien, mr_pasien.tgl_lahir AS tgl_lahir, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
 		IF(mr_pasien.sex='1', 'Laki-laki', 'Perempuan') AS nama_sex,
 		CASE
 		WHEN test_antigen.hasil=0 THEN 'Negatif'
