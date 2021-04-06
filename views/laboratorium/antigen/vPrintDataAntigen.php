@@ -15,10 +15,10 @@
           <div class="row">
             <div class="col-xs-6">
               <address>
-                <p><strong>Nomor RM </strong><?php echo $d->id_catatan_medik; ?><br>
-                  <strong>Nama Pasien </strong><?php echo $d->nama_pasien; ?><br>
-                  <strong>Sex </strong><?php echo $d->nama_sex; ?><br>
-                  <strong>Tgl Lahir </strong><?php echo formatDateIndo($d->tgl_lahir)." (".getAge($d->tgl_lahir).")"; ?></p>
+                <p><strong>Nomor RM: </strong><?php echo $d->id_catatan_medik; ?><br>
+                  <strong>Nama Pasien: </strong><?php echo $d->nama_pasien; ?><br>
+                  <strong>Gender: </strong><?php echo $d->nama_sex; ?><br>
+                  <strong>Tgl Lahir: </strong><?php echo formatDateIndo($d->tgl_lahir)." (".getAge($d->tgl_lahir).")"; ?></p>
                 </address>
               </div>
               <div class="col-xs-6 text-right">
@@ -49,17 +49,8 @@
                     <tbody>
                       <tr>
                         <td class="text-center"><p>SARS CoV-2 Antigen</p></td>
-                        <td class="text-center">
-                          <?php 
-                          if($d->hasil==1){
-                            echo "<p><strong>".strtoupper($d->nama_hasil)."</strong></p>";
-                          }else{
-                            echo strtoupper($d->nama_hasil);
-                          }
-
-                          ?>
-                        </td>
-                        <td class="text-center"><p>NEGATIF</p></td>
+                        <td class="text-center"><p><strong><?php echo ucwords($d->nama_hasil); ?></strong></p></td>
+                        <td class="text-center"><p>Negatif</p></td>
                         <td class="text-center"><p>ICT</p></td>
                       </tr>
                     </tbody>
