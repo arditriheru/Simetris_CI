@@ -15,10 +15,10 @@
           <div class="row">
             <div class="col-xs-6">
               <address>
-                <p><strong>Nomor RM </strong><?php echo $d->id_catatan_medik; ?><br>
-                  <strong>Nama Pasien </strong><?php echo $d->nama_pasien; ?><br>
-                  <strong>Sex </strong><?php echo $d->nama_sex; ?><br>
-                  <strong>Tgl Lahir </strong><?php echo formatDateIndo($d->tgl_lahir)." (".getAge($d->tgl_lahir).")"; ?></p>
+                <p><strong>Nomor RM: </strong><?php echo $d->id_catatan_medik; ?><br>
+                  <strong>Nama Pasien: </strong><?php echo $d->nama_pasien; ?><br>
+                  <strong>Gender: </strong><?php echo $d->nama_sex; ?><br>
+                  <strong>Tgl Lahir: </strong><?php echo formatDateIndo($d->tgl_lahir)." (".getAge($d->tgl_lahir).")"; ?></p>
                 </address>
               </div>
               <div class="col-xs-6 text-right">
@@ -49,18 +49,18 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td colspan="5"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SARS CoV-2 Antigen</p></td>
+                        <td colspan="5"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SARS CoV-2 Antibody</p></td>
                       </tr>
                       <tr>
                         <td class="text-center"><p>(IgM)</p></td>
-                        <td class="text-center"><p><?php echo $d->nama_igm; ?></p></td>
+                        <td class="text-center"><p><strong><?php echo ucwords($d->nama_igm); ?></strong></p></td>
                         <td class="text-center"><p>Non Reaktif</p></td>
                         <td class="text-center"><p>ICT</p></td>
                         <td class="text-center"><p>Darah</p></td>
                       </tr>
                       <tr>
                         <td class="text-center"><p>(IgG)</p></td>
-                        <td class="text-center"><p><?php echo $d->nama_igg; ?></p></td>
+                        <td class="text-center"><p><strong><?php echo ucwords($d->nama_igg); ?></strong></p></td>
                         <td class="text-center"><p>Non Reaktif</p></td>
                         <td class="text-center"><p>ICT</p></td>
                         <td class="text-center"><p>Darah</p></td>
@@ -101,7 +101,7 @@
                      1. Pemeriksaan Rapid ke 1<br>
                      2. Hasil Non reaktif tidak menyingkirkan kemungkinan infeksi SARS CoV-2<br>
                      3. Hasil Non Reaktif dapat terjadi pada kondisi :<br>
-                     &nbsp; &nbsp; - Sesorang belum / tidak terinfeksi<br>
+                     &nbsp; &nbsp; - Seseorang belum / tidak terinfeksi<br>
                      &nbsp; &nbsp; - Window Period (Terinfeksi namun antibody belum terbentuk)<br>
                      &nbsp; &nbsp; - Immunocompromised<br>
                      4. Saran :<br>
