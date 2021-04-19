@@ -26,7 +26,7 @@
                   <p><strong>Pengirim:</strong><br>
                     <?php echo $d->nama_dokter; ?><br><br>
                     <strong>Pemeriksaan:</strong><br>
-                    <small><?php echo formatDateIndo($d->tanggal).' / '.$d->jam; ?></small></p>
+                    <small><?php echo formatDateIndo($d->tgl_periksa).' / '.$d->jam_periksa; ?></small></p>
                   </address>
                 </div>
               </div>
