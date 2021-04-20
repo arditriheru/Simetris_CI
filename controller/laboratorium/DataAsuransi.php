@@ -38,7 +38,7 @@ class dataAsuransi extends CI_Controller
 		$data['subtitle'] 	= "Pemeriksaan";
 
 		$id 				= $this->input->post('id');
-		$data['data'] 		= $this->mSimetris->cariDataAsuranri($id)->result();
+		$data['data'] 		= $this->mSimetris->cariDataAsuransi($id)->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('laboratorium/vMenu',$data);
