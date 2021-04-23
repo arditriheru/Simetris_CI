@@ -38,6 +38,7 @@ class dataAsuransi extends CI_Controller
 		$data['subtitle'] 	= "Pemeriksaan";
 
 		$id 				= $this->input->post('id');
+		$data['id'] 		= $id;
 		$data['data'] 		= $this->mSimetris->cariDataAsuransi($id)->result();
 
 		$this->load->view('templates/header',$data);
@@ -46,13 +47,13 @@ class dataAsuransi extends CI_Controller
 		$this->load->view('templates/footer',$data);
 	}
 
-	public function printData($id)
+	public function printData($no,$id)
 	{
 		$data['title'] 		= "Detail";
 		$data['subtitle'] 	= "Pemeriksaan";
 
-		$data['data'] 	= $this->mSimetris->dataKlaimAsuransi($id)->result();
-		$biodata 		= $this->mSimetris->dataKlaimAsuransi($id)->result();
+		$data['data'] 	= $this->mSimetris->dataKlaimAsuransi($no,$id)->result();
+		$biodata 		= $this->mSimetris->dataKlaimAsuransi($no,$id)->result();
 
 		foreach ($biodata as $d) {
 			$data['id_catatan_medik'] 	= $d->id_catatan_medik;
