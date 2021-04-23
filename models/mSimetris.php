@@ -636,7 +636,7 @@ function cariDataAsuransi($where)
 	return $this->db->get();
 }
 
-function dataKlaimAsuransi($where)
+function dataKlaimAsuransi($no,$where)
 {
 	$this->db->select('*,mr_pasien.nama AS nama_pasien, lab_tarif.nama AS pemeriksaan, mr_dokter.nama_dokter, lab_trn.tanggal AS tgl_kunj, lab_trn.jam AS jam_kunj,
 		IF (mr_pasien.sex="1", "Laki-laki", "Perempuan") AS nama_sex');
@@ -645,7 +645,15 @@ function dataKlaimAsuransi($where)
 	$this->db->join('mr_pasien','lab_det_trn.id_catatan_medik = mr_pasien.id_catatan_medik');
 	$this->db->join('lab_tarif','lab_det_trn.id_lab_tarif = lab_tarif.id_lab_tarif');
 	$this->db->join('mr_dokter','lab_trn.id_dokter = mr_dokter.id_dokter');
-	$this->db->where('lab_det_trn.id_lab_trn',$where);
+
+	if($no==1)
+	{
+		$this->db->where('lab_det_trn.id_register',$where);
+	}else{
+
+		$this->db->where('lab_det_trn.id_lab_trn',$where);
+	}
+
 	$this->db->where('lab_det_trn.harga !=',0);
 	return $this->db->get();
 }
