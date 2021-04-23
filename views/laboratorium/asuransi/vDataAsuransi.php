@@ -24,6 +24,12 @@
       <?php $no=1; if(isset($data)) { ?>
 
         <div class="row">
+          <div class="col-lg-6">
+            <a href="<?php echo base_url('laboratorium/dataAsuransi/printData/1/'.$id) ?>" target="_blank"><button type="button" class="btn btn-primary"><i class='fa fa-print'></i> Print Semua</button></a><br><br>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-lg-12">
             <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped tablesorter">
@@ -48,33 +54,33 @@
                     <td class="text-center"><?php echo formatDateIndo($d->tgl_kunj)." / ".$d->jam_kunj; ?></td>
                     <td class="text-center"><?php echo number_format($d->biaya,0,",","."); ?></td>
                     <td class="text-center">
-                      <a href="<?php echo base_url('laboratorium/dataAsuransi/printData/'.$d->id_lab_trn) ?>" target="_blank"><button type="button" class="btn btn-success"><i class='fa fa-print'></i></button></a>
-                   </td>
-                 </tr>
+                      <a href="<?php echo base_url('laboratorium/dataAsuransi/printData/2/'.$d->id_lab_trn) ?>" target="_blank"><button type="button" class="btn btn-success"><i class='fa fa-print'></i></button></a>
+                    </td>
+                  </tr>
 
-               <?php endforeach; ?>
+                <?php endforeach; ?>
 
-             </tbody>
-           </table>
-         </div>
-       </div>
-     </div><!-- /.row -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /.row -->
 
-   <?php }else{ ?>
+    <?php }else{ ?>
 
-    <div class="row">
-      <div class="col-lg-6">
-        <form method="post" action="<?php echo base_url('laboratorium/dataAsuransi/cariData') ?>" role="form">
-          <div class="form-group">
-            <label>Nomor Registrasi</label>
-            <input class="form-control" type="text" name="id" placeholder="Nomor Registrasi Pendaftaran">
-          </div><button type="submit" class="btn btn-success">Tampilkan</button>
-        </form>
-      </div>
-    </div><!-- /.row -->
+      <div class="row">
+        <div class="col-lg-6">
+          <form method="post" action="<?php echo base_url('laboratorium/dataAsuransi/cariData') ?>" role="form">
+            <div class="form-group">
+              <label>Nomor Registrasi</label>
+              <input class="form-control" type="text" name="id" placeholder="Nomor Registrasi Pendaftaran">
+            </div><button type="submit" class="btn btn-success">Tampilkan</button>
+          </form>
+        </div>
+      </div><!-- /.row -->
 
-  <?php } ?>
+    <?php } ?>
 
-</div><!-- /#page-wrapper -->
+  </div><!-- /#page-wrapper -->
 
-<!--</div> /#wrapper -->
+  <!--</div> /#wrapper -->

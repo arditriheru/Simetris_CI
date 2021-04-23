@@ -24,8 +24,8 @@
 						<address>
 							<p><strong>Pengirim:</strong><br>
 								<?php echo $nama_dokter; ?><br><br>
-								<strong>Pemeriksaan:</strong><br>
-								<small><?php echo formatDateIndo($tgl_kunj).' / '.$jam_kunj; ?></small>
+								<!-- <strong>Pemeriksaan:</strong><br>
+									<small><?php echo formatDateIndo($tgl_kunj).' / '.$jam_kunj; ?></small> -->
 							</p>
 						</address>
 					</div>
@@ -45,6 +45,7 @@
 							<table class="table table-condensed">
 								<thead>
 									<tr>
+										<td class="text-center"><strong>Tanggal</strong></td>
 										<td><strong>Nama Pemeriksaan</strong></td>
 										<td class="text-center"><strong>Qty</strong></td>
 										<td class="text-center"><strong>Tarif (Rp)</strong></td>
@@ -69,6 +70,7 @@
 									?>
 
 									<tr>
+										<td class="text-center"><p><?php echo date('d/m/Y', strtotime($d->tgl_kunj)); ?></p></td>
 										<td class="text-left"><p><?php echo $d->pemeriksaan; ?></p></td>
 										<td class="text-center"><p><?php echo $d->qty; ?></p></td>
 										<td class="text-center"><p><?php echo number_format($d->tarif,0,",","."); ?></p></td>
@@ -88,6 +90,7 @@
 								<?php endforeach; ?>
 
 								<tr>
+									<td class="no-line"></td>
 									<td class="no-line"></td>
 									<td class="no-line"></td>
 									<td class="no-line"></td>
