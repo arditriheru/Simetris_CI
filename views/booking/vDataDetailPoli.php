@@ -44,6 +44,7 @@
             <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped tablesorter">
                 <tbody>
+                  <tr><td colspan="2" class="text-center"><b><?php echo "NOMOR ANTRIAN : ".$noant; ?></b></td></tr>
                   <tr>
                     <td><b>Nomor RM</b></td>
                     <td><?php echo $d->id_catatan_medik ?></td>

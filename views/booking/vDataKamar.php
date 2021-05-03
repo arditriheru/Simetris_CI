@@ -36,7 +36,7 @@
               </thead>
               <tbody>
                 <?php $no = 1; foreach ($datakamar as $d) : ?>
-                <tr class="active">
+                <tr>
                   <td class="text-center"><?php echo $no++; ?></td>
                   <td class="text-center"><?php echo 'Bed '.$d->no_bed; ?></td>
                   <td class="text-center"><?php echo $d->nama_unit; ?></td>

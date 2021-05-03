@@ -24,7 +24,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="https://instagram.com/arditriheru" class="navbar-brand" target="_blank"><strong>SIMETRIS </strong><small>TARIF</small></a>
+          <a href="https://instagram.com/arditriheru" class="navbar-brand" target="_blank">S I M E T R I S</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

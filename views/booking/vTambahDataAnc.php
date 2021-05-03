@@ -72,7 +72,7 @@
               </thead>
               <tbody>
                 <?php $no = 1; foreach ($anc as $d) : ?>
-                <tr class="active">
+                <tr>
                   <td class="text-center"><?php echo $no++; ?></td>
                   <td class="text-center"><?php echo $d->id_catatan_medik;?></td>
                   <td class="text-center"><?php echo $d->nama;?></td>
