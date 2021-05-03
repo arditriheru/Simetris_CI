@@ -33,8 +33,7 @@
                 <li><a href="<?php echo base_url('laboratorium/dataAntigen/lapCariData') ?>">Laporan</a></li>
               </ul>
             </li>
-            <li><a href="<?php echo base_url('laboratorium/dataAsuransi/') ?>"><i class="fa fa-file"></i> Klaim Asuransi</a></li>
-            <li><a href="<?php echo base_url('laboratorium/dataAsuransi/index/1') ?>"><i class="fa fa-print"></i> Invoice Pemeriksaan</a></li>
+            <li><a href="<?php echo base_url('laboratorium/dataAsuransi/') ?>"><i class="fa fa-print"></i> Invoice Pemeriksaan</a></li>
           <?php } ?>
         </ul>
 
