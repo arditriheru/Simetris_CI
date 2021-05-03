@@ -72,7 +72,7 @@
         <div class="col-lg-6">
           <form method="post" action="<?php echo base_url('laboratorium/dataAsuransi/cariData') ?>" role="form">
             <div class="form-group">
-              <label>Nomor Registrasi</label>
+              <label>Masukkan Nomor Registrasi</label>
               <input class="form-control" type="text" name="id" placeholder="Nomor Registrasi Pendaftaran">
             </div><button type="submit" class="btn btn-success">Tampilkan</button>
           </form>
