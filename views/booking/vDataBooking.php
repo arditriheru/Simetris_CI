@@ -68,17 +68,9 @@
 									</thead>
 									<tbody>
 										<?php
-										$no = 1; foreach ($poli as $d) : 
-
-										if(isset($d->id_catatan_medik_alergi)) { ?>
-
-											<tr class="danger">
-
-											<?php }else{ ?>
+										$no = 1; foreach ($poli as $d) : ?>
 
 												<tr>
-
-												<?php } ?>
 
 												<td class="text-center"><?php echo $no++; ?></td>
 												<td class="text-center"><?php echo $d->id_catatan_medik;

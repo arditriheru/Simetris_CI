@@ -90,6 +90,8 @@
             </div>
           </div>
 
+          <?php endforeach; ?>
+
           <div class="col-lg-6">
             <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped tablesorter">
@@ -98,18 +100,22 @@
                     <td><b>Catatan Khusus</b><br><small>(Alergi obat/ makanan, HBsAg positif)</small></td>
                     <td>
                       <?php 
-
-                      if(isset($d->id_catatan_medik_alergi)){ ?>
-                        <?php echo $d->nama_obat.', '.$d->alergi_keterangan ?>
-                      <?php }else{ ?>
-                        Tidak ada
-                      <?php } ?>
+                        foreach($dataalergi as $d)
+                        {
+                          if(isset($d->keterangan))
+                          {
+                            echo " - ".$d->nama_obat."<br> - ".$d->keterangan."<br>";
+                          }else{
+                            echo " - ".$d->nama_obat."<br>";
+                          }
+                        }
+                        ?>
                     </td>
                   </tr>
-                <?php endforeach; ?>
               </tbody>
             </table>
           </div>
+
         </div>
 
       </div><!-- /.row -->
