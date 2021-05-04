@@ -229,11 +229,10 @@ function dataDokterAnc($where)
 
 function dataPoli($where,$orderby)
 {
-	$this->db->select("booking.*, dokter.nama_dokter, sesi.nama_sesi, mr_alergi.id_catatan_medik AS id_catatan_medik_alergi, mr_alergi.nama_obat, mr_alergi.keterangan AS alergi_keterangan, IF (booking.status='1', 'Datang', 'Belum Datang') AS status");
+	$this->db->select("booking.*, dokter.nama_dokter, sesi.nama_sesi, IF (booking.status='1', 'Datang', 'Belum Datang') AS status");
 	$this->db->from('booking');
 	$this->db->join('dokter','booking.id_dokter=dokter.id_dokter');
 	$this->db->join('sesi','booking.id_sesi=sesi.id_sesi');
-	$this->db->join('mr_alergi','booking.id_catatan_medik = mr_alergi.id_catatan_medik','left');
 	$this->db->where($where);
 	$this->db->order_by($orderby);
 	return $this->db->get();
@@ -241,25 +240,32 @@ function dataPoli($where,$orderby)
 
 function dataTumbang($where)
 {
-	$this->db->select("tumbang.*, mr_petugas.nama_petugas, sesi.nama_sesi, mr_alergi.id_catatan_medik AS id_catatan_medik_alergi, IF (tumbang.status='1', 'Datang', 'Belum Datang') AS status");
+	$this->db->select("tumbang.*, mr_petugas.nama_petugas, sesi.nama_sesi, IF (tumbang.status='1', 'Datang', 'Belum Datang') AS status");
 	$this->db->from('tumbang');
 	$this->db->join('mr_petugas','tumbang.id_petugas=mr_petugas.id_petugas');
 	$this->db->join('sesi','tumbang.id_sesi=sesi.id_sesi');
-	$this->db->join('mr_alergi','tumbang.id_catatan_medik = mr_alergi.id_catatan_medik','left');
 	$this->db->where($where);
-	$this->db->order_by('tumbang.id_tumbang ASC');
+	$this->db->order_by('sesi.id_sesi, mr_petugas.id_petugas, tumbang.id_tumbang ASC');
 	return $this->db->get();
 }
 
 function dataAnc($where)
 {
-	$this->db->select("anc.*, mr_petugas.nama_petugas, sesi.nama_sesi, mr_alergi.id_catatan_medik AS id_catatan_medik_alergi, IF (anc.status='1', 'Datang', 'Belum Datang') AS status");
+	$this->db->select("anc.*, mr_petugas.nama_petugas, sesi.nama_sesi, IF (anc.status='1', 'Datang', 'Belum Datang') AS status");
 	$this->db->from('anc');
 	$this->db->join('mr_petugas','anc.id_petugas=mr_petugas.id_petugas');
 	$this->db->join('sesi','anc.id_sesi=sesi.id_sesi');
-	$this->db->join('mr_alergi','anc.id_catatan_medik = mr_alergi.id_catatan_medik','left');
 	$this->db->where($where);
-	$this->db->order_by('anc.id_anc ASC');
+	$this->db->order_by('sesi.id_sesi, mr_petugas.id_petugas, anc.id_anc ASC');
+	return $this->db->get();
+}
+
+function dataAlergi($where)
+{
+	$this->db->select("*");
+	$this->db->from('mr_alergi');
+	$this->db->where('id_catatan_medik',$where);
+	$this->db->order_by('nama_obat, keterangan ASC');
 	return $this->db->get();
 }
 
