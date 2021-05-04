@@ -35,7 +35,7 @@ class dataBooking extends CI_Controller
 		$data['dokterpoli'] 		= $this->mSimetris->dataDokterPoli($where1)->result();
 		$data['doktertumbang'] 		= $this->mSimetris->dataDokterTumbang($where2)->result();
 		$data['dokteranc'] 			= $this->mSimetris->dataDokterAnc($where2)->result();
-		$data['poli'] 				= $this->mSimetris->dataPoli($where1,"booking.id_sesi, dokter.nama_dokter ASC")->result();
+		$data['poli'] 				= $this->mSimetris->dataPoli($where1,"booking.id_sesi, dokter.nama_dokter, booking.id_booking ASC")->result();
 		$data['tumbang'] 			= $this->mSimetris->dataTumbang($where2)->result();
 		$data['anc'] 				= $this->mSimetris->dataAnc($where2)->result();
 
@@ -115,6 +115,24 @@ class dataBooking extends CI_Controller
 		);
 
 		$data['poli'] 		= $this->mSimetris->dataPoli($where,"booking.id_booking ASC")->result();
+		$poli 				= $this->mSimetris->dataPoli($where,"booking.id_booking ASC")->result();
+
+		foreach ($poli as $d)
+		{
+			$id_catatan_medik	= $d->id_catatan_medik;
+			$booking_tanggal 	= $d->booking_tanggal;
+			$id_dokter 			= $d->id_dokter;
+			$id_sesi 			= $d->id_sesi;
+		}
+
+		$data['dataalergi']		= $this->mSimetris->dataAlergi($id_catatan_medik)->result();
+		$result					= $this->mSimetris->dataPanggil($id,$id_dokter,$id_sesi,$booking_tanggal)->result();
+
+		foreach ($result as $d)
+		{
+			$data['noant'] = $d->noant;
+		}
+
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
