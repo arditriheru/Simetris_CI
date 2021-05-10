@@ -36,87 +36,113 @@ class dataAntrian extends CI_Controller
 		$this->load->view('templates/footer',$data);
 	}
 
-	public function filterDataAntrianAksi()
+	public function filterDataAntrianAksi($id)
 	{
-		$unset_session = array(
+		if ($id==1) {
 
-			'id_dokter',
-			'id_sesi',
-			'jadwal',
-			'konter',
-		);
+			$unset_session = array(
 
-		$this->session->unset_userdata($unset_session);
-
-		$id_dokter 			= $this->input->post('id_dokter');
-		$id_sesi 			= $this->input->post('id_sesi');
-		$konter 			= $this->input->post('konter');
-		$tanggal 			= getDateNow();
-		$jam 				= getTimenow();
-		$booking_tanggal 	= getDateNow();
-
-		$where = array(
-			'id_dokter' 		=> $id_dokter,
-			'id_sesi' 			=> $id_sesi,
-			'booking_tanggal' 	=> $booking_tanggal,
-		);
-		$cek = $this->mSimetris->countData("booking",$where);
-
-		if($cek>0)
-		{
-			$where1 = array('id_dokter' => $id_dokter);
-			$select = $this->mSimetris->selectData('dokter','id_unit',$where1)->result();
-			foreach ($select as $d) {
-				$id_unit = $d->id_unit;
-			}
-
-			$where2 = array(
-				'id_unit' 	=> $id_unit,
-				'konter' 	=> $konter,
-			);
-			$this->mSimetris->deleteData('antrian',$where2);
-
-			$data = array(
-
-				'id_dokter' => $id_dokter,
-				'id_unit' 	=> $id_unit,
-				'id_sesi' 	=> $id_sesi,
-				'tanggal' 	=> $tanggal,
-				'jam' 		=> $jam,
-				'konter' 	=> $konter,
-
+				'id_dokter',
+				'id_sesi',
+				'jadwal',
+				'konter',
 			);
 
-			$this->mSimetris->insertData('antrian',$data);
+			$this->session->unset_userdata($unset_session);
 
-			$antdata = array(
-				'id_dokter'  		=> $id_dokter,
-				'id_sesi'     		=> $id_sesi,
-				'id_unit'     		=> $id_unit,
-				'booking_tanggal'  	=> $booking_tanggal,
-				'konter'     		=> $konter,
+			$id_dokter 			= $this->input->post('id_dokter');
+			$id_sesi 			= $this->input->post('id_sesi');
+			$konter 			= $this->input->post('konter');
+			$tanggal 			= getDateNow();
+			$jam 				= getTimenow();
+			$booking_tanggal 	= getDateNow();
+
+			$where = array(
+				'id_dokter' 		=> $id_dokter,
+				'id_sesi' 			=> $id_sesi,
+				'booking_tanggal' 	=> $booking_tanggal,
 			);
+			$cek = $this->mSimetris->countData("booking",$where);
 
-			$this->session->set_userdata($antdata);
+			if($cek>0)
+			{
+				$where1 = array('id_dokter' => $id_dokter);
+				$select = $this->mSimetris->selectData('dokter','id_unit',$where1)->result();
+				foreach ($select as $d) {
+					$id_unit = $d->id_unit;
+				}
+
+				$where2 = array(
+					'id_unit' 	=> $id_unit,
+					'konter' 	=> $konter,
+				);
+				$this->mSimetris->deleteData('antrian',$where2);
+
+				$data = array(
+
+					'id_dokter' => $id_dokter,
+					'id_unit' 	=> $id_unit,
+					'id_sesi' 	=> $id_sesi,
+					'tanggal' 	=> $tanggal,
+					'jam' 		=> $jam,
+					'konter' 	=> $konter,
+
+				);
+
+				$this->mSimetris->insertData('antrian',$data);
+
+				$antdata = array(
+					'id_dokter'  		=> $id_dokter,
+					'id_sesi'     		=> $id_sesi,
+					'id_unit'     		=> $id_unit,
+					'booking_tanggal'  	=> $booking_tanggal,
+					'konter'     		=> $konter,
+				);
+
+				$this->session->set_userdata($antdata);
+
+				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<font size="4">Data berhasil ditampilkan</font>
+					</div>');
+
+				redirect('booking/dataAntrian/dataAntrian');
+
+			}else{
+
+				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<font size="4">Jadwal kosong, data tidak ditemukan</font>
+					</div>');
+
+				redirect('booking/dataAntrian/filterDataAntrian/1');
+
+			}	
+
+		}else{
+
+			$data['title'] 		= "Rekap";
+			$data['subtitle'] 	= "Data";
+
+			$id_unit 		= $this->input->post('id_unit');
+			$awal 			= $this->input->post('awal');
+			$akhir 			= $this->input->post('akhir');
+
+			$data['awal']	= $awal;
+			$data['akhir']	= $akhir;
+
+			$data['data'] 	= $this->mSimetris->dataWaktuTungguPoli($id_unit,$awal,$akhir)->result();
 
 			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Data berhasil ditampilkan</font>
 				</div>');
 
-			redirect('booking/dataAntrian/dataAntrian');
-
-		}else{
-
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="4">Jadwal kosong, data tidak ditemukan</font>
-				</div>');
-
-			redirect('booking/dataAntrian/filterDataAntrian/1');
-
-		}		
-
+			$this->load->view('templates/header',$data);
+			$this->load->view('booking/vMenu',$data);
+			$this->load->view('booking/vDataWaktuTungguPoli',$data);
+			$this->load->view('templates/footer',$data);
+		}
 	}
 
 	public function dataAntrian()
