@@ -22,10 +22,17 @@ class dataAntrian extends CI_Controller
 
 	public function filterDataAntrian($id)
 	{
-		$data['title'] 		= "Antrian";
-		$data['subtitle'] 	= "Pasien";
+		if ($id==1)
+		{
+			$data['title'] 		= "Antrian";
+			$data['subtitle'] 	= "Pasien";
+		}else{
 
-		$data['id'] = $id;
+			$data['title'] 		= "Rekap";
+			$data['subtitle'] 	= "Data";
+		}
+
+		$data['id']			= $id;
 		$where 				= array('status' => 1);
 		$data['datadokter'] = $this->mSimetris->dataDokter("dokter",$where,"id_unit, nama_dokter ASC")->result();
 		$data['datasesi'] 	= $this->mSimetris->getData("sesi")->result();
