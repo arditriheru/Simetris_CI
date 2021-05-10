@@ -32,40 +32,69 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <form method="post" action="<?php echo base_url('booking/dataAntrian/filterDataAntrianAksi') ?>" role="form">
-            <div class="form-group">
-              <label>Dokter</label>
-              <select class="form-control" type="text" name="id_dokter" required="">
+
+          <?php if ($id==1){?>
+
+            <form method="post" action="<?php echo base_url('booking/dataAntrian/filterDataAntrianAksi/1') ?>" role="form">
+              <div class="form-group">
+                <label>Dokter</label>
+                <select class="form-control" type="text" name="id_dokter" required="">
+                  <option value="">Pilih</option>
+                  <?php foreach($datadokter as $d): ?>
+                    <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_dokter ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Sesi</label>
+                <select class="form-control" type="text" name="id_sesi" required="">
+                  <option value="">Pilih</option>
+                  <?php foreach($datasesi as $d): ?>
+                    <option value="<?php echo $d->id_sesi ?>"><?php echo $d->nama_sesi ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Konter</label>
+                <select class="form-control" type="text" name="konter" required="">
+                  <option value="">Pilih</option>
+                  <option value="2">Poli Anak</option>
+                  <option value="1">Poli Obsgyn Selatan</option>
+                  <option value="3">Poli Obsgyn Utara</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-success">Cari</button>
+            </form>
+
+          <?php }else{ ?>
+
+            <form method="post" action="<?php echo base_url('booking/dataAntrian/filterDataAntrianAksi/2') ?>" role="form">
+             <div class="form-group">
+              <label>Poliklinik</label>
+              <select class="form-control" type="text" name="id_unit" required="">
                 <option value="">Pilih</option>
-                <?php foreach($datadokter as $d): ?>
-                  <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_dokter ?></option>
-                <?php endforeach; ?>
+                <option value="1">Poli Anak</option>
+                <option value="2">Poli Obsgyn</option>
               </select>
             </div>
             <div class="form-group">
-              <label>Sesi</label>
-              <select class="form-control" type="text" name="id_sesi" required="">
-                <option value="">Pilih</option>
-                <?php foreach($datasesi as $d): ?>
-                  <option value="<?php echo $d->id_sesi ?>"><?php echo $d->nama_sesi ?></option>
-                <?php endforeach; ?>
-              </select>
+              <label>Dari Tanggal</label>
+              <input class="form-control" type="date" name="awal">
             </div>
             <div class="form-group">
-              <label>Konter</label>
-              <select class="form-control" type="text" name="konter" required="">
-                <option value="">Pilih</option>
-                <option value="2">Poli Anak</option>
-                <option value="1">Poli Obsgyn Selatan</option>
-                <option value="3">Poli Obsgyn Utara</option>
-              </select>
+              <label>Sampai Tanggal</label>
+              <input class="form-control" type="date" name="akhir">
             </div>
-            <button type="submit" class="btn btn-success">Cari</button>
+            <button type="submit" class="btn btn-success">Download</button>
           </form>
-        </div>
 
-      </div><!-- /.row -->
+        <?php } ?>
 
-    </div><!-- /#page-wrapper -->
+
+      </div>
+
+    </div><!-- /.row -->
+
+  </div><!-- /#page-wrapper -->
 
   <!--</div> /#wrapper -->

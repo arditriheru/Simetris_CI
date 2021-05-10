@@ -61,61 +61,64 @@
 
                 </ul>
               </li>
-              <li>
-                <a href="<?php echo base_url('booking/dataAntrian/filterDataAntrian/1') ?>">
-                  <i class="fa fa-bell-o"></i> Bell Antrian
-                </a>
-              </li>
-              <li>
-                <a href="<?php echo base_url('booking/dataWhatsapp') ?>">
-                  <i class="fa fa-whatsapp"></i> WhatsApp
-                </a>
-              </li>
-              <li>
-                <a href="<?php echo base_url('booking/dataSkrining') ?>">
-                  <i class="fa fa-pencil-square-o"></i> Skrining
-                </a>
-              </li>
-
-              <?php if($this->session->userdata('booking_akses')=="Admin"){ ?>
-
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i> Bell Antrian <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="<?php echo base_url('booking/dataAntrian/filterDataAntrian/1') ?>">Mulai</a></li>
+                    <li><a href="<?php echo base_url('booking/dataAntrian/filterDataAntrian/2') ?>">Rekap Data</a></li>
+                  </ul>
+                </li>
                 <li>
-                  <a href="<?php echo base_url('booking/dataPetugas') ?>">
-                    <i class="fa fa-user-md"></i> Petugas Medis
+                  <a href="<?php echo base_url('booking/dataWhatsapp') ?>">
+                    <i class="fa fa-whatsapp"></i> WhatsApp
+                  </a>
+                </li>
+                <li>
+                  <a href="<?php echo base_url('booking/dataSkrining') ?>">
+                    <i class="fa fa-pencil-square-o"></i> Skrining
                   </a>
                 </li>
 
-              <?php } ?>
+                <?php if($this->session->userdata('booking_akses')=="Admin"){ ?>
 
-              <li>
-                <a href="<?php echo base_url('booking/dataKamar') ?>">
-                  <i class="fa fa-bed"></i> Info Kamar
-                </a>
-              </li>
-              <li>
-                <a href="<?php echo base_url('booking/dataBooking/dataRedZone') ?>">
-                  <i class="fa fa-warning"></i> Zona Merah
-                </a>
-              </li>
-              <li>
-                <a href="<?php echo base_url('booking/dataBooking/dataRedZone') ?>">
-                  <i class="fa fa-file-text-o"></i> Laporan
-                </a>
-              </li>
-              <li>-<br><br></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right navbar-user">
-              <li>
-                <a href="https://instagram.com/arditriheru" target="_blank">
-                  <span class="label label-success">ONLINE</span>
-                </a>
-              </li>
-              <li class="dropdown user-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('booking_akses').' / '.$this->session->userdata('booking_nama_petugas'); ?> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="<?php echo base_url('booking/login/logout') ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </nav>
+                  <li>
+                    <a href="<?php echo base_url('booking/dataPetugas') ?>">
+                      <i class="fa fa-user-md"></i> Petugas Medis
+                    </a>
+                  </li>
+
+                <?php } ?>
+
+                <li>
+                  <a href="<?php echo base_url('booking/dataKamar') ?>">
+                    <i class="fa fa-bed"></i> Info Kamar
+                  </a>
+                </li>
+                <li>
+                  <a href="<?php echo base_url('booking/dataBooking/dataRedZone') ?>">
+                    <i class="fa fa-warning"></i> Zona Merah
+                  </a>
+                </li>
+                <li>
+                  <a href="<?php echo base_url('booking/dataBooking/dataRedZone') ?>">
+                    <i class="fa fa-file-text-o"></i> Laporan
+                  </a>
+                </li>
+                <li>-<br><br></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right navbar-user">
+                <li>
+                  <a href="https://instagram.com/arditriheru" target="_blank">
+                    <span class="label label-success">ONLINE</span>
+                  </a>
+                </li>
+                <li class="dropdown user-dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('booking_akses').' / '.$this->session->userdata('booking_nama_petugas'); ?> <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="<?php echo base_url('booking/login/logout') ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </nav>
