@@ -197,6 +197,19 @@ function dataPanggil($id_booking,$id_dokter,$id_sesi,$booking_tanggal)
 	return $query;
 }
 
+function dataWaktuTungguPoli($id_unit,$awal,$akhir)
+{
+	$this->db->select('*,dokter.id_unit, dokter.nama_dokter');
+	$this->db->from('booking');
+	$this->db->join('dokter','booking.id_dokter = dokter.id_dokter');
+	$this->db->where('dokter.id_unit', $id_unit);
+	$this->db->where("booking.booking_tanggal BETWEEN '$awal' AND '$akhir'");
+	$this->db->where("booking.mulai != '00:00:00'");
+	$this->db->where("booking.akhir != '00:00:00'");
+	$this->db->order_by('booking.booking_tanggal, dokter.id_dokter, booking.id_booking ASC');
+	return $this->db->get();
+}
+
 function dataDokterPoli($where)
 {
 	$this->db->select('*');
@@ -664,253 +677,253 @@ function dataKlaimAsuransi($no,$where)
 	return $this->db->get();
 }
 
-/*
-|--------------------------------------------------------------------------
-|
-| Model inventaris
-|
-|--------------------------------------------------------------------------
+	/*
+	|--------------------------------------------------------------------------
+	|
+	| Model inventaris
+	|
+	|--------------------------------------------------------------------------
 */
 
-function dataInventaris()
-{
-	$query = $this->db->query("
-		SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis
-		FROM inventaris
-		INNER JOIN inventaris_ruangan
-		ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-		INNER JOIN inventaris_jenis
-		ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-		ORDER BY inventaris.kode_registrasi DESC
-		LIMIT 50");
-	return $query;
-}
+	function dataInventaris()
+	{
+		$query = $this->db->query("
+			SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis
+			FROM inventaris
+			INNER JOIN inventaris_ruangan
+			ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
+			INNER JOIN inventaris_jenis
+			ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
+			ORDER BY inventaris.kode_registrasi DESC
+			LIMIT 50");
+		return $query;
+	}
 
-function cariDataNomor($where)
-{
-	$query = $this->db->query("
-		SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-		IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-		IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-		FROM inventaris
-		INNER JOIN inventaris_ruangan
-		ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-		INNER JOIN inventaris_jenis
-		ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-		WHERE inventaris.nomor_inventaris = '$where'
-		ORDER BY inventaris.kode_registrasi ASC");
-	return $query;
-}
+	function cariDataNomor($where)
+	{
+		$query = $this->db->query("
+			SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
+			IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
+			IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
+			FROM inventaris
+			INNER JOIN inventaris_ruangan
+			ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
+			INNER JOIN inventaris_jenis
+			ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
+			WHERE inventaris.nomor_inventaris = '$where'
+			ORDER BY inventaris.kode_registrasi ASC");
+		return $query;
+	}
 
-function cariDataKondisi($where)
-{
-	$query = $this->db->query("
-		SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-		IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-		IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-		FROM inventaris
-		INNER JOIN inventaris_ruangan
-		ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-		INNER JOIN inventaris_jenis
-		ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-		WHERE inventaris.kondisi = '$where'
-		ORDER BY inventaris.kode_registrasi ASC");
-	return $query;
-}
+	function cariDataKondisi($where)
+	{
+		$query = $this->db->query("
+			SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
+			IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
+			IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
+			FROM inventaris
+			INNER JOIN inventaris_ruangan
+			ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
+			INNER JOIN inventaris_jenis
+			ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
+			WHERE inventaris.kondisi = '$where'
+			ORDER BY inventaris.kode_registrasi ASC");
+		return $query;
+	}
 
-function cariDataStatus($where)
-{
-	$query = $this->db->query("
-		SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-		IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-		IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-		FROM inventaris
-		INNER JOIN inventaris_ruangan
-		ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-		INNER JOIN inventaris_jenis
-		ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-		WHERE inventaris.status = '$where'
-		ORDER BY inventaris.kode_registrasi ASC");
-	return $query;
-}
+	function cariDataStatus($where)
+	{
+		$query = $this->db->query("
+			SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
+			IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
+			IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
+			FROM inventaris
+			INNER JOIN inventaris_ruangan
+			ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
+			INNER JOIN inventaris_jenis
+			ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
+			WHERE inventaris.status = '$where'
+			ORDER BY inventaris.kode_registrasi ASC");
+		return $query;
+	}
 
-function cariDataRuanganAll()
-{
-	$query = $this->db->query("
-		SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-		IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-		IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-		FROM inventaris
-		INNER JOIN inventaris_ruangan
-		ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-		INNER JOIN inventaris_jenis
-		ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-		ORDER BY inventaris.kode_registrasi ASC");
-	return $query;
-}
+	function cariDataRuanganAll()
+	{
+		$query = $this->db->query("
+			SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
+			IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
+			IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
+			FROM inventaris
+			INNER JOIN inventaris_ruangan
+			ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
+			INNER JOIN inventaris_jenis
+			ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
+			ORDER BY inventaris.kode_registrasi ASC");
+		return $query;
+	}
 
-function cariDataRuangan($where)
-{
-	$query = $this->db->query("
-		SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-		IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-		IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-		FROM inventaris
-		INNER JOIN inventaris_ruangan
-		ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-		INNER JOIN inventaris_jenis
-		ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-		WHERE inventaris.kode_ruangan = '$where'
-		ORDER BY inventaris.kode_registrasi ASC");
-	return $query;
-}
+	function cariDataRuangan($where)
+	{
+		$query = $this->db->query("
+			SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
+			IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
+			IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
+			FROM inventaris
+			INNER JOIN inventaris_ruangan
+			ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
+			INNER JOIN inventaris_jenis
+			ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
+			WHERE inventaris.kode_ruangan = '$where'
+			ORDER BY inventaris.kode_registrasi ASC");
+		return $query;
+	}
 
 
-function dataJenisInventaris()
-{
-	$query = $this->db->query("
-		SELECT * FROM inventaris_jenis ORDER BY nama_jenis ASC");
-	return $query;
-}
+	function dataJenisInventaris()
+	{
+		$query = $this->db->query("
+			SELECT * FROM inventaris_jenis ORDER BY nama_jenis ASC");
+		return $query;
+	}
 
-function dataRuanganInventaris()
-{
-	$query = $this->db->query("
-		SELECT * FROM inventaris_ruangan ORDER BY nama_ruangan ASC");
-	return $query;
-}
+	function dataRuanganInventaris()
+	{
+		$query = $this->db->query("
+			SELECT * FROM inventaris_ruangan ORDER BY nama_ruangan ASC");
+		return $query;
+	}
 
-function detailDataInventaris($where)
-{
-	$query = $this->db->query("
-		SELECT *, inventaris_jenis.nama_jenis, inventaris_ruangan.nama_ruangan,
-		IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-		IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-		FROM inventaris, inventaris_jenis, inventaris_ruangan
-		WHERE inventaris.kode_jenis=inventaris_jenis.kode_jenis
-		AND inventaris.kode_ruangan=inventaris_ruangan.kode_ruangan
-		AND inventaris.kode_registrasi = '$where'");
-	return $query;
-}
+	function detailDataInventaris($where)
+	{
+		$query = $this->db->query("
+			SELECT *, inventaris_jenis.nama_jenis, inventaris_ruangan.nama_ruangan,
+			IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
+			IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
+			FROM inventaris, inventaris_jenis, inventaris_ruangan
+			WHERE inventaris.kode_jenis=inventaris_jenis.kode_jenis
+			AND inventaris.kode_ruangan=inventaris_ruangan.kode_ruangan
+			AND inventaris.kode_registrasi = '$where'");
+		return $query;
+	}
 
-/*
-|--------------------------------------------------------------------------
-|
-| Model register
-|
-|--------------------------------------------------------------------------
+	/*
+	|--------------------------------------------------------------------------
+	|
+	| Model register
+	|
+	|--------------------------------------------------------------------------
 */
 
-function dataDokterTab($bln,$thn)
-{
-	$query = $this->db->query("
-		SELECT hpl_register.id_dokter, dokter.nama_dokter FROM hpl_register, dokter WHERE hpl_register.id_dokter=dokter.id_dokter AND MONTH(hpl_register.tgl_hpl)='$getMonthNow' AND YEAR(hpl_register.tgl_hpl)='$getYearNow' AND dokter.status=1 GROUP BY hpl_register.id_dokter");
-	return $query;
-}
+	function dataDokterTab($bln,$thn)
+	{
+		$query = $this->db->query("
+			SELECT hpl_register.id_dokter, dokter.nama_dokter FROM hpl_register, dokter WHERE hpl_register.id_dokter=dokter.id_dokter AND MONTH(hpl_register.tgl_hpl)='$getMonthNow' AND YEAR(hpl_register.tgl_hpl)='$getYearNow' AND dokter.status=1 GROUP BY hpl_register.id_dokter");
+		return $query;
+	}
 
-function dataBulanTab($thn)
-{
-	$query = $this->db->query("
-		SELECT MONTH(tgl_hpl) AS id_bulan,
-		CASE
-		WHEN MONTH(tgl_hpl)='1' THEN 'Januari'
-		WHEN MONTH(tgl_hpl)='2' THEN 'Februari'
-		WHEN MONTH(tgl_hpl)='3' THEN 'Maret'
-		WHEN MONTH(tgl_hpl)='4' THEN 'April'
-		WHEN MONTH(tgl_hpl)='5' THEN 'Mei'
-		WHEN MONTH(tgl_hpl)='6' THEN 'Juni'
-		WHEN MONTH(tgl_hpl)='7' THEN 'Juli'
-		WHEN MONTH(tgl_hpl)='8' THEN 'Agustus'
-		WHEN MONTH(tgl_hpl)='9' THEN 'September'
-		WHEN MONTH(tgl_hpl)='10' THEN 'Oktober'
-		WHEN MONTH(tgl_hpl)='11' THEN 'November'
-		WHEN MONTH(tgl_hpl)='12' THEN 'Desember'
-		END AS nama_bulan
-		FROM hpl_register
-		WHERE YEAR(tgl_hpl)='$thn'
-		GROUP BY id_bulan");
-	return $query;
-}
+	function dataBulanTab($thn)
+	{
+		$query = $this->db->query("
+			SELECT MONTH(tgl_hpl) AS id_bulan,
+			CASE
+			WHEN MONTH(tgl_hpl)='1' THEN 'Januari'
+			WHEN MONTH(tgl_hpl)='2' THEN 'Februari'
+			WHEN MONTH(tgl_hpl)='3' THEN 'Maret'
+			WHEN MONTH(tgl_hpl)='4' THEN 'April'
+			WHEN MONTH(tgl_hpl)='5' THEN 'Mei'
+			WHEN MONTH(tgl_hpl)='6' THEN 'Juni'
+			WHEN MONTH(tgl_hpl)='7' THEN 'Juli'
+			WHEN MONTH(tgl_hpl)='8' THEN 'Agustus'
+			WHEN MONTH(tgl_hpl)='9' THEN 'September'
+			WHEN MONTH(tgl_hpl)='10' THEN 'Oktober'
+			WHEN MONTH(tgl_hpl)='11' THEN 'November'
+			WHEN MONTH(tgl_hpl)='12' THEN 'Desember'
+			END AS nama_bulan
+			FROM hpl_register
+			WHERE YEAR(tgl_hpl)='$thn'
+			GROUP BY id_bulan");
+		return $query;
+	}
 
-function dataHplTab($bln,$thn)
-{
-	$query = $this->db->query("
-		SELECT hpl_register.id_hpl_register, hpl_register.id_catatan_medik, hpl_register.tgl_hpl, mr_pasien.nama, mr_pasien.telp, dokter.nama_dokter, psdi_petugas.nama AS nama_petugas
-		FROM hpl_register, mr_pasien, dokter, psdi_petugas
-		WHERE hpl_register.id_catatan_medik=mr_pasien.id_catatan_medik
-		AND hpl_register.id_dokter=dokter.id_dokter
-		AND hpl_register.id_petugas=psdi_petugas.id_petugas
-		AND hpl_register.id_dokter='$id'
-		AND MONTH(hpl_register.tgl_hpl)='$bln'
-		AND YEAR(hpl_register.tgl_hpl)='$thn'
-		ORDER BY hpl_register.tgl_hpl ASC");
-	return $query;
-}
+	function dataHplTab($bln,$thn)
+	{
+		$query = $this->db->query("
+			SELECT hpl_register.id_hpl_register, hpl_register.id_catatan_medik, hpl_register.tgl_hpl, mr_pasien.nama, mr_pasien.telp, dokter.nama_dokter, psdi_petugas.nama AS nama_petugas
+			FROM hpl_register, mr_pasien, dokter, psdi_petugas
+			WHERE hpl_register.id_catatan_medik=mr_pasien.id_catatan_medik
+			AND hpl_register.id_dokter=dokter.id_dokter
+			AND hpl_register.id_petugas=psdi_petugas.id_petugas
+			AND hpl_register.id_dokter='$id'
+			AND MONTH(hpl_register.tgl_hpl)='$bln'
+			AND YEAR(hpl_register.tgl_hpl)='$thn'
+			ORDER BY hpl_register.tgl_hpl ASC");
+		return $query;
+	}
 
-function dataHplRegister($id)
-{
-	$query = $this->db->query("
-		SELECT *, mr_pasien.nama, mr_pasien.telp, mr_pasien.alamat, dokter.nama_dokter
-		FROM hpl_register
-		INNER JOIN mr_pasien ON hpl_register.id_catatan_medik=mr_pasien.id_catatan_medik
-		INNER JOIN dokter ON hpl_register.id_dokter=dokter.id_dokter
-		WHERE hpl_register.tanggal='$id'
-		ORDER BY hpl_register.id_hpl_register DESC");
-	return $query;
-}
+	function dataHplRegister($id)
+	{
+		$query = $this->db->query("
+			SELECT *, mr_pasien.nama, mr_pasien.telp, mr_pasien.alamat, dokter.nama_dokter
+			FROM hpl_register
+			INNER JOIN mr_pasien ON hpl_register.id_catatan_medik=mr_pasien.id_catatan_medik
+			INNER JOIN dokter ON hpl_register.id_dokter=dokter.id_dokter
+			WHERE hpl_register.tanggal='$id'
+			ORDER BY hpl_register.id_hpl_register DESC");
+		return $query;
+	}
 
-function dataHpl($bln,$thn)
-{
-	$query = $this->db->query("
-		SELECT *, mr_pasien.nama, mr_pasien.telp, mr_pasien.alamat, dokter.nama_dokter
-		FROM hpl_register
-		INNER JOIN mr_pasien ON hpl_register.id_catatan_medik=mr_pasien.id_catatan_medik
-		INNER JOIN dokter ON hpl_register.id_dokter=dokter.id_dokter
-		WHERE MONTH(hpl_register.tgl_hpl)='$bln'
-		AND YEAR(hpl_register.tgl_hpl)='$thn'
-		ORDER BY hpl_register.tgl_hpl ASC");
-	return $query;
-}
+	function dataHpl($bln,$thn)
+	{
+		$query = $this->db->query("
+			SELECT *, mr_pasien.nama, mr_pasien.telp, mr_pasien.alamat, dokter.nama_dokter
+			FROM hpl_register
+			INNER JOIN mr_pasien ON hpl_register.id_catatan_medik=mr_pasien.id_catatan_medik
+			INNER JOIN dokter ON hpl_register.id_dokter=dokter.id_dokter
+			WHERE MONTH(hpl_register.tgl_hpl)='$bln'
+			AND YEAR(hpl_register.tgl_hpl)='$thn'
+			ORDER BY hpl_register.tgl_hpl ASC");
+		return $query;
+	}
 
-function dataVaksinRm($id)
-{
-	$query = $this->db->query("
-		SELECT *, mr_pasien.nama AS nama_pasien, far_stok.nama AS nama_vaksin, dokter.nama_dokter
-		FROM vaksin_register
-		JOIN mr_pasien
-		ON vaksin_register.id_catatan_medik = mr_pasien.id_catatan_medik
-		JOIN far_stok
-		ON vaksin_register.kode_vaksin = far_stok.no_urut
-		JOIN dokter
-		ON vaksin_register.id_dokter = dokter.id_dokter
-		WHERE vaksin_register.id_catatan_medik = '$id'
-		ORDER BY id_vaksin_register DESC");
-	return $query;
-}
+	function dataVaksinRm($id)
+	{
+		$query = $this->db->query("
+			SELECT *, mr_pasien.nama AS nama_pasien, far_stok.nama AS nama_vaksin, dokter.nama_dokter
+			FROM vaksin_register
+			JOIN mr_pasien
+			ON vaksin_register.id_catatan_medik = mr_pasien.id_catatan_medik
+			JOIN far_stok
+			ON vaksin_register.kode_vaksin = far_stok.no_urut
+			JOIN dokter
+			ON vaksin_register.id_dokter = dokter.id_dokter
+			WHERE vaksin_register.id_catatan_medik = '$id'
+			ORDER BY id_vaksin_register DESC");
+		return $query;
+	}
 
-function dataVaksinPeriode($bln,$thn)
-{
-	$query = $this->db->query("
-		SELECT *, mr_pasien.nama AS nama_pasien, far_stok.nama AS nama_vaksin, dokter.nama_dokter
-		FROM vaksin_register
-		JOIN mr_pasien
-		ON vaksin_register.id_catatan_medik = mr_pasien.id_catatan_medik
-		JOIN far_stok
-		ON vaksin_register.kode_vaksin = far_stok.no_urut
-		JOIN dokter
-		ON vaksin_register.id_dokter = dokter.id_dokter
-		WHERE MONTH(vaksin_register.tanggal)= '$bln'
-		AND  YEAR(vaksin_register.tanggal)= '$thn'
-		ORDER BY id_vaksin_register ASC");
-	return $query;
-}
+	function dataVaksinPeriode($bln,$thn)
+	{
+		$query = $this->db->query("
+			SELECT *, mr_pasien.nama AS nama_pasien, far_stok.nama AS nama_vaksin, dokter.nama_dokter
+			FROM vaksin_register
+			JOIN mr_pasien
+			ON vaksin_register.id_catatan_medik = mr_pasien.id_catatan_medik
+			JOIN far_stok
+			ON vaksin_register.kode_vaksin = far_stok.no_urut
+			JOIN dokter
+			ON vaksin_register.id_dokter = dokter.id_dokter
+			WHERE MONTH(vaksin_register.tanggal)= '$bln'
+			AND  YEAR(vaksin_register.tanggal)= '$thn'
+			ORDER BY id_vaksin_register ASC");
+		return $query;
+	}
 
-function dataNamaVaksin()
-{
-	$query = $this->db->query("
-		SELECT no_urut, nama FROM far_stok WHERE kode_lain=13 ORDER BY nama ASC");
-	return $query;
-}
+	function dataNamaVaksin()
+	{
+		$query = $this->db->query("
+			SELECT no_urut, nama FROM far_stok WHERE kode_lain=13 ORDER BY nama ASC");
+		return $query;
+	}
 
 }
 
