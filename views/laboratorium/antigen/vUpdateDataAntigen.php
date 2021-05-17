@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                   <label>Tanggal / Jam</label>
-                  <input class="form-control" type="text" name="tanggal" value="<?php echo formatDateIndo($d->tanggal).' / '.$d->jam; ?>" readonly="">
+                  <input class="form-control" type="text" name="tanggal" value="<?php echo formatDateIndo($d->tgl_periksa).' / '.$d->jam_periksa; ?>" readonly="">
                 </div>
                 <div class="form-group">
                   <label>Hasil</label>
