@@ -199,9 +199,10 @@ function dataPanggil($id_booking,$id_dokter,$id_sesi,$booking_tanggal)
 
 function dataWaktuTungguPoli($id_unit,$awal,$akhir)
 {
-	$this->db->select('*,dokter.id_unit, dokter.nama_dokter');
+	$this->db->select('*,dokter.id_unit, dokter.nama_dokter, mr_unit.nama_unit');
 	$this->db->from('booking');
 	$this->db->join('dokter','booking.id_dokter = dokter.id_dokter');
+	$this->db->join('mr_unit','dokter.id_unit = mr_unit.id_unit');
 	$this->db->where('dokter.id_unit', $id_unit);
 	$this->db->where("booking.booking_tanggal BETWEEN '$awal' AND '$akhir'");
 	$this->db->where("booking.mulai != '00:00:00'");
@@ -508,7 +509,7 @@ function dataAntibody()
 		FROM test_antibody, mr_pasien, mr_dokter
 		WHERE test_antibody.id_catatan_medik=mr_pasien.id_catatan_medik
 		AND test_antibody.id_dokter=mr_dokter.id_dokter
-		ORDER BY test_antibody.id_test_antibody DESC LIMIT 10");
+		ORDER BY test_antibody.id_test_antibody DESC LIMIT 20");
 	return $query;
 }
 
@@ -578,7 +579,7 @@ function dataAntigen()
 		ON test_antigen.id_catatan_medik = mr_pasien.id_catatan_medik
 		JOIN mr_dokter
 		ON test_antigen.id_dokter = mr_dokter.id_dokter
-		ORDER BY test_antigen.id_test_antigen DESC LIMIT 10");
+		ORDER BY test_antigen.id_test_antigen DESC LIMIT 20");
 	return $query;
 }
 
