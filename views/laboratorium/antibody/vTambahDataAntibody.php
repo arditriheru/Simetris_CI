@@ -93,7 +93,7 @@
                   <?php endforeach; ?>
                 </select>
               </div>
-              <button type="submit" name="submit" class="btn btn-success">Submit</button>
+              <button type="submit" name="submit" class="btn btn-success">Tambah</button>
             </form>
             <datalist id="data_mahasiswa">
               <?php
