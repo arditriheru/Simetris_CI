@@ -542,7 +542,7 @@ class mSimetris extends CI_Model
 	function ExcelDataAntibody($awal, $akhir)
 	{
 		$query = $this->db->query("
-		SELECT *, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
+		SELECT *, test_antibody.tanggal AS tgl_periksa, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
 		IF(mr_pasien.sex='1', 'Laki-laki', 'Perempuan') AS nama_sex,
 		CASE
 		WHEN test_antibody.igm='0' THEN 'Non Reaktif'
