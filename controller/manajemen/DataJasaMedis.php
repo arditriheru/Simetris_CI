@@ -61,17 +61,14 @@ class dataJasaMedis extends CI_Controller
         $data['post']           = $id_operator;
         $data['data']           = $id_operator . '/' . $awal . '/' . $akhir;
 
-        $jasamedis              = $this->mSimetris->dataJasaMedis($id_operator, $awal, $akhir)->result();
-        $data['jasamedis']      = $this->mSimetris->dataJasaMedis($id_operator, $awal, $akhir)->result();
+        $jasamedis              = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
+        $data['jasamedis']      = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
 
-        $total = 0;
         foreach ($jasamedis as $d) {
-            $total += $d->jasa_operator;
             $nama_dokter = $d->nama_dokter;
-
-            $data['total'] = $total;
-            $data['nama_dokter'] = $nama_dokter;
         }
+
+        $data['nama_dokter'] = $nama_dokter;
 
         $this->load->view('templates/header', $data);
         $this->load->view('manajemen/vMenu', $data);
@@ -81,26 +78,37 @@ class dataJasaMedis extends CI_Controller
 
     function dataExport($id, $id_operator, $awal, $akhir)
     {
+        $data['id'] = $id;
+
         if ($id == 2) {
 
             $data['title']        = "Ranap";
             $data['awal']         = formatDateIndo($awal);
             $data['akhir']        = formatDateIndo($akhir);
 
-            $jasamedis              = $this->mSimetris->dataJasaMedis($id_operator, $awal, $akhir)->result();
-            $data['jasamedis']      = $this->mSimetris->dataJasaMedis($id_operator, $awal, $akhir)->result();
+            $jasamedis            = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
+            $data['jasamedis']    = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
 
-            $total = 0;
             foreach ($jasamedis as $d) {
-                $total += $d->jasa_operator;
                 $nama_dokter = $d->nama_dokter;
-
-                $data['total'] = $total;
-                $data['nama_dokter'] = $nama_dokter;
             }
+
+            $data['nama_dokter'] = $nama_dokter;
         } else {
 
             $data['title']        = "Ralan";
+            $data['title']        = "Ranap";
+            $data['awal']         = formatDateIndo($awal);
+            $data['akhir']        = formatDateIndo($akhir);
+
+            $jasamedis            = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
+            $data['jasamedis']    = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
+
+            foreach ($jasamedis as $d) {
+                $nama_dokter = $d->nama_dokter;
+            }
+
+            $data['nama_dokter'] = $nama_dokter;
         }
 
         $this->load->view('templates/header', $data);
