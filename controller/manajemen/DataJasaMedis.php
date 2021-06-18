@@ -57,18 +57,26 @@ class dataJasaMedis extends CI_Controller
         $awal                 = $this->input->post('awal');
         $akhir                = $this->input->post('akhir');
 
-        $data['id']             = $id;
-        $data['post']           = $id_operator;
-        $data['data']           = $id_operator . '/' . $awal . '/' . $akhir;
+        if (isset($id_operator)) {
+            $data['id']             = $id;
+            $data['post']           = $id_operator;
 
-        $jasamedis              = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
-        $data['jasamedis']      = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
+            $data['data']           = $id_operator . '/' . $awal . '/' . $akhir;
 
-        foreach ($jasamedis as $d) {
-            $nama_dokter = $d->nama_dokter;
+            $jasamedis              = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
+            $data['jasamedis']      = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
+
+            foreach ($jasamedis as $d) {
+                $nama_dokter = $d->nama_dokter;
+            }
+
+            $data['nama_dokter'] = $nama_dokter;
+
+            $this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<font size="4"><b>Data berhasil ditampilkan!</b></font>
+			</div>');
         }
-
-        $data['nama_dokter'] = $nama_dokter;
 
         $this->load->view('templates/header', $data);
         $this->load->view('manajemen/vMenu', $data);
