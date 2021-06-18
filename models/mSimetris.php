@@ -949,6 +949,7 @@ class mSimetris extends CI_Model
 		ON ksr_det_trn.kode = ksr_tarif.kode
 		WHERE ksr_det_trn.tanggal BETWEEN '$awal' AND '$akhir'
 		AND ksr_det_trn.id_operator = '$id_operator'
+		AND ksr_det_trn.iol = 1
 		GROUP BY ksr_det_trn.kode, ksr_det_trn.tanggal
 		ORDER BY ksr_det_trn.tanggal ASC
 		");
