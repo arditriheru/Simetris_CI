@@ -15,9 +15,6 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
                 <div align="center">No</div>
             </th>
             <th>
-                <div align="center">Asuransi</div>
-            </th>
-            <th>
                 <div align="center">Tanggal</div>
             </th>
             <th>
@@ -27,13 +24,16 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
                 <div align="center">Nama Pasien</div>
             </th>
             <th>
-                <div align="center">Kls</div>
+                <div align="center">Kelas</div>
             </th>
             <th>
                 <div align="center">Tindakan</div>
             </th>
             <th>
                 <div align="center">Jasa Medis</div>
+            </th>
+            <th>
+                <div align="center">Keterangan</div>
             </th>
             </tr>
         </thead>
@@ -45,25 +45,25 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
                         <div align="center"><?php echo $no++; ?></div>
                     </td>
                     <td>
-                        <div align="center"><?php echo $d->nama_asuransi; ?></div>
-                    </td>
-                    <td>
                         <div align="center"><?php echo formatDateIndo($d->tanggal); ?></div>
                     </td>
                     <td>
                         <div align="center"><?php echo $d->id_catatan_medik; ?></div>
                     </td>
                     <td>
-                        <div align="left"><?php echo $d->nama_pasien; ?></div>
+                        <div align="left"><?php echo ucwords(strtolower($d->nama_pasien)); ?></div>
                     </td>
                     <td>
                         <div align="center"><?php echo $d->kelas; ?></div>
                     </td>
                     <td>
-                        <div align="center"><?php echo $d->nama_tarif; ?></div>
+                        <div align="left"><?php echo $d->nama_tarif; ?></div>
                     </td>
                     <td>
                         <div align="right"><?php echo number_format($d->jasa_operator); ?></div>
+                    </td>
+                    <td>
+                        <div align="center"><?php echo $d->nama_asuransi; ?></div>
                     </td>
                 </tr>
             <?php endforeach ?>

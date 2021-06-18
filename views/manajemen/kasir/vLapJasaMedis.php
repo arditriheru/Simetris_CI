@@ -56,7 +56,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="<?php echo base_url('manajemen/dataJasaMedis/dataExport/') . $id . '/' . $data; ?>"><button type="button" class="btn btn-primary">Export</button></a><br><br>
+                        <a href="<?php echo base_url('manajemen/dataJasaMedis/dataExport/') . $id . '/' . $data; ?>"><button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Export</button></a><br><br>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped tablesorter">
                                 <thead>
@@ -70,13 +70,13 @@
                                     </tr>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">Asuransi</th>
                                         <th class="text-center">Tanggal</th>
-                                        <th class="text-center">No.RM</th>
+                                        <th class="text-center">Nomor RM</th>
                                         <th class="text-center">Nama Pasien</th>
-                                        <th class="text-center">Kls</th>
+                                        <th class="text-center">Kelas</th>
                                         <th class="text-center">Tindakan</th>
                                         <th class="text-center">Jasa Medis</th>
+                                        <th class="text-center">Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -84,13 +84,13 @@
                                     foreach ($jasamedis as $d) : ?>
                                         <tr>
                                             <td class="text-center"><?php echo $no++; ?></td>
-                                            <td class="text-center"><?php echo $d->nama_asuransi; ?></td>
                                             <td class="text-center"><?php echo formatDateIndo($d->tanggal); ?></td>
                                             <td class="text-center"><?php echo $d->id_catatan_medik; ?></td>
-                                            <td class="text-center"><?php echo $d->nama_pasien; ?></td>
+                                            <td class="text-left"><?php echo ucwords(strtolower($d->nama_pasien)); ?></td>
                                             <td class="text-center"><?php echo $d->kelas; ?></td>
-                                            <td class="text-center"><?php echo $d->nama_tarif; ?></td>
-                                            <td class="text-center"><?php echo number_format($d->jasa_operator); ?></td>
+                                            <td class="text-left"><?php echo $d->nama_tarif; ?></td>
+                                            <td class="text-right"><?php echo number_format($d->jasa_operator); ?></td>
+                                            <td class="text-center"><?php echo $d->nama_asuransi; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
