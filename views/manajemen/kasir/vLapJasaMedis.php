@@ -58,43 +58,94 @@
                     <div class="col-lg-12">
                         <a href="<?php echo base_url('manajemen/dataJasaMedis/dataExport/') . $id . '/' . $data; ?>"><button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Export</button></a><br><br>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped tablesorter">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" colspan="5">
-                                            Operator <?php echo $nama_dokter; ?>
-                                        </th>
-                                        <th class="text-center" colspan="3">
-                                            Total Jasa Medis Rp <?php echo number_format($total); ?>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th class="text-center">Tanggal</th>
-                                        <th class="text-center">Nomor RM</th>
-                                        <th class="text-center">Nama Pasien</th>
-                                        <th class="text-center">Kelas</th>
-                                        <th class="text-center">Tindakan</th>
-                                        <th class="text-center">Jasa Medis</th>
-                                        <th class="text-center">Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1;
-                                    foreach ($jasamedis as $d) : ?>
+
+                            <?php if ($id == 1) { ?>
+
+                                <table class="table table-bordered table-hover table-striped tablesorter">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center"><?php echo $no++; ?></td>
-                                            <td class="text-center"><?php echo formatDateIndo($d->tanggal); ?></td>
-                                            <td class="text-center"><?php echo $d->id_catatan_medik; ?></td>
-                                            <td class="text-left"><?php echo ucwords(strtolower($d->nama_pasien)); ?></td>
-                                            <td class="text-center"><?php echo $d->kelas; ?></td>
-                                            <td class="text-left"><?php echo $d->nama_tarif; ?></td>
-                                            <td class="text-right"><?php echo number_format($d->jasa_operator); ?></td>
-                                            <td class="text-center"><?php echo $d->nama_asuransi; ?></td>
+                                            <th class="text-center" colspan="6">
+                                                Operator <?php echo $nama_dokter; ?>
+                                            </th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Tanggal</th>
+                                            <th class="text-center">Tindakan</th>
+                                            <th class="text-center">Jml Pasien</th>
+                                            <th class="text-center">Jasa Medis</th>
+                                            <th class="text-center">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1;
+                                        $grandtotal = 0;
+                                        foreach ($jasamedis as $d) :
+                                            $subtotal = $d->jasa_operator * $d->jml_pasien;
+                                            $grandtotal += $subtotal;
+                                        ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $no++; ?></td>
+                                                <td class="text-center"><?php echo formatDateIndo($d->tanggal); ?></td>
+                                                <td class="text-left"><?php echo $d->nama_tarif; ?></td>
+                                                <td class="text-center"><?php echo $d->jml_pasien; ?></td>
+                                                <td class="text-right"><?php echo number_format($d->jasa_operator); ?></td>
+                                                <td class="text-right"><?php echo number_format($subtotal); ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        <tr>
+                                            <td class="text-center" colspan="5"><b>TOTAL</b></td>
+                                            <td class="text-right"><b>Rp <?php echo number_format($grandtotal); ?></b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            <?php } else { ?>
+
+                                <table class="table table-bordered table-hover table-striped tablesorter">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="8">
+                                                Operator <?php echo $nama_dokter; ?>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Tanggal</th>
+                                            <th class="text-center">Nomor RM</th>
+                                            <th class="text-center">Nama Pasien</th>
+                                            <th class="text-center">Kelas</th>
+                                            <th class="text-center">Tindakan</th>
+                                            <th class="text-center">Jasa Medis</th>
+                                            <th class="text-center">Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1;
+                                        $grandtotal = 0;
+                                        foreach ($jasamedis as $d) :
+                                            $grandtotal += $d->jasa_operator;
+                                        ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $no++; ?></td>
+                                                <td class="text-center"><?php echo formatDateIndo($d->tanggal); ?></td>
+                                                <td class="text-center"><?php echo $d->id_catatan_medik; ?></td>
+                                                <td class="text-left"><?php echo ucwords(strtolower($d->nama_pasien)); ?></td>
+                                                <td class="text-center"><?php echo $d->kelas; ?></td>
+                                                <td class="text-left"><?php echo $d->nama_tarif; ?></td>
+                                                <td class="text-right"><?php echo number_format($d->jasa_operator); ?></td>
+                                                <td class="text-center"><?php echo $d->nama_asuransi; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        <tr>
+                                            <td class="text-center" colspan="6"><b>TOTAL</b></td>
+                                            <td class="text-right"><b>Rp <?php echo number_format($grandtotal); ?></b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            <?php } ?>
+
                         </div>
                     </div>
                 </div><!-- /.row -->
