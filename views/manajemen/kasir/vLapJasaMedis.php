@@ -74,7 +74,6 @@
                                             <th class="text-center">Tindakan</th>
                                             <th class="text-center">Jml Pasien</th>
                                             <th class="text-center">Jasa Medis</th>
-                                            <th class="text-center">Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,12 +88,11 @@
                                                 <td class="text-center"><?php echo formatDateIndo($d->tanggal); ?></td>
                                                 <td class="text-left"><?php echo $d->nama_tarif; ?></td>
                                                 <td class="text-center"><?php echo $d->jml_pasien; ?></td>
-                                                <td class="text-right"><?php echo number_format($d->jasa_operator); ?></td>
                                                 <td class="text-right"><?php echo number_format($subtotal); ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         <tr>
-                                            <td class="text-center" colspan="5"><b>TOTAL</b></td>
+                                            <td class="text-center" colspan="4"><b>TOTAL</b></td>
                                             <td class="text-right"><b>Rp <?php echo number_format($grandtotal); ?></b></td>
                                         </tr>
                                     </tbody>

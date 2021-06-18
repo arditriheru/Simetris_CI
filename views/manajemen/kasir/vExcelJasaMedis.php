@@ -9,7 +9,7 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
     <table border="1" class="table table-bordered table-hover table-striped tablesorter">
         <h4 align="center">Rekap Jasa Medis</h4>
         <h4 align="center"><?php echo $nama_dokter; ?></h4>
-        <h4 align="center">Periode <?php echo $awal . " - " . $akhir ?>: </h4><br>
+        <h4 align="center">Periode <?php echo $awal . " - " . $akhir ?></h4><br>
 
         <?php if ($id == 1) { ?>
             <thead>
@@ -27,9 +27,6 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
                 </th>
                 <th>
                     <div align="center">Jasa Medis</div>
-                </th>
-                <th>
-                    <div align="center">Subtotal</div>
                 </th>
                 </tr>
             </thead>
@@ -55,15 +52,12 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
                             <div align="left"><?php echo $d->jml_pasien; ?></div>
                         </td>
                         <td>
-                            <div align="right"><?php echo number_format($d->jasa_operator); ?></div>
-                        </td>
-                        <td>
                             <div align="right"><?php echo number_format($subtotal); ?></div>
                         </td>
                     </tr>
                 <?php endforeach ?>
                 <tr>
-                    <td class="text-center" colspan="5"><b>TOTAL</b></td>
+                    <td class="text-center" colspan="4"><b>TOTAL</b></td>
                     <td class="text-right"><?php echo number_format($grandtotal); ?></td>
                 </tr>
             </tbody>
