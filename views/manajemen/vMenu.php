@@ -15,31 +15,38 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
       <li><a href="<?php echo base_url('manajemen/dataManajemen') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <?php //if($this->session->userdata('akses') =='Admin') { ?>
-        <li><a href="<?php echo base_url('manajemen/dataAsuransi/klaimAsuransi/1') ?>"><i class="fa fa-plus"></i> Asuransi</a></li>
+      <?php if ($this->session->userdata('akses') == 'Admin') { ?>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-plus"></i> Jasa Medis <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php echo base_url('manajemen/dataJasaMedis/index/1') ?>">Rawat Jalan</a></li>
+            <li><a href="<?php echo base_url('manajemen/dataJasaMedis/index/2') ?>">Rawat Inap</a></li>
+          </ul>
+        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-plus"></i> Farmasi <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataEdObat/1') ?>">Expired Date Obat</a></li>
-            </ul>
-          </li>
-          <li><a href="<?php echo base_url('manajemen/dataManajemen/exportCustom') ?>"><i class="fa fa-file-excel-o"></i> Export Custom</a></li>
-        <?php //} ?>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right navbar-user">
-        <li>
-          <a href="https://instagram.com/arditriheru" target="_blank">
-            <span class="label label-success">ONLINE</span>
-          </a>
-        </li>
-        <li class="dropdown user-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('akses').' / '.$this->session->userdata('nama_petugas'); ?> <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo base_url('manajemen/login/logout') ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
+            <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataEdObat/1') ?>">Expired Date Obat</a></li>
           </ul>
         </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </nav>
+        <li><a href="<?php echo base_url('manajemen/dataManajemen/exportCustom') ?>"><i class="fa fa-file-excel-o"></i> Export Custom</a></li>
+      <?php } ?>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right navbar-user">
+      <li>
+        <a href="https://instagram.com/arditriheru" target="_blank">
+          <span class="label label-success">ONLINE</span>
+        </a>
+      </li>
+      <li class="dropdown user-dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('akses') . ' / ' . $this->session->userdata('nama_petugas'); ?> <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="<?php echo base_url('manajemen/login/logout') ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>
