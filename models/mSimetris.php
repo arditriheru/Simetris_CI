@@ -936,9 +936,25 @@ class mSimetris extends CI_Model
 	|--------------------------------------------------------------------------
 */
 
-	function dataJasaMedis($id_operator, $awal, $akhir)
+	function dataJasaMedis($id, $id_operator, $awal, $akhir)
 	{
-		$query = $this->db->query("
+		if ($id == 1) {
+			$query = $this->db->query("
+		SELECT ksr_det_trn.tanggal, ksr_det_trn.kode, ksr_tarif.nama AS nama_tarif, ksr_tarif.operator AS jasa_operator, mr_dokter.nama_dokter,
+		COUNT(ksr_det_trn.id_ksr_det_trn) AS jml_pasien
+		FROM ksr_det_trn
+		INNER JOIN mr_dokter
+		ON ksr_det_trn.id_operator = mr_dokter.id_dokter
+		INNER JOIN ksr_tarif
+		ON ksr_det_trn.kode = ksr_tarif.kode
+		WHERE ksr_det_trn.tanggal BETWEEN '$awal' AND '$akhir'
+		AND ksr_det_trn.id_operator = '$id_operator'
+		GROUP BY ksr_det_trn.kode, ksr_det_trn.tanggal
+		ORDER BY ksr_det_trn.tanggal ASC
+		");
+		} else {
+
+			$query = $this->db->query("
 		SELECT ksr_det_trn.tanggal, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
 		ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator AS jasa_operator, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi
 		FROM ksr_trn
@@ -957,6 +973,8 @@ class mSimetris extends CI_Model
 		AND ksr_trn.iol = 2
 		ORDER BY ksr_det_trn.id_ksr_det_trn ASC
 		");
+		}
+
 		return $query;
 	}
 }
