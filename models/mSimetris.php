@@ -956,7 +956,7 @@ class mSimetris extends CI_Model
 		} else {
 
 			$query = $this->db->query("
-		SELECT ksr_det_trn.tanggal, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
+		SELECT ksr_det_trn.tanggal, ksr_det_trn.jumlah, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
 		ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator AS jasa_operator, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi
 		FROM ksr_trn
 		INNER JOIN mr_pasien
