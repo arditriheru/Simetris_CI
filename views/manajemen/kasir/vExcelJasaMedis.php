@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . date('d/m/Y') . ".xls");
+header("Content-Disposition: attachment; filename=Rekap Jasa Medis " . date('d/m/Y') . ".xls");
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,6 +83,9 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
                     <div align="center">Tindakan</div>
                 </th>
                 <th>
+                    <div align="center">Qty</div>
+                </th>
+                <th>
                     <div align="center">Jasa Medis</div>
                 </th>
                 <th>
@@ -92,9 +95,11 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
             </thead>
             <tbody>
                 <?php $no = 1;
+                $total_jasa_operator = 0;
                 $grandtotal = 0;
                 foreach ($jasamedis as $d) :
-                    $grandtotal += $d->jasa_operator;
+                    $total_jasa_operator = $d->jasa_operator * $d->jumlah;
+                    $grandtotal += $total_jasa_operator;
                 ?>
                     <tr>
                         <td>
@@ -116,7 +121,10 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest " . d
                             <div align="left"><?php echo $d->nama_tarif; ?></div>
                         </td>
                         <td>
-                            <div align="right"><?php echo number_format($d->jasa_operator); ?></div>
+                            <div align="center"><?php echo $d->jumlah; ?></div>
+                        </td>
+                        <td>
+                            <div align="right"><?php echo number_format($total_jasa_operator); ?></div>
                         </td>
                         <td>
                             <div align="center"><?php echo $d->nama_asuransi; ?></div>
