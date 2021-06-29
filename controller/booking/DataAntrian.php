@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class dataAntrian extends CI_Controller
 {
@@ -7,9 +7,8 @@ class dataAntrian extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('login') !='1')
-		{
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+		if ($this->session->userdata('login') != '1') {
+			$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Anda belum login!</font>
 				</div>');
@@ -22,11 +21,10 @@ class dataAntrian extends CI_Controller
 
 	public function filterDataAntrian($id)
 	{
-		if ($id==1)
-		{
+		if ($id == 1) {
 			$data['title'] 		= "Antrian";
 			$data['subtitle'] 	= "Pasien";
-		}else{
+		} else {
 
 			$data['title'] 		= "Rekap";
 			$data['subtitle'] 	= "Data";
@@ -34,18 +32,18 @@ class dataAntrian extends CI_Controller
 
 		$data['id']			= $id;
 		$where 				= array('status' => 1);
-		$data['datadokter'] = $this->mSimetris->dataDokter("dokter",$where,"id_unit, nama_dokter ASC")->result();
+		$data['datadokter'] = $this->mSimetris->dataDokter("dokter.id_dokter AS id_dokter, dokter.nama_dokter AS nama_dokter", "dokter", $where, "nama_dokter ASC")->result();
 		$data['datasesi'] 	= $this->mSimetris->getData("sesi")->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vFilterAntrian',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vFilterAntrian', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function filterDataAntrianAksi($id)
 	{
-		if ($id==1) {
+		if ($id == 1) {
 
 			$unset_session = array(
 
@@ -69,12 +67,11 @@ class dataAntrian extends CI_Controller
 				'id_sesi' 			=> $id_sesi,
 				'booking_tanggal' 	=> $booking_tanggal,
 			);
-			$cek = $this->mSimetris->countData("booking",$where);
+			$cek = $this->mSimetris->countData("booking", $where);
 
-			if($cek>0)
-			{
+			if ($cek > 0) {
 				$where1 = array('id_dokter' => $id_dokter);
-				$select = $this->mSimetris->selectData('dokter','id_unit',$where1)->result();
+				$select = $this->mSimetris->selectData('dokter', 'id_unit', $where1)->result();
 				foreach ($select as $d) {
 					$id_unit = $d->id_unit;
 				}
@@ -83,7 +80,7 @@ class dataAntrian extends CI_Controller
 					'id_unit' 	=> $id_unit,
 					'konter' 	=> $konter,
 				);
-				$this->mSimetris->deleteData('antrian',$where2);
+				$this->mSimetris->deleteData('antrian', $where2);
 
 				$data = array(
 
@@ -96,7 +93,7 @@ class dataAntrian extends CI_Controller
 
 				);
 
-				$this->mSimetris->insertData('antrian',$data);
+				$this->mSimetris->insertData('antrian', $data);
 
 				$antdata = array(
 					'id_dokter'  		=> $id_dokter,
@@ -108,25 +105,22 @@ class dataAntrian extends CI_Controller
 
 				$this->session->set_userdata($antdata);
 
-				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+				$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<font size="4">Data berhasil ditampilkan</font>
 					</div>');
 
 				redirect('booking/dataAntrian/dataAntrian');
+			} else {
 
-			}else{
-
-				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<font size="4">Jadwal kosong, data tidak ditemukan</font>
 					</div>');
 
 				redirect('booking/dataAntrian/filterDataAntrian/1');
-
-			}	
-
-		}else{
+			}
+		} else {
 
 			$data['title'] 		= "Rekap";
 			$data['subtitle'] 	= "Data";
@@ -138,17 +132,17 @@ class dataAntrian extends CI_Controller
 			$data['awal']	= $awal;
 			$data['akhir']	= $akhir;
 
-			$data['data'] 	= $this->mSimetris->dataWaktuTungguPoli($id_unit,$awal,$akhir)->result();
+			$data['data'] 	= $this->mSimetris->dataWaktuTungguPoli($id_unit, $awal, $akhir)->result();
 
-			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+			$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Data berhasil ditampilkan</font>
 				</div>');
 
-			$this->load->view('templates/header',$data);
-			$this->load->view('booking/vMenu',$data);
-			$this->load->view('booking/vDataWaktuTungguPoli',$data);
-			$this->load->view('templates/footer',$data);
+			$this->load->view('templates/header', $data);
+			$this->load->view('booking/vMenu', $data);
+			$this->load->view('booking/vDataWaktuTungguPoli', $data);
+			$this->load->view('templates/footer', $data);
 		}
 	}
 
@@ -160,20 +154,19 @@ class dataAntrian extends CI_Controller
 		$id_sesi 				= $this->session->userdata('id_sesi');
 		$id_dokter 				= $this->session->userdata('id_dokter');
 
-		$data['dataantrian'] 	= $this->mSimetris->dataAntrian($id_dokter,$id_sesi,$booking_tanggal)->result();
-		$data['total'] 			= $this->mSimetris->dataAntrian($id_dokter,$id_sesi,$booking_tanggal)->num_rows();
-		$title 					= $this->mSimetris->dataAntrian($id_dokter,$id_sesi,$booking_tanggal)->result();
+		$data['dataantrian'] 	= $this->mSimetris->dataAntrian($id_dokter, $id_sesi, $booking_tanggal)->result();
+		$data['total'] 			= $this->mSimetris->dataAntrian($id_dokter, $id_sesi, $booking_tanggal)->num_rows();
+		$title 					= $this->mSimetris->dataAntrian($id_dokter, $id_sesi, $booking_tanggal)->result();
 
-		foreach($title as $d)
-		{
+		foreach ($title as $d) {
 			$data['subtitle'] = $d->nama_dokter;
 			$id_unit = $d->id_unit;
 		}
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataAntrian',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vDataAntrian', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function aktifAksi($id)
@@ -193,13 +186,12 @@ class dataAntrian extends CI_Controller
 		$data2 	= array('aktif' => '1');
 		$where2 = array('id_booking' => $id);
 
-		$this->mSimetris->updateData('booking',$data1,$where1);
-		$this->mSimetris->updateData('booking',$data2,$where2);
+		$this->mSimetris->updateData('booking', $data1, $where1);
+		$this->mSimetris->updateData('booking', $data2, $where2);
 
-		$datapanggil= $this->mSimetris->dataPanggil($id,$id_dokter,$id_sesi,$booking_tanggal)->result();
+		$datapanggil = $this->mSimetris->dataPanggil($id, $id_dokter, $id_sesi, $booking_tanggal)->result();
 
-		foreach($datapanggil as $d)
-		{
+		foreach ($datapanggil as $d) {
 			$noant = $d->noant;
 		}
 
@@ -210,7 +202,6 @@ class dataAntrian extends CI_Controller
 		$this->session->set_userdata($tcounter);
 
 		redirect('booking/dataAntrian/dataAntrian');
-
 	}
 
 	public function selesaiAntrian()
@@ -225,9 +216,9 @@ class dataAntrian extends CI_Controller
 
 		);
 
-		$this->mSimetris->deleteData('antrian',$where);
+		$this->mSimetris->deleteData('antrian', $where);
 
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+		$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Antrian diakhiri</font>
 			</div>');
@@ -240,8 +231,8 @@ class dataAntrian extends CI_Controller
 		$data 		= array('mulai' => $getTimenow);
 		$where 		= array('id_booking' => $id);
 
-		$this->mSimetris->updateData('booking',$data,$where);
-		redirect('booking/dataAntrian/dataAntrian/'.$id);
+		$this->mSimetris->updateData('booking', $data, $where);
+		redirect('booking/dataAntrian/dataAntrian/' . $id);
 	}
 
 	public function dilayaniAkhir($id)
@@ -250,8 +241,8 @@ class dataAntrian extends CI_Controller
 		$data 		= array('akhir' => $getTimenow);
 		$where 		= array('id_booking' => $id);
 
-		$this->mSimetris->updateData('booking',$data,$where);
-		redirect('booking/dataAntrian/dataAntrian/'.$id);
+		$this->mSimetris->updateData('booking', $data, $where);
+		redirect('booking/dataAntrian/dataAntrian/' . $id);
 	}
 
 	public function excelData()
@@ -261,7 +252,7 @@ class dataAntrian extends CI_Controller
 		$booking_tanggal	= getDateNow();
 
 		$where1 			= array('id_dokter' => $id_dokter);
-		$nama_dokter 		= $this->mSimetris->selectData("dokter","nama_dokter",$where1)->result();
+		$nama_dokter 		= $this->mSimetris->selectData("dokter", "nama_dokter", $where1)->result();
 
 		foreach ($nama_dokter as $d) {
 			$data['nama_dokter'] = $d->nama_dokter;
@@ -272,13 +263,10 @@ class dataAntrian extends CI_Controller
 			'id_sesi' 			=> $id_sesi,
 			'booking_tanggal' 	=> $booking_tanggal,
 		);
-		$data['data'] 		= $this->mSimetris->selectData("booking","id_catatan_medik,nama,mulai,akhir",$where2)->result();
+		$data['data'] 		= $this->mSimetris->selectData("booking", "id_catatan_medik,nama,mulai,akhir", $where2)->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vExcelDataJamLayanan',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vExcelDataJamLayanan', $data);
+		$this->load->view('templates/footer', $data);
 	}
-
-} 
-
-?>
+}

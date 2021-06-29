@@ -34,7 +34,7 @@ class dataJadwal extends CI_Controller
 		);
 
 		$data['datajadwal'] 		= $this->mSimetris->dataJadwal($where2)->result();
-		$data['datadokter'] 		= $this->mSimetris->dataDokter("dokter",$where1,"nama_dokter ASC")->result();
+		$data['datadokter'] 		= $this->mSimetris->dataDokter("dokter.id_dokter AS id_dokter, dokter.nama_dokter AS nama_dokter", "dokter",$where1,"nama_dokter ASC")->result();
 		$data['datajadwallibur'] 	= $this->mSimetris->dataJadwalLibur()->result();
 
 		$this->load->view('templates/header',$data);
@@ -57,7 +57,7 @@ class dataJadwal extends CI_Controller
 			'dokter.id_dokter' => $id
 		);
 
-		$data['datadokter']			= $this->mSimetris->dataDokter("dokter",$where1,"nama_dokter ASC")->result();
+		$data['datadokter']			= $this->mSimetris->dataDokter("dokter.id_dokter AS id_dokter, dokter.nama_dokter AS nama_dokter", "dokter",$where1,"nama_dokter ASC")->result();
 		$data['datajadwal'] 		= $this->mSimetris->dataJadwal($where2)->result();
 		$data['datajadwallibur']	= $this->mSimetris->dataJadwalLibur()->result();
 
@@ -80,7 +80,7 @@ class dataJadwal extends CI_Controller
 		}
 
 		$where 				= array('status' => 1);
-		$data['datadokter'] = $this->mSimetris->dataDokter("dokter",$where,"nama_dokter ASC")->result();
+		$data['datadokter'] = $this->mSimetris->dataDokter("dokter.id_dokter AS id_dokter, dokter.nama_dokter AS nama_dokter", "dokter",$where,"nama_dokter ASC")->result();
 		$data['datasesi'] 	= $this->mSimetris->getData("sesi")->result();
 
 		$this->load->view('templates/header',$data);
@@ -217,5 +217,3 @@ class dataJadwal extends CI_Controller
 
 
 }
-
-?>
