@@ -110,7 +110,7 @@
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th class="text-center">Tanggal</th>
-                                            <th class="text-center">Nomor RM</th>
+                                            <th class="text-center">No. RM</th>
                                             <th class="text-center">Nama Pasien</th>
                                             <th class="text-center">Kelas</th>
                                             <th class="text-center">Tindakan</th>
