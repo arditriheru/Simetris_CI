@@ -29,7 +29,7 @@
                             <select class="form-control" type="text" name="id_operator" required="">
                                 <option value="">Pilih</option>
                                 <?php foreach ($dataoperator as $d) : ?>
-                                    <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_dokter ?></option>
+                                    <option value="<?php echo $d->id_operator ?>"><?php echo $d->nama_operator; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -80,7 +80,7 @@
                                         <?php $no = 1;
                                         $grandtotal = 0;
                                         foreach ($jasamedis as $d) :
-                                            $subtotal = $d->jasa_operator * $d->jml_pasien;
+                                            $subtotal =  ($d->tarif * $d->jml_pasien) - $d->jml_diskon;
                                             $grandtotal += $subtotal;
                                         ?>
                                             <tr>
@@ -121,11 +121,11 @@
                                     </thead>
                                     <tbody>
                                         <?php $no = 1;
-                                        $total_jasa_operator = 0;
+                                        $subtotal = 0;
                                         $grandtotal = 0;
                                         foreach ($jasamedis as $d) :
-                                            $total_jasa_operator = $d->jasa_operator * $d->jumlah;
-                                            $grandtotal += $total_jasa_operator;
+                                            $subtotal = ($d->tarif * $d->jumlah) - $d->diskon;
+                                            $grandtotal += $subtotal;
                                         ?>
                                             <tr>
                                                 <td class="text-center"><?php echo $no++; ?></td>
@@ -135,7 +135,7 @@
                                                 <td class="text-center"><?php echo $d->kelas; ?></td>
                                                 <td class="text-left"><?php echo $d->nama_tarif; ?></td>
                                                 <td class="text-center"><?php echo $d->jumlah; ?></td>
-                                                <td class="text-right"><?php echo number_format($total_jasa_operator); ?></td>
+                                                <td class="text-right"><?php echo number_format($subtotal); ?></td>
                                                 <td class="text-center"><?php echo $d->nama_asuransi; ?></td>
                                             </tr>
                                         <?php endforeach; ?>
