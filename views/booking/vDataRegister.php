@@ -46,134 +46,138 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $no = $jmlpoli; foreach ($poli as $d) : ?>
-                    <tr>
-                      <td class="text-center"><?php echo $no--; ?></td>
-                      <td class="text-center"><?php echo $d->id_catatan_medik; ?></td>
-                      <td class="text-center"><?php echo $d->nama; ?></td>
-                      <td class="text-center"><?php echo $d->nama_dokter; ?></td>
-                      <td class="text-center"><?php echo date("d/m/Y", strtotime($d->booking_tanggal)); ?></td>
-                      <td class="text-center"><?php echo $d->nama_sesi; ?></td>
-                      <td class="text-center"><?php echo $d->keterangan; ?></td>
-                      <td class="text-center">              
-                        <a href="<?php echo base_url('booking/dataBooking/detailDataPoli/'.$d->id_booking) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
-                      </td>
-                    </tr>
-                  <?php endforeach; ?>
-                </tbody>
-              </table>
+                    <?php $no = $jmlpoli;
+                    foreach ($poli as $d) : ?>
+                      <tr>
+                        <td class="text-center"><?php echo $no--; ?></td>
+                        <td class="text-center"><?php echo $d->id_catatan_medik; ?></td>
+                        <td class="text-center"><?php echo $d->nama; ?></td>
+                        <td class="text-center"><?php echo $d->nama_dokter; ?></td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($d->booking_tanggal)); ?></td>
+                        <td class="text-center"><?php echo $d->nama_sesi; ?></td>
+                        <td class="text-center"><?php echo $d->keterangan; ?></td>
+                        <td class="text-center">
+                          <a href="<?php echo base_url('booking/dataBooking/detailDataPoli/' . $d->id_booking) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
 
-          <div class="tab-pane fade in" id="2">
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover table-striped tablesorter">
-                <thead>
-                  <tr>
-                    <th class="text-center">#</th>
-                    <th class="text-center">No.RM</th>
-                    <th class="text-center">Nama Pasien</th>
-                    <th class="text-center">Dokter</th>
-                    <th class="text-center">Jadwal</th>
-                    <th class="text-center">Sesi</th>
-                    <th class="text-center">Keterangan</th>
-                    <th class="text-center" colspan="3">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $no = $jmltumbang; foreach ($tumbang as $d) : ?>
-                  <tr>
-                    <td class="text-center"><?php echo $no--;?></td>
-                    <td class="text-center"><?php echo $d->id_catatan_medik;?></td>
-                    <td class="text-center"><?php echo $d->nama;?></td>
-                    <td class="text-center"><?php echo $d->nama_petugas;?></td>
-                    <td class="text-center"><?php echo date("d/m/Y", strtotime($d->jadwal)); ?></td>
-                    <td class="text-center"><?php echo $d->nama_sesi;?></td>
-                    <td class="text-center"><?php echo $d->keterangan;?></td>
-                    <td class="text-center">              
-                      <a href="<?php echo base_url('booking/dataBooking/detailDataTumbang/'.$d->id_tumbang) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
+            <div class="tab-pane fade in" id="2">
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped tablesorter">
+                  <thead>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">No.RM</th>
+                      <th class="text-center">Nama Pasien</th>
+                      <th class="text-center">Dokter</th>
+                      <th class="text-center">Jadwal</th>
+                      <th class="text-center">Sesi</th>
+                      <th class="text-center">Keterangan</th>
+                      <th class="text-center" colspan="3">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = $jmltumbang;
+                    foreach ($tumbang as $d) : ?>
+                      <tr>
+                        <td class="text-center"><?php echo $no--; ?></td>
+                        <td class="text-center"><?php echo $d->id_catatan_medik; ?></td>
+                        <td class="text-center"><?php echo $d->nama; ?></td>
+                        <td class="text-center"><?php echo $d->nama_petugas; ?></td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($d->jadwal)); ?></td>
+                        <td class="text-center"><?php echo $d->nama_sesi; ?></td>
+                        <td class="text-center"><?php echo $d->keterangan; ?></td>
+                        <td class="text-center">
+                          <a href="<?php echo base_url('booking/dataBooking/detailDataTumbang/' . $d->id_tumbang) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-pane fade in" id="3">
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped tablesorter">
+                  <thead>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">No.RM</th>
+                      <th class="text-center">Nama Pasien</th>
+                      <th class="text-center">Dokter</th>
+                      <th class="text-center">Jadwal</th>
+                      <th class="text-center">Sesi</th>
+                      <th class="text-center">Keterangan</th>
+                      <th class="text-center" colspan="3">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = $jmlanc;
+                    foreach ($anc as $d) : ?>
+                      <tr>
+                        <td class="text-center"><?php echo $no--; ?></td>
+                        <td class="text-center"><?php echo $d->id_catatan_medik; ?></td>
+                        <td class="text-center"><?php echo $d->nama; ?></td>
+                        <td class="text-center"><?php echo $d->nama_petugas; ?></td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($d->jadwal)); ?></td>
+                        <td class="text-center"><?php echo $d->nama_sesi; ?></td>
+                        <td class="text-center"><?php echo $d->keterangan; ?></td>
+                        <td class="text-center">
+                          <a href="<?php echo base_url('booking/dataBooking/detailDataAnc/' . $d->id_anc) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-pane fade in" id="4">
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped tablesorter">
+                  <thead>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">No.RM</th>
+                      <th class="text-center">Nama Pasien</th>
+                      <th class="text-center">Dokter</th>
+                      <th class="text-center">Jadwal</th>
+                      <th class="text-center">Sesi</th>
+                      <th class="text-center">Keterangan</th>
+                      <th class="text-center" colspan="3">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = $jmlmandiri;
+                    foreach ($mandiri as $d) : ?>
+                      <tr>
+                        <td class="text-center"><?php echo $no--; ?></td>
+                        <td class="text-center"><?php echo $d->id_catatan_medik; ?></td>
+                        <td class="text-center"><?php echo $d->nama; ?></td>
+                        <td class="text-center"><?php echo $d->nama_dokter; ?></td>
+                        <td class="text-center"><?php echo date("d/m/Y", strtotime($d->booking_tanggal)); ?></td>
+                        <td class="text-center"><?php echo $d->nama_sesi; ?></td>
+                        <td class="text-center"><?php echo $d->keterangan; ?></td>
+                        <td class="text-center">
+                          <a href="<?php echo base_url('booking/dataBooking/detailDataPoli/' . $d->id_booking) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div><!-- content -->
         </div>
+      </div><!-- /.row -->
 
-        <div class="tab-pane fade in" id="3">
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped tablesorter">
-              <thead>
-                <tr>
-                  <th class="text-center">#</th>
-                  <th class="text-center">No.RM</th>
-                  <th class="text-center">Nama Pasien</th>
-                  <th class="text-center">Dokter</th>
-                  <th class="text-center">Jadwal</th>
-                  <th class="text-center">Sesi</th>
-                  <th class="text-center">Keterangan</th>
-                  <th class="text-center" colspan="3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no = $jmlanc; foreach ($anc as $d) : ?>
-                <tr>
-                  <td class="text-center"><?php echo $no--;?></td>
-                  <td class="text-center"><?php echo $d->id_catatan_medik;?></td>
-                  <td class="text-center"><?php echo $d->nama;?></td>
-                  <td class="text-center"><?php echo $d->nama_petugas;?></td>
-                  <td class="text-center"><?php echo date("d/m/Y", strtotime($d->jadwal)); ?></td>
-                  <td class="text-center"><?php echo $d->nama_sesi;?></td>
-                  <td class="text-center"><?php echo $d->keterangan;?></td>
-                  <td class="text-center">              
-                    <a href="<?php echo base_url('booking/dataBooking/detailDataAnc/'.$d->id_anc) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
+    </div><!-- /#page-wrapper -->
 
-      <div class="tab-pane fade in" id="4">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover table-striped tablesorter">
-            <thead>
-              <tr>
-                <th class="text-center">#</th>
-                <th class="text-center">No.RM</th>
-                <th class="text-center">Nama Pasien</th>
-                <th class="text-center">Dokter</th>
-                <th class="text-center">Jadwal</th>
-                <th class="text-center">Sesi</th>
-                <th class="text-center">Keterangan</th>
-                <th class="text-center" colspan="3">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $no = $jmlmandiri; foreach ($mandiri as $d) : ?>
-              <tr>
-               <td class="text-center"><?php echo $no--;?></td>
-               <td class="text-center"><?php echo $d->id_catatan_medik;?></td>
-               <td class="text-center"><?php echo $d->nama;?></td>
-               <td class="text-center"><?php echo $d->nama_dokter;?></td>
-               <td class="text-center"><?php echo date("d/m/Y", strtotime($d->booking_tanggal)); ?></td>
-               <td class="text-center"><?php echo $d->nama_sesi;?></td>
-               <td class="text-center"><?php echo $d->keterangan;?></td>
-               <td class="text-center">              
-                <a href="<?php echo base_url('booking/dataBooking/detailDataPoli/'.$d->id_booking) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-</div><!-- content -->
-</div>
-</div><!-- /.row -->
-
-</div><!-- /#page-wrapper -->
-
-<!--</div> /#wrapper -->
+    <!--</div> /#wrapper -->
