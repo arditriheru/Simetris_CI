@@ -31,7 +31,7 @@ class dataAntibody extends CI_Controller
 		$data['nonreaktif'] = $this->mSimetris->countData("test_antibody", $where1);
 		$data['iggreaktif'] = $this->mSimetris->countData("test_antibody", $where2);
 		$data['igmreaktif'] = $this->mSimetris->countData("test_antibody", $where3);
-		$data['datadokter'] = $this->mSimetris->getData("mr_dokter")->result();
+		$data['datadokter'] = $this->mSimetris->dataDokter("mr_dokter.id_dokter AS id_dokter, mr_dokter.nama_dokter AS nama_dokter", "mr_dokter", "mr_dokter.id_dokter iS NOT NULL", "mr_dokter.nama_dokter ASC")->result();
 		$data['dataunit'] 	= $this->mSimetris->getData("mr_unit")->result();
 		$data['record']		= $this->mSimetris->getData('mr_pasien');
 		$data['totaldata'] 	= $this->mSimetris->getData("test_antibody")->num_rows();
@@ -84,7 +84,7 @@ class dataAntibody extends CI_Controller
 		$data['title'] 		= "Antibody";
 		$data['subtitle'] 	= "Edit";
 
-		$data['datadokter'] = $this->mSimetris->getData("mr_dokter")->result();
+		$data['datadokter'] = $this->mSimetris->dataDokter("mr_dokter.id_dokter AS id_dokter, mr_dokter.nama_dokter AS nama_dokter", "mr_dokter", "mr_dokter.id_dokter iS NOT NULL", "mr_dokter.nama_dokter ASC")->result();
 		$data['dataunit'] 	= $this->mSimetris->getData("mr_unit")->result();
 		$data['antibody'] 	= $this->mSimetris->detailDataAntibody($id)->result();
 

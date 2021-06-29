@@ -30,7 +30,7 @@ class dataAntigen extends CI_Controller
 		$data['total'] 		= $this->mSimetris->getData("test_antigen")->num_rows();
 		$data['positif'] 	= $this->mSimetris->countData("test_antigen", $where1);
 		$data['negatif'] 	= $this->mSimetris->countData("test_antigen", $where2);
-		$data['datadokter'] = $this->mSimetris->dataDokter("mr_dokter", "id_dokter IS NOT NULL", "nama_dokter ASC")->result();
+		$data['datadokter'] = $this->mSimetris->dataDokter("mr_dokter.id_dokter, mr_dokter.nama_dokter", "mr_dokter", "id_dokter IS NOT NULL", "nama_dokter ASC")->result();
 		$data['datasex'] 	= $this->mSimetris->getData("mr_sex")->result();
 		$data['dataunit'] 	= $this->mSimetris->getData("mr_unit")->result();
 		$data['record']		= $this->mSimetris->getData('mr_pasien');
@@ -89,7 +89,7 @@ class dataAntigen extends CI_Controller
 		$data['title'] 		= "Antigen";
 		$data['subtitle'] 	= "Edit";
 
-		$data['datadokter'] = $this->mSimetris->getData("mr_dokter")->result();
+		$data['datadokter'] = $this->mSimetris->dataDokter("mr_dokter.id_dokter, mr_dokter.nama_dokter", "mr_dokter", "id_dokter IS NOT NULL", "nama_dokter ASC")->result();
 		$data['dataunit'] 	= $this->mSimetris->getData("mr_unit")->result();
 		$data['antigen'] 	= $this->mSimetris->detailDataAntigen($id)->result();
 
