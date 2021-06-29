@@ -82,18 +82,28 @@ class dataJasaMedis extends CI_Controller
             $data['data']           = $id_operator . '/' . $awal . '/' . $akhir;
 
             $jasamedis              = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
-            $data['jasamedis']      = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
 
-            foreach ($jasamedis as $d) {
-                $nama_dokter = $d->nama_dokter;
-            }
+            if ($this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->num_rows() > 0) {
+                $data['jasamedis']      = $this->mSimetris->dataJasaMedis($id, $id_operator, $awal, $akhir)->result();
 
-            $data['nama_dokter'] = $nama_dokter;
+                foreach ($jasamedis as $d) {
+                    $nama_dokter = $d->nama_dokter;
+                }
 
-            $this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
+                $data['nama_dokter'] = $nama_dokter;
+
+                $this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4"><b>Data berhasil ditampilkan!</b></font>
 			</div>');
+            } else {
+
+                $this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<font size="4"><b>Data tidak ditemukan!</b></font>
+			</div>');
+                redirect('manajemen/dataJasaMedis/index/' . $id);
+            }
         }
 
         $this->load->view('templates/header', $data);
