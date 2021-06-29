@@ -119,32 +119,18 @@ class mSimetris extends CI_Model
 		return $query;
 	}
 
-	// function dataDokterAll()
-	// {
-	// 	$query = $this->db->query("
-	// 		SELECT id_dokter, nama_dokter FROM mr_dokter");
-	// 	return $query;
-	// }
-
-	// function dataDokterUnit($id)
-	// {
-	// 	$query = $this->db->query("
-	// 		SELECT id_dokter, nama_dokter FROM dokter WHERE id_unit='$id' AND status=1");
-	// 	return $query;
-	// }
-
-	function dataDokter($table, $where, $orderby)
+	function dataDokter($select, $table, $where, $orderby)
 	{
-		$this->db->select('id_dokter, nama_dokter');
+		$this->db->select($select);
 		$this->db->from($table);
 		$this->db->where($where);
 		$this->db->order_by($orderby);
 		return $this->db->get();
 	}
 
-	function dataPetugas($table, $where, $orderby)
+	function dataPetugas($select, $table, $where, $orderby)
 	{
-		$this->db->select('id_petugas, nama_petugas');
+		$this->db->select($select);
 		$this->db->from($table);
 		$this->db->where($where);
 		$this->db->order_by($orderby);
@@ -940,8 +926,9 @@ class mSimetris extends CI_Model
 	{
 		if ($id == 1) {
 			$query = $this->db->query("
-		SELECT ksr_det_trn.tanggal, ksr_det_trn.kode, ksr_tarif.nama AS nama_tarif, ksr_tarif.operator AS jasa_operator, mr_dokter.nama_dokter,
-		COUNT(ksr_det_trn.id_ksr_det_trn) AS jml_pasien
+		SELECT ksr_det_trn.tanggal, ksr_det_trn.kode,  ksr_det_trn.diskon, ksr_tarif.nama AS nama_tarif, ksr_det_trn.tarif, mr_dokter.nama_dokter,
+		COUNT(ksr_det_trn.id_ksr_det_trn) AS jml_pasien,
+		SUM(ksr_det_trn.diskon) AS jml_diskon
 		FROM ksr_det_trn
 		INNER JOIN mr_dokter
 		ON ksr_det_trn.id_operator = mr_dokter.id_dokter
@@ -956,8 +943,8 @@ class mSimetris extends CI_Model
 		} else {
 
 			$query = $this->db->query("
-		SELECT ksr_det_trn.tanggal, ksr_det_trn.jumlah, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
-		ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator AS jasa_operator, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi
+		SELECT ksr_det_trn.tanggal, ksr_det_trn.jumlah, ksr_det_trn.diskon, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
+		ksr_tarif.nama AS nama_tarif, ksr_det_trn.tarif, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi
 		FROM ksr_trn
 		INNER JOIN mr_pasien
 		ON ksr_trn.id_catatan_medik = mr_pasien.id_catatan_medik
