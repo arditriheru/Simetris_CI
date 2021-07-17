@@ -80,7 +80,7 @@
                                         <?php $no = 1;
                                         $grandtotal = 0;
                                         foreach ($jasamedis as $d) :
-                                            $subtotal =  ($d->tarif * $d->jml_pasien) - $d->jml_diskon;
+                                            $subtotal =  ($d->operator * $d->jml_pasien) - $d->jml_diskon;
                                             $grandtotal += $subtotal;
                                         ?>
                                             <tr>
@@ -124,7 +124,7 @@
                                         $subtotal = 0;
                                         $grandtotal = 0;
                                         foreach ($jasamedis as $d) :
-                                            $subtotal = ($d->tarif * $d->jumlah) - $d->diskon;
+                                            $subtotal = ($d->operator * $d->jumlah) - $d->diskon;
                                             $grandtotal += $subtotal;
                                         ?>
                                             <tr>

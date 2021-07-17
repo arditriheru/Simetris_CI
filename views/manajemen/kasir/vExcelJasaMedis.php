@@ -38,7 +38,7 @@ header("Content-Disposition: attachment; filename=Rekap Jasa Medis " . date('d/m
                 $no = 1;
                 $grandtotal = 0;
                 foreach ($jasamedis as $d) :
-                    $subtotal =  ($d->tarif * $d->jml_pasien) - $d->jml_diskon;
+                    $subtotal =  ($d->operator * $d->jml_pasien) - $d->jml_diskon;
                     $grandtotal += $subtotal;
                 ?>
                     <tr>
@@ -63,7 +63,7 @@ header("Content-Disposition: attachment; filename=Rekap Jasa Medis " . date('d/m
                     </tr>
                 <?php endforeach ?>
                 <tr>
-                    <td class="text-center" colspan="4"><b>TOTAL</b></td>
+                    <td class="text-center" colspan="5"><b>TOTAL</b></td>
                     <td class="text-right"><?php echo number_format($grandtotal); ?></td>
                 </tr>
             </tbody>
@@ -107,7 +107,7 @@ header("Content-Disposition: attachment; filename=Rekap Jasa Medis " . date('d/m
                 $subtotal = 0;
                 $grandtotal = 0;
                 foreach ($jasamedis as $d) :
-                    $subtotal = ($d->tarif * $d->jumlah) - $d->diskon;
+                    $subtotal = ($d->operator * $d->jumlah) - $d->diskon;
                     $grandtotal += $subtotal;
                 ?>
                     <tr>
@@ -144,7 +144,7 @@ header("Content-Disposition: attachment; filename=Rekap Jasa Medis " . date('d/m
                     </tr>
                 <?php endforeach ?>
                 <tr>
-                    <td class="text-center" colspan="7"><b>TOTAL</b></td>
+                    <td class="text-center" colspan="8"><b>TOTAL</b></td>
                     <td class="text-right" colspan="1"><?php echo number_format($grandtotal); ?></td>
                 </tr>
             </tbody>
