@@ -926,7 +926,7 @@ class mSimetris extends CI_Model
 	{
 		if ($id == 1) {
 			$query = $this->db->query("
-		SELECT ksr_det_trn.tanggal, ksr_det_trn.kode,  ksr_det_trn.diskon, ksr_tarif.nama AS nama_tarif, ksr_det_trn.tarif, mr_dokter.nama_dokter,
+		SELECT ksr_det_trn.tanggal, ksr_det_trn.kode,  ksr_det_trn.diskon, ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator, mr_dokter.nama_dokter,
 		COUNT(ksr_det_trn.id_ksr_det_trn) AS jml_pasien,
 		SUM(ksr_det_trn.diskon) AS jml_diskon
 		FROM ksr_det_trn
@@ -944,7 +944,7 @@ class mSimetris extends CI_Model
 
 			$query = $this->db->query("
 		SELECT ksr_det_trn.tanggal, ksr_det_trn.jumlah, ksr_det_trn.diskon, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
-		ksr_tarif.nama AS nama_tarif, ksr_det_trn.tarif, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi
+		ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi
 		FROM ksr_trn
 		INNER JOIN mr_pasien
 		ON ksr_trn.id_catatan_medik = mr_pasien.id_catatan_medik
