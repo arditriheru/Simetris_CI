@@ -922,11 +922,11 @@ class mSimetris extends CI_Model
 	|--------------------------------------------------------------------------
 */
 
-	function dataJasaMedis($id, $id_operator, $awal, $akhir)
+	function dataJasaMedisRalan($id_operator, $awal, $akhir)
 	{
-		if ($id == 1) {
-			$query = $this->db->query("
-		SELECT ksr_det_trn.tanggal, ksr_det_trn.kode,  ksr_det_trn.diskon, ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator, mr_dokter.nama_dokter,
+		// model query jasa medis dokter rawat jalan
+		$query = $this->db->query("
+		SELECT ksr_det_trn.tanggal, ksr_det_trn.kode,  ksr_det_trn.diskon, ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator, mr_dokter.nama_dokter, ksr_trn.tgl_pulang,
 		COUNT(ksr_det_trn.id_ksr_det_trn) AS jml_pasien,
 		SUM(ksr_det_trn.diskon) AS jml_diskon
 		FROM ksr_det_trn
@@ -934,35 +934,57 @@ class mSimetris extends CI_Model
 		ON ksr_det_trn.id_operator = mr_dokter.id_dokter
 		INNER JOIN ksr_tarif
 		ON ksr_det_trn.kode = ksr_tarif.kode
-		WHERE ksr_det_trn.tanggal BETWEEN '$awal' AND '$akhir'
+		INNER JOIN ksr_trn
+		ON ksr_det_trn.id_register = ksr_trn.id_register
+		WHERE DATE(ksr_trn.tgl_pulang) BETWEEN '$awal' AND '$akhir'
 		AND ksr_det_trn.id_operator = '$id_operator'
 		AND ksr_det_trn.iol = 1
 		GROUP BY ksr_det_trn.kode, ksr_det_trn.tanggal
 		ORDER BY ksr_det_trn.tanggal ASC
 		");
-		} else {
-
-			$query = $this->db->query("
-		SELECT ksr_det_trn.tanggal, ksr_det_trn.jumlah, ksr_det_trn.diskon, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
-		ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi
-		FROM ksr_trn
-		INNER JOIN mr_pasien
-		ON ksr_trn.id_catatan_medik = mr_pasien.id_catatan_medik
-		LEFT JOIN ksr_det_trn
-		ON ksr_trn.id_register = ksr_det_trn.id_register
-		INNER JOIN ksr_tarif
-		ON ksr_det_trn.kode = ksr_tarif.kode
-		INNER JOIN mr_dokter
-		ON ksr_det_trn.id_operator = mr_dokter.id_dokter
-		INNER JOIN mr_asuransi
-		ON ksr_trn.id_asuransi = mr_asuransi.id_asuransi
-		WHERE ksr_det_trn.tanggal BETWEEN '$awal' AND '$akhir'
-		AND ksr_det_trn.id_operator = '$id_operator'
-		AND ksr_trn.iol = 2
-		ORDER BY ksr_det_trn.id_ksr_det_trn ASC
-		");
-		}
 
 		return $query;
+	}
+
+	function dataJasaMedisRanap($awal, $akhir, $where)
+	{
+		// model query jasa medis dokter rawat inap
+			// $query = $this->db->query("
+		// SELECT ksr_det_trn.tanggal, ksr_det_trn.jumlah, ksr_det_trn.diskon, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
+		// ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator,  ksr_det_trn.anestesi, ksr_det_trn.sp_anak, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi, ksr_trn.tgl_pulang
+		// FROM ksr_trn
+		// INNER JOIN mr_pasien
+		// ON ksr_trn.id_catatan_medik = mr_pasien.id_catatan_medik
+		// LEFT JOIN ksr_det_trn
+		// ON ksr_trn.id_register = ksr_det_trn.id_register
+		// INNER JOIN ksr_tarif
+		// ON ksr_det_trn.kode = ksr_tarif.kode
+		// INNER JOIN mr_dokter
+		// ON ksr_det_trn.id_operator = mr_dokter.id_dokter
+		// INNER JOIN mr_asuransi
+		// ON ksr_trn.id_asuransi = mr_asuransi.id_asuransi
+		// WHERE ksr_trn.tgl_pulang BETWEEN '$awal' AND '$akhir'
+		// AND ksr_det_trn.id_operator = 11
+		// AND ksr_trn.iol = 2
+		// ORDER BY ksr_det_trn.id_ksr_det_trn ASC
+		// ");
+
+		// return $query;
+
+		$this->db->select('ksr_det_trn.tanggal, ksr_det_trn.jumlah, ksr_det_trn.diskon, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
+		ksr_tarif.nama AS nama_tarif, ksr_det_trn.operator,  ksr_det_trn.anestesi, ksr_det_trn.sp_anak, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi, ksr_trn.tgl_pulang');
+		$this->db->from('ksr_trn');
+		$this->db->join('mr_pasien', 'ksr_trn.id_catatan_medik = mr_pasien.id_catatan_medik', 'inner');
+		$this->db->join('ksr_det_trn', 'ksr_trn.id_register = ksr_det_trn.id_register', 'left');
+		$this->db->join('ksr_tarif', 'ksr_det_trn.kode = ksr_tarif.kode', 'inner');
+		$this->db->join('mr_dokter', 'ksr_det_trn.id_operator = mr_dokter.id_dokter', 'inner');
+		$this->db->join('mr_asuransi', 'ksr_trn.id_asuransi = mr_asuransi.id_asuransi', 'inner');
+		$this->db->where('DATE(ksr_trn.tgl_pulang) BETWEEN "'. $awal. '" and "'. $akhir.'"');
+		// $this->db->where('ksr_trn.tgl_pulang <=', $akhir);
+		$this->db->where('ksr_trn.iol= 2');
+		$this->db->where($where);
+		$this->db->order_by('ksr_det_trn.id_ksr_det_trn ASC');
+
+		return $this->db->get();
 	}
 }
