@@ -939,8 +939,8 @@ class mSimetris extends CI_Model
 		WHERE DATE(ksr_trn.tgl_pulang) BETWEEN '$awal' AND '$akhir'
 		AND ksr_det_trn.id_operator = '$id_operator'
 		AND ksr_det_trn.iol = 1
-		GROUP BY ksr_det_trn.kode, ksr_det_trn.tanggal
-		ORDER BY ksr_det_trn.tanggal ASC
+		GROUP BY ksr_det_trn.kode, DATE(ksr_trn.tgl_pulang)
+		ORDER BY DATE(ksr_trn.tgl_pulang), ksr_tarif.nama ASC
 		");
 
 		return $query;
@@ -982,6 +982,23 @@ class mSimetris extends CI_Model
 		$this->db->where('DATE(ksr_trn.tgl_pulang) BETWEEN "'. $awal. '" and "'. $akhir.'"');
 		// $this->db->where('ksr_trn.tgl_pulang <=', $akhir);
 		$this->db->where('ksr_trn.iol= 2');
+		$this->db->where($where);
+		$this->db->order_by('ksr_det_trn.id_ksr_det_trn ASC');
+
+		return $this->db->get();
+	}
+
+	function dataJasaMedisParamedis($awal, $akhir, $where)
+	{
+		$this->db->select('ksr_det_trn.tanggal, ksr_det_trn.jumlah, ksr_det_trn.diskon, ksr_trn.id_catatan_medik, ksr_trn.kelas, mr_pasien.nama AS nama_pasien,
+		ksr_tarif.nama AS nama_tarif, ksr_det_trn.ass_1,  ksr_det_trn.ass_2, ksr_det_trn.penata,  ksr_det_trn.on_loop, mr_dokter.nama_dokter, mr_asuransi.nama AS nama_asuransi, ksr_trn.tgl_pulang');
+		$this->db->from('ksr_trn');
+		$this->db->join('mr_pasien', 'ksr_trn.id_catatan_medik = mr_pasien.id_catatan_medik', 'inner');
+		$this->db->join('ksr_det_trn', 'ksr_trn.id_register = ksr_det_trn.id_register', 'left');
+		$this->db->join('ksr_tarif', 'ksr_det_trn.kode = ksr_tarif.kode', 'inner');
+		$this->db->join('mr_dokter', 'ksr_det_trn.id_operator = mr_dokter.id_dokter', 'inner');
+		$this->db->join('mr_asuransi', 'ksr_trn.id_asuransi = mr_asuransi.id_asuransi', 'inner');
+		$this->db->where('DATE(ksr_trn.tgl_pulang) BETWEEN "'. $awal. '" and "'. $akhir.'"');
 		$this->db->where($where);
 		$this->db->order_by('ksr_det_trn.id_ksr_det_trn ASC');
 
