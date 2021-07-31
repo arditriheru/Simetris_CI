@@ -121,6 +121,65 @@ class dataJasaMedis extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
+    function dataTampilJmParamedis()
+    {
+        $data['title']        = "Paramedis";
+        $data['subtitle']     = "Jasa Medis";
+
+        $id_operator          = $this->input->post('id_operator');
+        $iol                  = $this->input->post('iol');
+        $awal                 = $this->input->post('awal');
+        $akhir                = $this->input->post('akhir');
+
+        $data['dataoperator'] = $this->mSimetris->dataPetugas('psdi_petugas.id_petugas AS id_operator, psdi_petugas.nama AS nama_operator', 'psdi_petugas', 'psdi_petugas.id_petugas IS NOT NULL', 'psdi_petugas.nama ASC')->result();
+
+        if (isset($id_operator)) {
+            $data['data']           = $id_operator . '/'. $iol . '/' . $awal . '/' . $akhir;
+
+            $where = array(
+                'id_petugas'    => $id_operator,
+            );
+            $where1 = array(
+                'ksr_det_trn.id_ass_1'      => $id_operator,
+                'ksr_det_trn.iol'           => $iol,
+            );
+            $where2 = array(
+                'ksr_det_trn.id_ass_2'      => $id_operator,
+                'ksr_det_trn.iol'           => $iol,
+            );
+            $where3 = array(
+                'ksr_det_trn.id_penata'     => $id_operator,
+                'ksr_det_trn.iol'           => $iol,
+            );
+            $where4 = array(
+                'ksr_det_trn.id_on_loop'    => $id_operator,
+                'ksr_det_trn.iol'           => $iol,
+            );
+
+            $data['ass1']   = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where1)->result();
+            $data['ass2']   = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where2)->result();
+            $data['penata'] = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where3)->result();
+            $data['onloop'] = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where4)->result();
+
+            $data['data1']  = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where1)->num_rows();
+            $data['data2']  = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where2)->num_rows();
+            $data['data3']  = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where3)->num_rows();
+            $data['data4']  = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where4)->num_rows();
+
+            $nama_operator    = $this->mSimetris->selectData('psdi_petugas', 'nama', $where)->result();
+
+            foreach ($nama_operator as $d) {
+                $data['nama_operator'] = $d->nama;
+            }
+        }
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('manajemen/vMenu', $data);
+        $this->load->view('manajemen/kasir/vLapJasaMedisParamedis', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+
     // function dataTampilJmDokter($id)
     // {
     //     $data['subtitle']     = "Jasa Medis";
@@ -244,6 +303,55 @@ class dataJasaMedis extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('manajemen/vMenu', $data);
         $this->load->view('manajemen/kasir/vExcelJasaMedisRanap', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    function dataExportJmDokterParamedis($id_operator, $iol, $awal, $akhir)
+    {
+        $data['title']        = "Jasa Medis Paramedis";
+
+        $where = array(
+            'id_petugas'    => $id_operator,
+        );
+        $where1 = array(
+            'ksr_det_trn.id_ass_1'      => $id_operator,
+            'ksr_det_trn.iol'           => $iol,
+        );
+        $where2 = array(
+            'ksr_det_trn.id_ass_2'      => $id_operator,
+            'ksr_det_trn.iol'           => $iol,
+        );
+        $where3 = array(
+            'ksr_det_trn.id_penata'     => $id_operator,
+            'ksr_det_trn.iol'           => $iol,
+        );
+        $where4 = array(
+            'ksr_det_trn.id_on_loop'    => $id_operator,
+            'ksr_det_trn.iol'           => $iol,
+        );
+
+        $data['ass1']   = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where1)->result();
+        $data['ass2']   = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where2)->result();
+        $data['penata'] = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where3)->result();
+        $data['onloop'] = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where4)->result();
+
+        $data['data1']  = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where1)->num_rows();
+        $data['data2']  = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where2)->num_rows();
+        $data['data3']  = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where3)->num_rows();
+        $data['data4']  = $this->mSimetris->dataJasaMedisParamedis($awal, $akhir, $where4)->num_rows();
+
+        $nama_operator    = $this->mSimetris->selectData('psdi_petugas', 'nama', $where)->result();
+
+        foreach ($nama_operator as $d) {
+            $data['nama_operator'] = $d->nama;
+        }
+
+        $data['awal']           = $awal;
+        $data['akhir']          = $akhir;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('manajemen/vMenu', $data);
+        $this->load->view('manajemen/kasir/vExcelJasaMedisParamedis', $data);
         $this->load->view('templates/footer', $data);
     }
 }
