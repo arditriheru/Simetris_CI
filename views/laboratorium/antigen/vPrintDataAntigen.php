@@ -121,12 +121,12 @@
                   <left>
                     <p>
                       <strong>Interpretasi :</strong><br>
-                      - Hasil pemeriksaan POSITIF kemungkinan besar terinfeksi SARS CoV-2 (Covid-19)<br>
+                      - Hasil pemeriksaan POSITIF kemungkinan besar terinfeksi SARS CoV-2<br>
                       - Hasil positif palsu masih mungkin terjadi pada keadaan bahan pemeriksaan tercampur darah<br><br>
 
                       <strong>Saran :</strong><br>
-                      - Hasil pemeriksaan POSITIF perlu dikonfirmasi dengan pemeriksaan SWAB-PCR SARS CoV-2 (Covid-19)<br>
-                      - Isolasi sesuai dengan ketentuan sampai diperoleh hasil SWAB-PCR konklusif<br><br>
+                      - Hasil pemeriksaan POSITIF perlu dikonfirmasi dengan pemeriksaan RT-PCR SARS CoV-2<br>
+                      - Isolasi sesuai dengan ketentuan sampai dengan diperoleh hasil RT-PCR konklusif<br><br>
 
                       <strong>Catatan :</strong><br>
                       - Interpretrasi hasil harus dilakukan oleh dokter dengan mempertimbangkan data klinis dan epidemiologis<br>
@@ -139,11 +139,11 @@
                     <p>
                       <strong>Interpretasi :</strong><br>
                       - Hasil pemeriksaan hanya menggambarkan kondisi saat pengambilan spesimen<br>
-                      - Hasil pemeriksaan NEGATIF tidak menyingkirkan kemungkinan infeksi SARS CoV-2 (Covid-19) khusus bila ada kemungkinan kontak erat dengan kasus POSITIF<br>
+                      - Hasil pemeriksaan NEGATIF tidak menyingkirkan kemungkinan infeksi SARS CoV-2 khususnya bila ada kemungkinan kontak erat dengan kasus positif<br>
                       - Hasil NEGATIF dapat terjadi pada kondisi jumlah antigen pada bahan pemeriksaan rendah, dibawah level deteksi alat atau dalam masa inkubasi<br><br>
 
                       <strong>Saran :</strong><br>
-                      - Jika kecurigaan infeksi SARS CoV-2 (Covid-19), lanjutkan dengan pemeriksaan molekuler (SWAB-PCR), lakukan karantina mandiri sampai dengan hasil hasil test SWAB-PCR konklusif<br><br>
+                      - Jika kecurigaan infeksi SARS CoV-2 besar, lanjutkan dengan pemeriksaan molekuler (RT-PCR), lakukan karantina mandiri sampai dengan hasil hasil test RT-PCR konklusif<br><br>
 
                       <strong>Catatan :</strong><br>
                       - Interpretrasi hasil harus dilakukan oleh dokter dengan mempertimbangkan data klinis dan epidemiologis<br>
