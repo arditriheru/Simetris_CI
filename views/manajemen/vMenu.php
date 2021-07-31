@@ -18,12 +18,13 @@
       <?php if ($this->session->userdata('akses') == 'Admin') { ?>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-plus"></i> Jasa Medis <b class="caret"></b></a>
+            <i class="fa fa-plus"></i> JM Dokter <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo base_url('manajemen/dataJasaMedis/index/1') ?>">Rawat Jalan</a></li>
-            <li><a href="<?php echo base_url('manajemen/dataJasaMedis/index/2') ?>">Rawat Inap</a></li>
+            <li><a href="<?php echo base_url('manajemen/dataJasaMedis/jmDokterRalan') ?>">Rawat Jalan</a></li>
+            <li><a href="<?php echo base_url('manajemen/dataJasaMedis/jmDokterRanap') ?>">Rawat Inap</a></li>
           </ul>
         </li>
+        <li><a href="<?php echo base_url('manajemen/dataJasaMedis/dataTampilJmParamedis') ?>"><i class="fa fa-plus"></i> JM Paramedis</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-plus"></i> Farmasi <b class="caret"></b></a>
