@@ -35,10 +35,7 @@ class dataManajemen extends CI_Controller
 	public function exportCustom()
 	{
 		$data['data'] = $this->db->query("
-			SELECT SUBSTRING_INDEX(telp,'/',1) AS telp,id_catatan_medik, nama, nama_ortu, tgl_lahir
-			FROM mr_pasien
-			WHERE tgl_lahir BETWEEN '2019-02-15' AND '2021-02-15'
-			ORDER BY tgl_lahir ASC")->result();
+			SELECT nama FROM mr_pasien WHERE tgl_lahir BETWEEN '2020-06-18' AND '2021-06-18'")->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('manajemen/vMenu',$data);
@@ -48,5 +45,3 @@ class dataManajemen extends CI_Controller
 	}
 
 }
-
-?>
