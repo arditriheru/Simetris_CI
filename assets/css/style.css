@@ -1,0 +1,54 @@
+body{
+	font-family: sans-serif;
+	/*background-image : url("https://pendaftaran.rskiarachmi.co.id/images/bg.jpg");*/
+	background: #ffffff;
+}
+
+h1{
+	text-align: center;
+	/*ketebalan font*/
+	font-weight: 300;
+}
+
+.login_title{
+	text-align: center;
+	/*membuat semua huruf menjadi kapital*/
+	/*text-transform: uppercase;*/
+}
+
+.login_box{
+	width: 350px;
+	background: #ffffff;
+	/*meletakkan form ke tengah*/
+	margin: 80px auto;
+	padding: 30px 20px;
+}
+
+label{
+	font-size: 11pt;
+}
+
+.login_form{
+	/*membuat lebar form penuh*/
+	box-sizing : border-box;
+	width: 100%;
+	padding: 10px;
+	font-size: 11pt;
+	margin-bottom: 20px;
+}
+
+.login_submit{
+	background: #46de4b;
+	color: white;
+	font-size: 11pt;
+	width: 100%;
+	border: none;
+	border-radius: 3px;
+	padding: 10px 20px;
+}
+
+.link{
+	color: #232323;
+	text-decoration: none;
+	font-size: 10pt;
+}
