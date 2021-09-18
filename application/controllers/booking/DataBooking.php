@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class dataBooking extends CI_Controller
 {
@@ -7,9 +7,8 @@ class dataBooking extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('login') !='1')
-		{
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+		if ($this->session->userdata('login') != '1') {
+			$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Anda belum login</font>
 				</div>');
@@ -29,13 +28,13 @@ class dataBooking extends CI_Controller
 
 		$where1 = array('booking_tanggal' => $getDateNow);
 		$where2 = array('jadwal' => $getDateNow);
-		$data['totaldatapoli'] 		= $this->mSimetris->countData("booking",$where1);
-		$data['totaldatatumbang'] 	= $this->mSimetris->countData("tumbang",$where2);
-		$data['totaldataanc'] 		= $this->mSimetris->countData("anc",$where2);
+		$data['totaldatapoli'] 		= $this->mSimetris->countData("booking", $where1);
+		$data['totaldatatumbang'] 	= $this->mSimetris->countData("tumbang", $where2);
+		$data['totaldataanc'] 		= $this->mSimetris->countData("anc", $where2);
 		$data['dokterpoli'] 		= $this->mSimetris->dataDokterPoli($where1)->result();
 		$data['doktertumbang'] 		= $this->mSimetris->dataDokterTumbang($where2)->result();
 		$data['dokteranc'] 			= $this->mSimetris->dataDokterAnc($where2)->result();
-		$data['poli'] 				= $this->mSimetris->dataPoli($where1,"booking.id_sesi, dokter.nama_dokter, booking.id_booking ASC")->result();
+		$data['poli'] 				= $this->mSimetris->dataPoli($where1, "booking.id_sesi, dokter.nama_dokter, booking.id_booking ASC")->result();
 		$data['tumbang'] 			= $this->mSimetris->dataTumbang($where2)->result();
 		$data['anc'] 				= $this->mSimetris->dataAnc($where2)->result();
 
@@ -45,10 +44,10 @@ class dataBooking extends CI_Controller
 		$this->db->query("DELETE FROM tumbang WHERE DATEDIFF(CURDATE(), jadwal) > 62");
 		$this->db->query("DELETE FROM dokter_jadwal_libur WHERE DATEDIFF(CURDATE(), tanggal) > 1");
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataBooking',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vDataBooking', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function ubahDatangPoli($id)
@@ -56,7 +55,7 @@ class dataBooking extends CI_Controller
 		$data = array('status' => '1');
 		$where = array('id_booking' => $id);
 
-		$this->mSimetris->updateData('booking',$data,$where);
+		$this->mSimetris->updateData('booking', $data, $where);
 		redirect('booking/dataBooking/');
 	}
 
@@ -65,7 +64,7 @@ class dataBooking extends CI_Controller
 		$data = array('status' => '2');
 		$where = array('id_booking' => $id);
 
-		$this->mSimetris->updateData('booking',$data,$where);
+		$this->mSimetris->updateData('booking', $data, $where);
 		redirect('booking/dataBooking/');
 	}
 
@@ -74,7 +73,7 @@ class dataBooking extends CI_Controller
 		$data = array('status' => '1');
 		$where = array('id_tumbang' => $id);
 
-		$this->mSimetris->updateData('tumbang',$data,$where);
+		$this->mSimetris->updateData('tumbang', $data, $where);
 		redirect('booking/dataBooking/');
 	}
 
@@ -83,7 +82,7 @@ class dataBooking extends CI_Controller
 		$data = array('status' => '0');
 		$where = array('id_tumbang' => $id);
 
-		$this->mSimetris->updateData('tumbang',$data,$where);
+		$this->mSimetris->updateData('tumbang', $data, $where);
 		redirect('booking/dataBooking/');
 	}
 
@@ -92,7 +91,7 @@ class dataBooking extends CI_Controller
 		$data = array('status' => '1');
 		$where = array('id_anc' => $id);
 
-		$this->mSimetris->updateData('anc',$data,$where);
+		$this->mSimetris->updateData('anc', $data, $where);
 		redirect('booking/dataBooking/');
 	}
 
@@ -101,7 +100,7 @@ class dataBooking extends CI_Controller
 		$data = array('status' => '0');
 		$where = array('id_anc' => $id);
 
-		$this->mSimetris->updateData('anc',$data,$where);
+		$this->mSimetris->updateData('anc', $data, $where);
 		redirect('booking/dataBooking/');
 	}
 
@@ -114,11 +113,10 @@ class dataBooking extends CI_Controller
 			'id_booking' => $id
 		);
 
-		$data['poli'] 		= $this->mSimetris->dataPoli($where,"booking.id_booking ASC")->result();
-		$poli 				= $this->mSimetris->dataPoli($where,"booking.id_booking ASC")->result();
+		$data['poli'] 		= $this->mSimetris->dataPoli($where, "booking.id_booking ASC")->result();
+		$poli 				= $this->mSimetris->dataPoli($where, "booking.id_booking ASC")->result();
 
-		foreach ($poli as $d)
-		{
+		foreach ($poli as $d) {
 			$id_catatan_medik	= $d->id_catatan_medik;
 			$booking_tanggal 	= $d->booking_tanggal;
 			$id_dokter 			= $d->id_dokter;
@@ -126,18 +124,17 @@ class dataBooking extends CI_Controller
 		}
 
 		$data['dataalergi']		= $this->mSimetris->dataAlergi($id_catatan_medik)->result();
-		$result					= $this->mSimetris->dataPanggil($id,$id_dokter,$id_sesi,$booking_tanggal)->result();
+		$result					= $this->mSimetris->dataPanggil($id, $id_dokter, $id_sesi, $booking_tanggal)->result();
 
-		foreach ($result as $d)
-		{
+		foreach ($result as $d) {
 			$data['noant'] = $d->noant;
 		}
 
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataDetailPoli',$data,$id);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vDataDetailPoli', $data, $id);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function detailDataTumbang($id)
@@ -146,12 +143,12 @@ class dataBooking extends CI_Controller
 		$data['subtitle'] 	= "Tumbuh Kembang";
 
 		$where = array("id_tumbang" => $id);
-		$data['tumbang'] = $this->mSimetris->detailDataTumbang("tumbang",$where)->result();
+		$data['tumbang'] = $this->mSimetris->detailDataTumbang("tumbang", $where)->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataDetailTumbang',$data,$id);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vDataDetailTumbang', $data, $id);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function detailDataAnc($id)
@@ -160,12 +157,12 @@ class dataBooking extends CI_Controller
 		$data['subtitle'] 	= "ANC";
 
 		$where = array("id_anc" => $id);
-		$data['anc'] = $this->mSimetris->detailDataAnc("anc",$where)->result();
+		$data['anc'] = $this->mSimetris->detailDataAnc("anc", $where)->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataDetailAnc',$data,$id);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vDataDetailAnc', $data, $id);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function updateDataPoli($id)
@@ -177,12 +174,12 @@ class dataBooking extends CI_Controller
 			'id_booking' => $id
 		);
 
-		$data['datapoli'] = $this->mSimetris->dataPoli($where,"booking.id_booking ASC")->result();
+		$data['datapoli'] = $this->mSimetris->dataPoli($where, "booking.id_booking ASC")->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vUpdateDataPoli',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vUpdateDataPoli', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function updateDataPoliAksi()
@@ -206,49 +203,45 @@ class dataBooking extends CI_Controller
 			'id_booking' 		=> $id
 		);
 
-		$this->mSimetris->updateData('booking',$data,$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+		$this->mSimetris->updateData('booking', $data, $where);
+		$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil diupdate</font>
 			</div>');
-		redirect('booking/dataBooking/detailDataPoli/'.$id);
-
+		redirect('booking/dataBooking/detailDataPoli/' . $id);
 	}
 
 	public function deleteDataPoli($id)
 	{
 		$where = array('id_booking' => $id);
-		$this->mSimetris->deleteData('booking',$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+		$this->mSimetris->deleteData('booking', $where);
+		$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil dihapus</font>
 			</div>');
 		redirect('booking/dataBooking');
-
 	}
 
 	public function deleteDataTumbang($id)
 	{
 		$where = array('id_tumbang' => $id);
-		$this->mSimetris->deleteData('tumbang',$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+		$this->mSimetris->deleteData('tumbang', $where);
+		$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil dihapus</font>
 			</div>');
 		redirect('booking/dataBooking');
-
 	}
 
 	public function deleteDataAnc($id)
 	{
 		$where = array('id_anc' => $id);
-		$this->mSimetris->deleteData('anc',$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+		$this->mSimetris->deleteData('anc', $where);
+		$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil dihapus</font>
 			</div>');
 		redirect('booking/dataBooking');
-
 	}
 
 	public function tabDataPoli($id)
@@ -262,27 +255,32 @@ class dataBooking extends CI_Controller
 
 		$where1 = array(
 			'id_dokter' 				=> $id,
-			'booking_tanggal' 			=> $getDateNow);
+			'booking_tanggal' 			=> $getDateNow
+		);
 
 		$where2 = array(
 			'id_dokter' 				=> $id,
 			'id_sesi' 					=> 1,
-			'booking_tanggal' 			=> $getDateNow);
+			'booking_tanggal' 			=> $getDateNow
+		);
 
 		$where3 = array(
 			'id_dokter' 				=> $id,
 			'id_sesi' 					=> 2,
-			'booking_tanggal' 			=> $getDateNow);
+			'booking_tanggal' 			=> $getDateNow
+		);
 
 		$where4 = array(
 			'id_dokter' 				=> $id,
 			'id_sesi'					=> 3,
-			'booking_tanggal' 			=> $getDateNow);
+			'booking_tanggal' 			=> $getDateNow
+		);
 
 		$where5 = array(
 			'id_dokter' 				=> $id,
 			'id_sesi' 					=> 4,
-			'booking_tanggal' 			=> $getDateNow);
+			'booking_tanggal' 			=> $getDateNow
+		);
 
 
 		$where6 = array(
@@ -315,21 +313,21 @@ class dataBooking extends CI_Controller
 		);
 
 		$data['dokterpoli'] 	= $this->mSimetris->dataDokterPoli($where)->result();
-		$data['totaldatapoli'] 	= $this->mSimetris->countData("booking",$where1);
-		$data['totaldatapoli1'] = $this->mSimetris->countData("booking",$where2);
-		$data['totaldatapoli2'] = $this->mSimetris->countData("booking",$where3);
-		$data['totaldatapoli3'] = $this->mSimetris->countData("booking",$where4);
-		$data['totaldatapoli4'] = $this->mSimetris->countData("booking",$where5);
+		$data['totaldatapoli'] 	= $this->mSimetris->countData("booking", $where1);
+		$data['totaldatapoli1'] = $this->mSimetris->countData("booking", $where2);
+		$data['totaldatapoli2'] = $this->mSimetris->countData("booking", $where3);
+		$data['totaldatapoli3'] = $this->mSimetris->countData("booking", $where4);
+		$data['totaldatapoli4'] = $this->mSimetris->countData("booking", $where5);
 		$data['poli'] 			= $this->mSimetris->tabDataPoli($where6)->result();
 		$data['poli1'] 			= $this->mSimetris->tabDataPoli($where7)->result();
 		$data['poli2'] 			= $this->mSimetris->tabDataPoli($where8)->result();
 		$data['poli3'] 			= $this->mSimetris->tabDataPoli($where9)->result();
 		$data['poli4'] 			= $this->mSimetris->tabDataPoli($where10)->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataTabPoli',$data,$id);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vDataTabPoli', $data, $id);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function dataRegister()
@@ -337,11 +335,11 @@ class dataBooking extends CI_Controller
 		$data['title'] 		= "Registrasi";
 		$data['subtitle'] 	= "Poliklinik";
 
-		$getDateNow 		= getDateNow();		
+		$getDateNow 		= getDateNow();
 		$where1 			= array('booking.tanggal' 	=> $getDateNow);
 		$where2 			= array('tumbang.tanggal' 	=> $getDateNow);
 		$where3 			= array('anc.tanggal' 		=> $getDateNow);
-		$where4 			= array('booking.tanggal' 	=> $getDateNow,'booking.mandiri' => 1);
+		$where4 			= array('booking.tanggal' 	=> $getDateNow, 'booking.mandiri' => 1);
 		$data['poli'] 		= $this->mSimetris->dataRegisterPoli($where1)->result();
 		$data['tumbang'] 	= $this->mSimetris->dataRegisterTumbang($where2)->result();
 		$data['anc'] 		= $this->mSimetris->dataRegisterAnc($where3)->result();
@@ -351,34 +349,34 @@ class dataBooking extends CI_Controller
 		$data['jmlanc'] 	= $this->mSimetris->dataRegisterAnc($where3)->num_rows();
 		$data['jmlmandiri'] = $this->mSimetris->dataRegisterPoli($where4)->num_rows();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataRegister',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vDataRegister', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
-// proses tambah data booking poliklinik
+	// proses tambah data booking poliklinik
 
 	public function tambahDataPoli($id)
 	{
 		$data['id'] 		= $id;
 
-		if($id==1){
+		if ($id == 1) {
 			$data['title'] 	= "Lihat";
-		}else{
+		} else {
 			$data['title'] 	= "Tambah";
 		}
 
 		$data['subtitle'] 	= "Poliklinik";
 		$where 				= array('status' => 1);
-		$data['datadokter'] = $this->mSimetris->dataDokter("dokter",$where,"id_unit, nama_dokter ASC")->result();
+		$data['datadokter'] = $this->mSimetris->dataDokter("dokter.id_dokter AS id_dokter, dokter.nama_dokter AS nama_dokter", "dokter", $where, "nama_dokter ASC")->result();
 		$data['datasesi'] 	= $this->mSimetris->getData("sesi")->result();
 		$data['record'] 	= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataPoli',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataPoli', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataPoliRm()
@@ -388,16 +386,16 @@ class dataBooking extends CI_Controller
 
 		$id 				= $this->input->get('rm');
 		$where 				= array('id_catatan_medik' => $id);
-		$data['datapasien'] = $this->mSimetris->selectData('mr_pasien','*',$where)->result();
+		$data['datapasien'] = $this->mSimetris->selectData('mr_pasien', '*', $where)->result();
 		$where 				= array('status' => 1);
-		$data['datadokter'] = $this->mSimetris->datadokter("dokter",$where,"id_unit, nama_dokter ASC")->result();
+		$data['datadokter'] = $this->mSimetris->datadokter("dokter.id_dokter AS id_dokter, dokter.nama_dokter AS nama_dokter", "dokter", $where, "nama_dokter ASC")->result();
 		$data['datasesi'] 	= $this->mSimetris->getdata("sesi")->result();
 		$data['record'] 	= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataPoliRm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataPoliRm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataPoliCariNm()
@@ -407,12 +405,12 @@ class dataBooking extends CI_Controller
 
 		$id 				= $this->input->get('nm');
 		$keyword 			= array('nama' => $id);
-		$data['caripasien'] = $this->mSimetris->cariNamaPasienData('mr_pasien',$keyword)->result();
+		$data['caripasien'] = $this->mSimetris->cariNamaPasienData('mr_pasien', $keyword)->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataPoliCariNm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataPoliCariNm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataPoliNm($id)
@@ -421,16 +419,16 @@ class dataBooking extends CI_Controller
 		$data['subtitle'] 	= "Poliklinik";
 
 		$where 				= array('id_catatan_medik' => $id);
-		$data['datapasien'] = $this->mSimetris->selectData('mr_pasien','*',$where)->result();
+		$data['datapasien'] = $this->mSimetris->selectData('mr_pasien', '*', $where)->result();
 		$where 				= array('status' => 1);
-		$data['datadokter'] = $this->mSimetris->datadokter("dokter",$where,"id_unit, nama_dokter ASC")->result();
+		$data['datadokter'] = $this->mSimetris->datadokter("dokter.id_dokter AS id_dokter, dokter.nama_dokter AS nama_dokter", "dokter", $where, "nama_dokter ASC")->result();
 		$data['datasesi'] 	= $this->mSimetris->getdata("sesi")->result();
 		$data['record'] 	= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataPoliNm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataPoliNm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataPoliBaruAksi()
@@ -455,15 +453,13 @@ class dataBooking extends CI_Controller
 		$tgl2             = new DateTime("$booking_tanggal");
 		$selisih          = $tgl1->diff($tgl2)->format("%a");
 
-		if($selisih>30)
-		{
+		if ($selisih > 30) {
 
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+			$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Lebih dari 30 hari</font></div>');
-			redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-		}else{
+			redirect('booking/dataBooking/tambahDataPoli/' . $id);
+		} else {
 
 			$hari = date('w', strtotime($booking_tanggal));
 
@@ -473,10 +469,9 @@ class dataBooking extends CI_Controller
 				'hari' 		=> $hari,
 			);
 
-			$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where2);
+			$cekjadwal = $this->mSimetris->countData('dokter_jadwal', $where2);
 
-			if($cekjadwal>0)
-			{
+			if ($cekjadwal > 0) {
 
 				$where3 = array(
 					'id_dokter' => $id_dokter,
@@ -484,17 +479,15 @@ class dataBooking extends CI_Controller
 					'tanggal' 	=> $booking_tanggal,
 				);
 
-				$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur',$where3);
+				$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur', $where3);
 
-				if($ceklibur>0)
-				{
+				if ($ceklibur > 0) {
 
-					$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+					$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						<font size="4">Jadwal Dokter Cuti</font></div>');
-					redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-				}else{
+					redirect('booking/dataBooking/tambahDataPoli/' . $id);
+				} else {
 
 					$hari = date('w', strtotime($booking_tanggal));
 
@@ -504,8 +497,8 @@ class dataBooking extends CI_Controller
 						'id_sesi' 			=> $id_sesi,
 					);
 
-					$count = $this->mSimetris->countData('booking',$where4);
-					$noant = $count+1;
+					$count = $this->mSimetris->countData('booking', $where4);
+					$noant = $count + 1;
 
 					$where5 = array(
 						'id_dokter' => $id_dokter,
@@ -513,21 +506,18 @@ class dataBooking extends CI_Controller
 						'hari' 		=> $hari,
 					);
 
-					$kuota = $this->mSimetris->selectData('dokter_jadwal','kuota',$where5);
-					foreach($kuota->result() as $d)
-					{
+					$kuota = $this->mSimetris->selectData('dokter_jadwal', 'kuota', $where5);
+					foreach ($kuota->result() as $d) {
 						$cekkuota = $d->kuota;
 					}
 
-					if($noant>$cekkuota)
-					{
+					if ($noant > $cekkuota) {
 
-						$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+						$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<font size="4">Kuota Penuh</font></div>');
-						redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-					}else{
+						redirect('booking/dataBooking/tambahDataPoli/' . $id);
+					} else {
 
 						$data = array(
 
@@ -547,24 +537,20 @@ class dataBooking extends CI_Controller
 							'aktif' 			=> $aktif,
 						);
 
-						$this->mSimetris->insertData('booking',$data);
-						$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+						$this->mSimetris->insertData('booking', $data);
+						$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
-							'.$noant.'</b></font></div>');
-						redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
+							' . $noant . '</b></font></div>');
+						redirect('booking/dataBooking/tambahDataPoli/' . $id);
 					}
-
 				}
+			} else {
 
-			}else{
-
-				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<font size="4">Jadwal Dokter Kosong</font></div>');
-				redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
+				redirect('booking/dataBooking/tambahDataPoli/' . $id);
 			}
 		}
 	}
@@ -591,32 +577,28 @@ class dataBooking extends CI_Controller
 		$tgl2             = new DateTime("$booking_tanggal");
 		$selisih          = $tgl1->diff($tgl2)->format("%a");
 
-		if($selisih>30)
-		{
+		if ($selisih > 30) {
 
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+			$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Lebih dari 30 hari</font></div>');
-			redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-		}else{
+			redirect('booking/dataBooking/tambahDataPoli/' . $id);
+		} else {
 
 			$where1 = array(
 				'id_catatan_medik' 	=> $id_catatan_medik,
 				'booking_tanggal' 	=> $booking_tanggal,
 			);
 
-			$cekdaftar = $this->mSimetris->countData('booking',$where1);
+			$cekdaftar = $this->mSimetris->countData('booking', $where1);
 
-			if($cekdaftar>0)
-			{
+			if ($cekdaftar > 0) {
 
-				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<font size="4">Sudah Mendaftar Sebelumnya</font></div>');
-				redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-			}else{
+				redirect('booking/dataBooking/tambahDataPoli/' . $id);
+			} else {
 
 				$hari = date('w', strtotime($booking_tanggal));
 
@@ -626,10 +608,9 @@ class dataBooking extends CI_Controller
 					'hari' 		=> $hari,
 				);
 
-				$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where2);
+				$cekjadwal = $this->mSimetris->countData('dokter_jadwal', $where2);
 
-				if($cekjadwal>0)
-				{
+				if ($cekjadwal > 0) {
 
 					$where3 = array(
 						'id_dokter' => $id_dokter,
@@ -637,17 +618,15 @@ class dataBooking extends CI_Controller
 						'tanggal' 	=> $booking_tanggal,
 					);
 
-					$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur',$where3);
+					$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur', $where3);
 
-					if($ceklibur>0)
-					{
+					if ($ceklibur > 0) {
 
-						$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+						$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<font size="4">Jadwal Dokter Cuti</font></div>');
-						redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-					}else{
+						redirect('booking/dataBooking/tambahDataPoli/' . $id);
+					} else {
 
 						$hari = date('w', strtotime($booking_tanggal));
 
@@ -657,8 +636,8 @@ class dataBooking extends CI_Controller
 							'id_sesi' 			=> $id_sesi,
 						);
 
-						$count = $this->mSimetris->countData('booking',$where4);
-						$noant = $count+1;
+						$count = $this->mSimetris->countData('booking', $where4);
+						$noant = $count + 1;
 
 						$where5 = array(
 							'id_dokter' => $id_dokter,
@@ -666,21 +645,18 @@ class dataBooking extends CI_Controller
 							'hari' 		=> $hari,
 						);
 
-						$kuota = $this->mSimetris->selectData('dokter_jadwal','kuota',$where5);
-						foreach($kuota->result() as $d)
-						{
+						$kuota = $this->mSimetris->selectData('dokter_jadwal', 'kuota', $where5);
+						foreach ($kuota->result() as $d) {
 							$cekkuota = $d->kuota;
 						}
 
-						if($noant>$cekkuota)
-						{
+						if ($noant > $cekkuota) {
 
-							$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+							$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 								<font size="4">Kuota Penuh</font></div>');
-							redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-						}else{
+							redirect('booking/dataBooking/tambahDataPoli/' . $id);
+						} else {
 
 							$data = array(
 
@@ -700,30 +676,23 @@ class dataBooking extends CI_Controller
 								'aktif' 			=> $aktif,
 							);
 
-							$this->mSimetris->insertData('booking',$data);
-							$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+							$this->mSimetris->insertData('booking', $data);
+							$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 								<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
-								'.$noant.'</b></font></div>');
-							redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
+								' . $noant . '</b></font></div>');
+							redirect('booking/dataBooking/tambahDataPoli/' . $id);
 						}
-
 					}
+				} else {
 
-				}else{
-
-					$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+					$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						<font size="4">Jadwal Dokter Kosong</font></div>');
-					redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
+					redirect('booking/dataBooking/tambahDataPoli/' . $id);
 				}
-
 			}
-
 		}
-
 	}
 
 	public function cariDataPoliAksi()
@@ -738,24 +707,22 @@ class dataBooking extends CI_Controller
 			'booking.booking_tanggal' 	=> $booking_tanggal,
 		);
 
-		$data['booking'] 		= $this->mSimetris->dataPoli($where,"booking.id_booking ASC")->result();
+		$data['booking'] 		= $this->mSimetris->dataPoli($where, "booking.id_booking ASC")->result();
 
-		if(isset($id_dokter)) 
-		{
-			$data['title'] 		= $this->mSimetris->dataPoli($where,"booking.id_booking ASC")->num_rows()." Pasien";
+		if (isset($id_dokter)) {
+			$data['title'] 		= $this->mSimetris->dataPoli($where, "booking.id_booking ASC")->num_rows() . " Pasien";
 			$data['subtitle'] 	= formatDateIndo($booking_tanggal);
-
 		}
 
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+		$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil ditampilkan</font>
 			</div>');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataPoli',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataPoli', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	// proses tambah data booking tumbuh kembang
@@ -764,22 +731,22 @@ class dataBooking extends CI_Controller
 	{
 		$data['id'] = $id;
 
-		if($id==1){
+		if ($id == 1) {
 			$data['title'] 		= "Lihat";
-		}else{
+		} else {
 			$data['title'] 		= "Tambah";
 		}
 
 		$data['subtitle'] 		= "Tumbuh Kembang";
-		$where 					= array('pelayanan' => 1,'status' => 1);
-		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas",$where,"nama_petugas ASC")->result();
+		$where 					= array('status' => 1);
+		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas.id_petugas AS id_petugas, mr_petugas.nama_petugas AS nama_petugas", "mr_petugas", $where, "nama_petugas ASC")->result();
 		$data['datasesi'] 		= $this->mSimetris->getData("sesi")->result();
 		$data['record'] 		= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataTumbang',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataTumbang', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataTumbangRm()
@@ -791,16 +758,16 @@ class dataBooking extends CI_Controller
 
 		$where = array('id_catatan_medik' => $id);
 
-		$data['datapasien'] 	= $this->mSimetris->selectData('mr_pasien','*',$where)->result();
-		$where 					= array('pelayanan' => 1,'status' => 1);
-		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas",$where,"nama_petugas ASC")->result();
+		$data['datapasien'] 	= $this->mSimetris->selectData('mr_pasien', '*', $where)->result();
+		$where 					= array('status' => 1);
+		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas.id_petugas AS id_petugas, mr_petugas.nama_petugas AS nama_petugas", "mr_petugas", $where, "nama_petugas ASC")->result();
 		$data['datasesi'] 		= $this->mSimetris->getData("sesi")->result();
 		$data['record'] 		= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataTumbangRm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataTumbangRm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataTumbangCariNm()
@@ -812,12 +779,12 @@ class dataBooking extends CI_Controller
 
 		$keyword = array('nama' => $id);
 
-		$data['caripasien'] = $this->mSimetris->cariNamaPasienData('mr_pasien',$keyword)->result();
+		$data['caripasien'] = $this->mSimetris->cariNamaPasienData('mr_pasien', $keyword)->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataTumbangCariNm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataTumbangCariNm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataTumbangNm($id)
@@ -827,16 +794,16 @@ class dataBooking extends CI_Controller
 
 		$where = array('id_catatan_medik' => $id);
 
-		$data['datapasien'] 	= $this->mSimetris->selectData('mr_pasien','*',$where)->result();
-		$where 					= array('pelayanan' => 1,'status' => 1);
-		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas",$where,"nama_petugas ASC")->result();
+		$data['datapasien'] 	= $this->mSimetris->selectData('mr_pasien', '*', $where)->result();
+		$where 					= array('status' => 1);
+		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas.id_petugas AS id_petugas, mr_petugas.nama_petugas AS nama_petugas", "mr_petugas", $where, "nama_petugas ASC")->result();
 		$data['datasesi'] 		= $this->mSimetris->getData("sesi")->result();
 		$data['record'] 		= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataTumbangNm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataTumbangNm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function cariDataTumbangAksi()
@@ -853,21 +820,20 @@ class dataBooking extends CI_Controller
 
 		$data['tumbang'] 		= $this->mSimetris->dataTumbang($where)->result();
 
-		if(isset($id_petugas)) 
-		{
-			$data['title'] 		= $this->mSimetris->dataTumbang($where)->num_rows()." Pasien";
+		if (isset($id_petugas)) {
+			$data['title'] 		= $this->mSimetris->dataTumbang($where)->num_rows() . " Pasien";
 			$data['subtitle'] 	= formatDateIndo($jadwal);
 		}
 
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+		$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil ditampilkan</font>
 			</div>');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataTumbang',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataTumbang', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataTumbangBaruAksi()
@@ -889,15 +855,13 @@ class dataBooking extends CI_Controller
 		$tgl2             = new DateTime("$jadwal");
 		$selisih          = $tgl1->diff($tgl2)->format("%a");
 
-		if($selisih>30)
-		{
+		if ($selisih > 30) {
 
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+			$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Lebih dari 30 hari</font></div>');
-			redirect('booking/dataBooking/tambahDataTumbang/'.$id);
-
-		}else{
+			redirect('booking/dataBooking/tambahDataTumbang/' . $id);
+		} else {
 
 			$where2 = array(
 				'jadwal' 			=> $jadwal,
@@ -905,8 +869,8 @@ class dataBooking extends CI_Controller
 				'id_sesi' 			=> $id_sesi,
 			);
 
-			$count = $this->mSimetris->countData('tumbang',$where2);
-			$noant = $count+1;
+			$count = $this->mSimetris->countData('tumbang', $where2);
+			$noant = $count + 1;
 
 			$data = array(
 
@@ -924,15 +888,13 @@ class dataBooking extends CI_Controller
 
 			);
 
-			$this->mSimetris->insertData('tumbang',$data);
-			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+			$this->mSimetris->insertData('tumbang', $data);
+			$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
-				'.$noant.'</b></font></div>');
-			redirect('booking/dataBooking/tambahDataTumbang/'.$id);
-
+				' . $noant . '</b></font></div>');
+			redirect('booking/dataBooking/tambahDataTumbang/' . $id);
 		}
-
 	}
 
 	public function tambahDataTumbangLamaAksi()
@@ -954,15 +916,13 @@ class dataBooking extends CI_Controller
 		$tgl2             = new DateTime("$jadwal");
 		$selisih          = $tgl1->diff($tgl2)->format("%a");
 
-		if($selisih>30)
-		{
+		if ($selisih > 30) {
 
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+			$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Lebih dari 30 hari</font></div>');
-			redirect('booking/dataBooking/tambahDataTumbang/'.$id);
-
-		}else{
+			redirect('booking/dataBooking/tambahDataTumbang/' . $id);
+		} else {
 
 			$where1 = array(
 				'id_catatan_medik' 	=> $id_catatan_medik,
@@ -971,17 +931,15 @@ class dataBooking extends CI_Controller
 				'id_sesi' 			=> $id_sesi,
 			);
 
-			$cekdaftar = $this->mSimetris->countData('tumbang',$where1);
+			$cekdaftar = $this->mSimetris->countData('tumbang', $where1);
 
-			if($cekdaftar>0)
-			{
+			if ($cekdaftar > 0) {
 
-				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<font size="4">Sudah Mendaftar Sebelumnya</font></div>');
-				redirect('booking/dataBooking/tambahDataTumbang/'.$id);
-
-			}else{
+				redirect('booking/dataBooking/tambahDataTumbang/' . $id);
+			} else {
 
 				$where2 = array(
 					'jadwal' 			=> $jadwal,
@@ -989,8 +947,8 @@ class dataBooking extends CI_Controller
 					'id_sesi' 			=> $id_sesi,
 				);
 
-				$count = $this->mSimetris->countData('tumbang',$where2);
-				$noant = $count+1;
+				$count = $this->mSimetris->countData('tumbang', $where2);
+				$noant = $count + 1;
 
 				$data = array(
 
@@ -1008,16 +966,14 @@ class dataBooking extends CI_Controller
 
 				);
 
-				$this->mSimetris->insertData('tumbang',$data);
-				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+				$this->mSimetris->insertData('tumbang', $data);
+				$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
-					'.$noant.'</b></font></div>');
-				redirect('booking/dataBooking/tambahDataTumbang/'.$id);
-
+					' . $noant . '</b></font></div>');
+				redirect('booking/dataBooking/tambahDataTumbang/' . $id);
 			}
 		}
-
 	}
 
 	public function updateDataTumbang($id)
@@ -1029,12 +985,12 @@ class dataBooking extends CI_Controller
 			'id_tumbang' => $id
 		);
 
-		$data['data'] = $this->mSimetris->dataTumbang($where,"tumbang.id_tumbang ASC")->result();
+		$data['data'] = $this->mSimetris->dataTumbang($where, "tumbang.id_tumbang ASC")->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vUpdateDataTumbang',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vUpdateDataTumbang', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function updateDataTumbangAksi()
@@ -1058,37 +1014,36 @@ class dataBooking extends CI_Controller
 			'id_tumbang' 		=> $id
 		);
 
-		$this->mSimetris->updateData('tumbang',$data,$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+		$this->mSimetris->updateData('tumbang', $data, $where);
+		$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil diupdate</font>
 			</div>');
-		redirect('booking/dataBooking/detailDataTumbang/'.$id);
-
+		redirect('booking/dataBooking/detailDataTumbang/' . $id);
 	}
 
-// proses tambah data booking ANC terpadu
+	// proses tambah data booking ANC terpadu
 
 	public function tambahDataAnc($id)
 	{
 		$data['id'] = $id;
 
-		if($id==1){
+		if ($id == 1) {
 			$data['title'] 		= "Lihat";
-		}else{
+		} else {
 			$data['title'] 		= "Tambah";
 		}
 
 		$data['subtitle'] 		= "ANC Terpadu";
-		$where 					= array('pelayanan' => 2,'status' => 1);
-		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas",$where,"nama_petugas ASC")->result();
+		$where 					= array('status' => 1);
+		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas.id_petugas AS id_petugas, mr_petugas.nama_petugas AS nama_petugas", "mr_petugas", $where, "nama_petugas ASC")->result();
 		$data['datasesi'] 		= $this->mSimetris->getData("sesi")->result();
 		$data['record'] 		= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataAnc',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataAnc', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataAncRm()
@@ -1098,16 +1053,16 @@ class dataBooking extends CI_Controller
 
 		$id 					= $this->input->get('rm');
 		$where 					= array('id_catatan_medik' => $id);
-		$data['datapasien'] 	= $this->mSimetris->selectData('mr_pasien','*',$where)->result();
-		$where 					= array('pelayanan' => 2,'status' => 1);
-		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas",$where,"nama_petugas ASC")->result();
+		$data['datapasien'] 	= $this->mSimetris->selectData('mr_pasien', '*', $where)->result();
+		$where 					= array('status' => 1);
+		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas.id_petugas AS id_petugas, mr_petugas.nama_petugas AS nama_petugas", "mr_petugas", $where, "nama_petugas ASC")->result();
 		$data['datasesi'] 		= $this->mSimetris->getData("sesi")->result();
 		$data['record'] 		= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataAncRm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataAncRm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataAncCariNm()
@@ -1119,12 +1074,12 @@ class dataBooking extends CI_Controller
 
 		$keyword 			= array('nama' => $id);
 
-		$data['caripasien'] = $this->mSimetris->cariNamaPasienData('mr_pasien',$keyword)->result();
+		$data['caripasien'] = $this->mSimetris->cariNamaPasienData('mr_pasien', $keyword)->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataAncCariNm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataAncCariNm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataAncNm($id)
@@ -1133,16 +1088,16 @@ class dataBooking extends CI_Controller
 		$data['subtitle'] 	= "ANC Terpadu";
 
 		$where 					= array('id_catatan_medik' => $id);
-		$data['datapasien'] 	= $this->mSimetris->selectData('mr_pasien','*',$where)->result();
-		$where 					= array('pelayanan' => 2,'status' => 1);
-		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas",$where,"nama_petugas ASC")->result();
+		$data['datapasien'] 	= $this->mSimetris->selectData('mr_pasien', '*', $where)->result();
+		$where 					= array('status' => 1);
+		$data['datapetugas'] 	= $this->mSimetris->datapetugas("mr_petugas.id_petugas AS id_petugas, mr_petugas.nama_petugas AS nama_petugas", "mr_petugas", $where, "nama_petugas ASC")->result();
 		$data['datasesi'] 		= $this->mSimetris->getData("sesi")->result();
 		$data['record'] 		= $this->mSimetris->getData('mr_pasien');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataAncNm',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataAncNm', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function cariDataAncAksi()
@@ -1159,21 +1114,20 @@ class dataBooking extends CI_Controller
 
 		$data['anc'] = $this->mSimetris->dataAnc($where)->result();
 
-		if(isset($id_petugas)) 
-		{
-			$data['title'] 		= $this->mSimetris->dataAnc($where)->num_rows()." Pasien";
+		if (isset($id_petugas)) {
+			$data['title'] 		= $this->mSimetris->dataAnc($where)->num_rows() . " Pasien";
 			$data['subtitle'] 	= formatDateIndo($jadwal);
 		}
 
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+		$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil ditampilkan</font>
 			</div>');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataAnc',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vTambahDataAnc', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function tambahDataAncBaruAksi()
@@ -1195,15 +1149,13 @@ class dataBooking extends CI_Controller
 		$tgl2             = new DateTime("$jadwal");
 		$selisih          = $tgl1->diff($tgl2)->format("%a");
 
-		if($selisih>30)
-		{
+		if ($selisih > 30) {
 
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+			$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Lebih dari 30 hari</font></div>');
-			redirect('booking/dataBooking/tambahDataAnc/'.$id);
-
-		}else{
+			redirect('booking/dataBooking/tambahDataAnc/' . $id);
+		} else {
 
 			$where2 = array(
 				'jadwal' 			=> $jadwal,
@@ -1211,8 +1163,8 @@ class dataBooking extends CI_Controller
 				'id_sesi' 			=> $id_sesi,
 			);
 
-			$count = $this->mSimetris->countData('anc',$where2);
-			$noant = $count+1;
+			$count = $this->mSimetris->countData('anc', $where2);
+			$noant = $count + 1;
 
 			$data = array(
 
@@ -1230,15 +1182,13 @@ class dataBooking extends CI_Controller
 
 			);
 
-			$this->mSimetris->insertData('anc',$data);
-			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+			$this->mSimetris->insertData('anc', $data);
+			$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
-				'.$noant.'</b></font></div>');
-			redirect('booking/dataBooking/tambahDataAnc/'.$id);
-
+				' . $noant . '</b></font></div>');
+			redirect('booking/dataBooking/tambahDataAnc/' . $id);
 		}
-
 	}
 
 	public function tambahDataAncLamaAksi()
@@ -1260,15 +1210,13 @@ class dataBooking extends CI_Controller
 		$tgl2             = new DateTime("$jadwal");
 		$selisih          = $tgl1->diff($tgl2)->format("%a");
 
-		if($selisih>30)
-		{
+		if ($selisih > 30) {
 
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+			$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<font size="4">Lebih dari 30 hari</font></div>');
-			redirect('booking/dataBooking/tambahDataAnc/'.$id);
-
-		}else{
+			redirect('booking/dataBooking/tambahDataAnc/' . $id);
+		} else {
 
 			$where1 = array(
 				'id_catatan_medik' 	=> $id_catatan_medik,
@@ -1277,17 +1225,15 @@ class dataBooking extends CI_Controller
 				'id_sesi' 			=> $id_sesi,
 			);
 
-			$cekdaftar = $this->mSimetris->countData('anc',$where1);
+			$cekdaftar = $this->mSimetris->countData('anc', $where1);
 
-			if($cekdaftar>0)
-			{
+			if ($cekdaftar > 0) {
 
-				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				$this->session->set_flashdata('alert', '<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<font size="4">Sudah Mendaftar Sebelumnya</font></div>');
-				redirect('booking/dataBooking/tambahDataAnc/'.$id);
-
-			}else{
+				redirect('booking/dataBooking/tambahDataAnc/' . $id);
+			} else {
 
 				$where2 = array(
 					'jadwal' 			=> $jadwal,
@@ -1295,8 +1241,8 @@ class dataBooking extends CI_Controller
 					'id_sesi' 			=> $id_sesi,
 				);
 
-				$count = $this->mSimetris->countData('anc',$where2);
-				$noant = $count+1;
+				$count = $this->mSimetris->countData('anc', $where2);
+				$noant = $count + 1;
 
 				$data = array(
 
@@ -1314,16 +1260,14 @@ class dataBooking extends CI_Controller
 
 				);
 
-				$this->mSimetris->insertData('anc',$data);
-				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+				$this->mSimetris->insertData('anc', $data);
+				$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
-					'.$noant.'</b></font></div>');
-				redirect('booking/dataBooking/tambahDataAnc/'.$id);
-
+					' . $noant . '</b></font></div>');
+				redirect('booking/dataBooking/tambahDataAnc/' . $id);
 			}
 		}
-
 	}
 
 	public function updateDataAnc($id)
@@ -1335,12 +1279,12 @@ class dataBooking extends CI_Controller
 			'id_anc' => $id
 		);
 
-		$data['data'] = $this->mSimetris->dataAnc($where,"anc.id_anc ASC")->result();
+		$data['data'] = $this->mSimetris->dataAnc($where, "anc.id_anc ASC")->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vUpdateDataAnc',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vUpdateDataAnc', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function updateDataAncAksi()
@@ -1364,13 +1308,12 @@ class dataBooking extends CI_Controller
 			'id_anc' 		=> $id
 		);
 
-		$this->mSimetris->updateData('anc',$data,$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+		$this->mSimetris->updateData('anc', $data, $where);
+		$this->session->set_flashdata('alert', '<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil diupdate</font>
 			</div>');
-		redirect('booking/dataBooking/detailDataAnc/'.$id);
-
+		redirect('booking/dataBooking/detailDataAnc/' . $id);
 	}
 
 	public function dataRedZone()
@@ -1378,19 +1321,16 @@ class dataBooking extends CI_Controller
 		$data['title'] 		= "Redzone";
 		$data['subtitle'] 	= "COVID-19";
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vRedZone',$data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('booking/vMenu', $data);
+		$this->load->view('booking/vRedZone', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 	public function _rules()
 	{
-		$this->form_validation->set_rules('id_catatan_medik','nomor rekam medik','required');
-		$this->form_validation->set_rules('id_dokter','nama dokter','required');
-		$this->form_validation->set_rules('id_sesi','nama sesi','required');
+		$this->form_validation->set_rules('id_catatan_medik', 'nomor rekam medik', 'required');
+		$this->form_validation->set_rules('id_dokter', 'nama dokter', 'required');
+		$this->form_validation->set_rules('id_sesi', 'nama sesi', 'required');
 	}
-
 }
-
-?>

@@ -14,8 +14,8 @@
           <?php $this->load->view('templates/welcome') ?>
           <?php echo $this->session->flashdata('alert') ?>
         </div>
-        
-        <?php if(!isset($antibody)){ ?>
+
+        <?php if (!isset($antibody)) { ?>
           <div class="col-lg-6">
             <div class="table-responsive">
               <form method="post" action="<?php echo base_url('laboratorium/dataAntibody/lapCariDataAksi') ?>" role="form">
@@ -31,7 +31,7 @@
               </form>
             </div>
           </div>
-        <?php }else{ ?>
+        <?php } else { ?>
           <div class="col-lg-12">
             <div class="col-lg-6">
               <form method="post" action="<?php echo base_url('laboratorium/dataAntibody/excelData') ?>" role="form">
@@ -48,36 +48,29 @@
                     <th class="text-center">Tanggal</i></th>
                     <th class="text-center">No.RM</i></th>
                     <th class="text-center">Nama Pasien</i></th>
-                    <th class="text-center">Unit</th>
                     <th class="text-center">IgM</i></th>
                     <th class="text-center">IgG</i></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $no = 1; foreach ($antibody as $r) : ?>
-                  <tr>
-                    <td class="text-center"><?php echo $no++; ?></td>
-                    <td class="text-center"><?php echo $r->tanggal;
-                    ?></td>
-                    <td class="text-center"><?php echo $r->id_catatan_medik;
-                    ?></td>
-                    <td class="text-center"><?php echo $r->nama;
-                    ?></td>
-                    <td class="text-center"><?php echo $r->nama_unit;
-                    ?></td>
-                    <td class="text-center"><?php echo $r->hasil_igm;
-                    ?></td>
-                    <td class="text-center"><?php echo $r->hasil_igg;
-                    ?></td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
+                  <?php $no = 1;
+                  foreach ($antibody as $r) : ?>
+                    <tr>
+                      <td class="text-center"><?php echo $no++; ?></td>
+                      <td class="text-center"><?php echo formatDateIndo($r->tgl_periksa); ?></td>
+                      <td class="text-center"><?php echo $r->id_catatan_medik; ?></td>
+                      <td class="text-center"><?php echo $r->nama_pasien; ?></td>
+                      <td class="text-center"><?php echo $r->nama_igm; ?></td>
+                      <td class="text-center"><?php echo $r->nama_igg; ?></td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      <?php } ?>
-    </div><!-- /.row -->
+        <?php } ?>
+      </div><!-- /.row -->
 
-  </div><!-- /#page-wrapper -->
+    </div><!-- /#page-wrapper -->
 
-  <!--</div> /#wrapper -->
+    <!--</div> /#wrapper -->

@@ -33,7 +33,7 @@ class dataVaksin extends CI_Controller
 				'status' 	=> 1
 			);
 			
-			$data['datadokter'] = $this->mSimetris->dataDokter("dokter",$where,"nama_dokter ASC")->result();
+			$data['datadokter'] = $this->mSimetris->dataDokter("dokter.id_dokter AS id_dokter, dokter.nama_dokter AS nama_dokter", "dokter",$where,"nama_dokter ASC")->result();
 			$data['datavaksin'] = $this->mSimetris->dataNamaVaksin()->result();
 			$data['record']		= $this->mSimetris->getData('mr_pasien');
 			
@@ -132,5 +132,3 @@ class dataVaksin extends CI_Controller
 	} 
 
 }
-
-?>
