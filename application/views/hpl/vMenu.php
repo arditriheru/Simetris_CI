@@ -8,7 +8,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a href="https://instagram.com/arditriheru" class="navbar-brand" target="_blank"><strong>SIMETRIS </strong><small>HPL</small></a>
+    <a href="https://arditriheru.github.io/" class="navbar-brand" target="_blank"><strong>SIMETRIS </strong><small>HPL</small></a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,7 +28,7 @@
 
       <ul class="nav navbar-nav navbar-right navbar-user">
         <li>
-          <a href="https://instagram.com/arditriheru" target="_blank">
+          <a href="https://arditriheru.github.io/" target="_blank">
             <span class="label label-success">ONLINE</span>
           </a>
         </li>
