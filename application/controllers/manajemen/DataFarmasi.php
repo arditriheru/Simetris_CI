@@ -101,16 +101,16 @@ class dataFarmasi extends CI_Controller
 			$data['tgl_akhir'] 	= $tgl_akhir;
 			$data['id_catatan_medik'] 	= $id_catatan_medik;
 
-			if (isset($id_catatan_medik)) {
+			if (empty($id_catatan_medik)) {
 				$where = array(
 					'far_trn.tanggal >=' => $tgl_awal,
 					'far_trn.tanggal <=' => $tgl_akhir,
-					'far_trn.id_catatan_medik' => $id_catatan_medik,
 				);
 			} else {
 				$where = array(
 					'far_trn.tanggal >=' => $tgl_awal,
 					'far_trn.tanggal <=' => $tgl_akhir,
+					'far_trn.id_catatan_medik' => $id_catatan_medik,
 				);
 			}
 
@@ -131,16 +131,16 @@ class dataFarmasi extends CI_Controller
 		$data['tgl_awal'] 	= $tgl_awal;
 		$data['tgl_akhir'] 	= $tgl_akhir;
 
-		if (isset($id_catatan_medik)) {
+		if (empty($id_catatan_medik)) {
 			$where = array(
 				'far_trn.tanggal >=' => $tgl_awal,
 				'far_trn.tanggal <=' => $tgl_akhir,
-				'far_trn.id_catatan_medik' => $id_catatan_medik,
 			);
 		} else {
 			$where = array(
 				'far_trn.tanggal >=' => $tgl_awal,
 				'far_trn.tanggal <=' => $tgl_akhir,
+				'far_trn.id_catatan_medik' => $id_catatan_medik,
 			);
 		}
 
