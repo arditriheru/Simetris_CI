@@ -15,7 +15,7 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
       <li><a href="<?php echo base_url('manajemen/dataManajemen') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <?php if ($this->session->userdata('akses') == 'Admin') { ?>
+      <?php if ($this->session->userdata('id_unit') == 9) { ?>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-plus"></i> JM Dokter <b class="caret"></b></a>
@@ -25,6 +25,7 @@
           </ul>
         </li>
         <li><a href="<?php echo base_url('manajemen/dataJasaMedis/dataTampilJmParamedis') ?>"><i class="fa fa-plus"></i> JM Paramedis</a></li>
+      <?php } elseif ($this->session->userdata('id_unit') == 4) { ?>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-plus"></i> Farmasi <b class="caret"></b></a>
