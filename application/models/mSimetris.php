@@ -41,6 +41,20 @@ class mSimetris extends CI_Model
 		$this->db->delete($table);
 	}
 
+	public function login($select, $from, $where)
+	{
+		$query = $this->db->select($select)
+			->where($where)
+			->limit('1')
+			->get($from);
+
+		if ($query->num_rows() > 0) {
+			return $query->row();
+		} else {
+			return FALSE;
+		}
+	}
+
 	public function cekLogin()
 	{
 		$username = set_value('username');
@@ -1021,5 +1035,17 @@ class mSimetris extends CI_Model
 		$this->db->order_by('ksr_det_trn.id_ksr_det_trn ASC');
 
 		return $this->db->get();
+	}
+
+	function dataPemakaianObat($where)
+	{
+		$query = $this->db->select('far_trn.id_register, mr_pasien.id_catatan_medik, mr_pasien.nama, far_stok.nama AS nama_obat, far_trn.tanggal, far_det_trn_fix.qty, far_det_trn_fix.harga AS harga_satuan, far_det_trn_fix.subtotal')
+			->from('far_trn')
+			->join('far_det_trn_fix', 'far_trn.id_far_trn = far_det_trn_fix.id_far_trn')
+			->join('far_stok', 'far_det_trn_fix.id_obat = far_stok.no_urut')
+			->join('mr_pasien', 'far_trn.id_catatan_medik = mr_pasien.id_catatan_medik')
+			->where($where)
+			->get();
+		return $query;
 	}
 }
