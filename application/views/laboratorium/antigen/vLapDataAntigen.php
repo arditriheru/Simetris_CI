@@ -59,7 +59,7 @@
                     ?></td>
                     <td class="text-center"><?php echo $d->id_catatan_medik;
                     ?></td>
-                    <td class="text-center"><?php echo $d->nama_pasien; ?>
+                    <td class="text-center"><?php echo $d->nama_pasien2; ?>
                       <td class="text-center"><?php echo $d->nama_hasil;
                       ?></td>
                     </tr>

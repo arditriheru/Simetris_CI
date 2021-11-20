@@ -610,7 +610,7 @@ class mSimetris extends CI_Model
 	function ExcelDataAntigen($awal, $akhir)
 	{
 		$query = $this->db->query("
-		SELECT *, test_antigen.tanggal AS tgl_periksa, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
+		SELECT *, test_antigen.nama AS nama_pasien2, test_antigen.tanggal AS tgl_periksa, mr_pasien.nama AS nama_pasien, mr_dokter.nama_dokter, psdi_petugas.nama AS nama_petugas,
 		IF(mr_pasien.sex='1', 'Laki-laki', 'Perempuan') AS nama_sex,
 		CASE
 		WHEN test_antigen.hasil=0 THEN 'Negatif'

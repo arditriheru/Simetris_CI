@@ -25,7 +25,7 @@ header("Content-Disposition: attachment; filename=laporan-pasien-rapidtest ".dat
         <td><div align="center"><?php echo formatDateIndo($d->tgl_periksa)." / ".$d->jam;
         ?></div></td>
         <td><div align="center"><?php echo $d->id_catatan_medik; ?></div></td>
-        <td><div align="center"><?php echo $d->nama_pasien; ?></div></td>
+        <td><div align="center"><?php echo $d->nama_pasien2; ?></div></td>
         <td><div align="center"><?php echo $d->nama_hasil; ?></div></td>
       </tr>
     <?php endforeach ?>
