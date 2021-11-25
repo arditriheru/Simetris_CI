@@ -33,7 +33,13 @@ class dataManajemen extends CI_Controller
 	public function exportCustom()
 	{
 		$data['data'] = $this->db->query("
-			SELECT nama FROM mr_pasien WHERE tgl_lahir BETWEEN '2020-06-18' AND '2021-06-18'")->result();
+		SELECT DISTINCT(mr_rla.id_catatan_medik), mr_rla.tanggal, mr_pasien.nama, mr_pasien.telp
+FROM mr_rla
+JOIN mr_pasien
+ON mr_rla.id_catatan_medik = mr_pasien.id_catatan_medik
+WHERE mr_rla.tanggal BETWEEN '2021-01-01' AND '2021-12-31'
+AND mr_rla.id_unit IN(1,2)
+ORDER BY mr_rla.tanggal ASC")->result();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('manajemen/vMenu', $data);

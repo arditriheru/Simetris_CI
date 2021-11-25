@@ -34,8 +34,8 @@
             <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataPemakaianObat/1') ?>">Pemakaian Obat</a></li>
           </ul>
         </li>
-        <li><a href="<?php echo base_url('manajemen/dataManajemen/exportCustom') ?>"><i class="fa fa-file-excel-o"></i> Export Custom</a></li>
       <?php } ?>
+      <li><a href="<?php echo base_url('manajemen/dataManajemen/exportCustom') ?>"><i class="fa fa-file-excel-o"></i> Export Custom</a></li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right navbar-user">
