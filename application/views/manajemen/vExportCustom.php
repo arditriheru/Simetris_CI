@@ -23,6 +23,9 @@ header("Content-Disposition: attachment; filename=Export Custom " . date('d/m/Y'
         <th>
           <div align="center">Kontak</div>
         </th>
+        <th>
+          <div align="center">Unit</div>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -40,6 +43,9 @@ header("Content-Disposition: attachment; filename=Export Custom " . date('d/m/Y'
           </td>
           <td>
             <div align="center"><?php echo $d->telp; ?></div>
+          </td>
+          <td>
+            <div align="center"><?php echo $d->id_unit; ?></div>
           </td>
         </tr>
       <?php endforeach ?>
