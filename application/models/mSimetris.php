@@ -931,7 +931,7 @@ class mSimetris extends CI_Model
 	/*
 	|--------------------------------------------------------------------------
 	|
-	| Model Jasa Medis
+	| Model Modul Manajemen
 	|
 	|--------------------------------------------------------------------------
 */
@@ -1045,6 +1045,20 @@ class mSimetris extends CI_Model
 			->join('far_stok', 'far_det_trn_fix.id_obat = far_stok.no_urut')
 			->join('mr_pasien', 'far_trn.id_catatan_medik = mr_pasien.id_catatan_medik')
 			->where($where)
+			->get();
+		return $query;
+	}
+
+	function dataPenjualanPembelianObat($where){
+		$query = $this->db->select('far_trn.id_far_trn, far_stok.nama AS nama_obat,
+		far_kel.nama AS jenis, far_kode_lain.nama AS kelompok_obat, far_det_trn_fix.qty, far_det_trn_fix.subtotal, far_trn.tanggal AS tgl_penjualan')
+			->from('far_trn')
+			->join('far_det_trn_fix','far_trn.id_far_trn = far_det_trn_fix.id_far_trn')
+			->join('far_stok','far_det_trn_fix.id_obat = far_stok.no_urut')
+			->join('far_kel','far_stok.kel = far_kel.id_far_kel')
+			->join('far_kode_lain','far_stok.kode_lain = far_kode_lain.no_urut')
+			->where($where)
+			->order_by('far_trn.tanggal, far_stok.nama ASC')
 			->get();
 		return $query;
 	}

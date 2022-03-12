@@ -151,4 +151,51 @@ class dataFarmasi extends CI_Controller
 		$this->load->view('manajemen/farmasi/vExcelDataPemakaianObat', $data);
 		$this->load->view('templates/footer', $data);
 	}
+
+	function dataPenjualanObat()
+	{
+		$data['title'] 		= "Data";
+		$data['subtitle'] 	= "Penjualan Obat";
+
+		$data['kelobat']	= $this->mSimetris->getData('far_kel')->result();
+
+		if(!empty($this->input->get('tgl_awal'))){
+
+			$where = array(
+				'far_trn.tanggal >=' => $this->input->get('tgl_awal'),
+				'far_trn.tanggal <=' => $this->input->get('tgl_akhir'),
+				'far_kel.id_far_kel' => $this->input->get('id_far_kel'),
+			);
+	
+			$data['datapenjualan'] = $this->mSimetris->dataPenjualanPembelianObat($where)->result();
+
+		}
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('manajemen/vMenu', $data);
+		$this->load->view('manajemen/farmasi/vDataPenjualanObat', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	function exportDataPenjualanObat($tgl_awal, $tgl_akhir)
+	{
+		$data['title']        = "Penjualan Obat";
+
+		$id_far_kel 	= $this->input->get('id_far_kel');
+		$data['tgl_awal'] 	= $tgl_awal;
+		$data['tgl_akhir'] 	= $tgl_akhir;
+
+			$where = array(
+				'far_trn.tanggal >=' => $tgl_awal,
+				'far_trn.tanggal <=' => $tgl_akhir,
+				'far_kel.id_far_kel' => $id_far_kel,
+			);
+
+			$data['datapenjualan'] = $this->mSimetris->dataPenjualanPembelianObat($where)->result();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('manajemen/vMenu', $data);
+		$this->load->view('manajemen/farmasi/vExcelPenjualanObat', $data);
+		$this->load->view('templates/footer', $data);
+	}
 }

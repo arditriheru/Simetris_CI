@@ -38,7 +38,7 @@ class dataManajemen extends CI_Controller
 		JOIN mr_pasien
 		ON mr_rla.id_catatan_medik = mr_pasien.id_catatan_medik
 		WHERE mr_rla.tanggal BETWEEN '2021-01-01' AND '2021-12-31'
-		AND mr_rla.id_unit IN(1,2)
+		AND mr_rla.id_unit=2
 		GROUP BY mr_rla.id_catatan_medik
 		ORDER BY mr_rla.tanggal, mr_rla.id_unit ASC")->result();
 
