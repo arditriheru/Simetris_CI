@@ -1062,4 +1062,14 @@ class mSimetris extends CI_Model
 			->get();
 		return $query;
 	}
+
+	function dataStokObat($where){
+		$query = $this->db->select('*, far_stok.nama AS nama_obat, far_kel.nama AS jenis')
+			->from('far_stok')
+			->join('far_kel','far_stok.kel = far_kel.id_far_kel')
+			->where($where)
+			->order_by('far_stok.nama ASC')
+			->get();
+		return $query;
+	}
 }

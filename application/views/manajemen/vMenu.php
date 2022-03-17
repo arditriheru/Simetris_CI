@@ -31,7 +31,7 @@
             <i class="fa fa-plus"></i> Farmasi <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataPenjualanObat') ?>">Penjualan Obat</a></li>
-            <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataPembelianObat') ?>">Pembelian Obat</a></li>
+            <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataStokObat') ?>">Stok Obat</a></li>
             <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataEdObat/1') ?>">Expired Date Obat</a></li>
             <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataPemakaianObat/1') ?>">Pemakaian Obat</a></li>
           </ul>

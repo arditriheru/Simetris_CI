@@ -198,4 +198,51 @@ class dataFarmasi extends CI_Controller
 		$this->load->view('manajemen/farmasi/vExcelPenjualanObat', $data);
 		$this->load->view('templates/footer', $data);
 	}
+
+	function dataStokObat()
+	{
+		$data['title'] 		= "Data";
+		$data['subtitle'] 	= "Stok Obat";
+
+		$data['kelobat']	= $this->mSimetris->getData('far_kel')->result();
+
+		if(!empty($this->input->get('tgl_awal'))){
+
+			$where = array(
+				'far_stok.tanggal >=' => $this->input->get('tgl_awal'),
+				'far_stok.tanggal <=' => $this->input->get('tgl_akhir'),
+				'far_kel.id_far_kel' => $this->input->get('id_far_kel'),
+			);
+	
+			$data['datastokobat'] = $this->mSimetris->dataStokObat($where)->result();
+
+		}
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('manajemen/vMenu', $data);
+		$this->load->view('manajemen/farmasi/vDataStokObat', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	function exportDataStokObat($tgl_awal, $tgl_akhir)
+	{
+		$data['title']        = "Penjualan Obat";
+
+		$id_far_kel 	= $this->input->get('id_far_kel');
+		$data['tgl_awal'] 	= $tgl_awal;
+		$data['tgl_akhir'] 	= $tgl_akhir;
+
+			$where = array(
+				'far_stok.tanggal >=' => $tgl_awal,
+				'far_stok.tanggal <=' => $tgl_akhir,
+				'far_kel.id_far_kel' => $id_far_kel,
+			);
+
+			$data['datastokobat'] = $this->mSimetris->dataStokObat($where)->result();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('manajemen/vMenu', $data);
+		$this->load->view('manajemen/farmasi/vExcelDataStokObat', $data);
+		$this->load->view('templates/footer', $data);
+	}
 }
