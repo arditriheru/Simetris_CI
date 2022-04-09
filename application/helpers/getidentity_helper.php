@@ -17,7 +17,7 @@ if (!function_exists('getTopTitle')) {
 
 if (!function_exists('getCopyright')) {
 	function getCopyright(){
-		$getCopyright = "Copyright &#169; <script type='text/javascript'>var creditsyear = new Date();document.write(creditsyear.getFullYear());</script></b> <a expr:href='data:blog.homepageUrl'><data:blog.title/></a> <a href='https://arditriheru.github.io/' target='blank'> Ardi Tri Heru</a>";
+		$getCopyright = "Copyright &#169; <script type='text/javascript'>var creditsyear = new Date();document.write(creditsyear.getFullYear());</script></b> <a expr:href='data:blog.homepageUrl'><data:blog.title/></a> <a href='https://arditriheru.com/' target='blank'> Ardi Tri Heru</a>";
 		return $getCopyright;
 	}
 }

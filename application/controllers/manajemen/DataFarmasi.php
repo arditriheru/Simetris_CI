@@ -209,8 +209,8 @@ class dataFarmasi extends CI_Controller
 		if(!empty($this->input->get('tgl_awal'))){
 
 			$where = array(
-				'far_stok.tanggal >=' => $this->input->get('tgl_awal'),
-				'far_stok.tanggal <=' => $this->input->get('tgl_akhir'),
+				// 'far_stok.tanggal >=' => $this->input->get('tgl_awal'),
+				// 'far_stok.tanggal <=' => $this->input->get('tgl_akhir'),
 				'far_kel.id_far_kel' => $this->input->get('id_far_kel'),
 			);
 	
@@ -226,15 +226,15 @@ class dataFarmasi extends CI_Controller
 
 	function exportDataStokObat($tgl_awal, $tgl_akhir)
 	{
-		$data['title']        = "Penjualan Obat";
+		$data['title']        = "Stok Obat";
 
 		$id_far_kel 	= $this->input->get('id_far_kel');
 		$data['tgl_awal'] 	= $tgl_awal;
 		$data['tgl_akhir'] 	= $tgl_akhir;
 
 			$where = array(
-				'far_stok.tanggal >=' => $tgl_awal,
-				'far_stok.tanggal <=' => $tgl_akhir,
+				// 'far_stok.tanggal >=' => $tgl_awal,
+				// 'far_stok.tanggal <=' => $tgl_akhir,
 				'far_kel.id_far_kel' => $id_far_kel,
 			);
 
