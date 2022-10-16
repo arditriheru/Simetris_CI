@@ -39,10 +39,10 @@ class dataBooking extends CI_Controller
 		$data['anc'] 				= $this->mSimetris->dataAnc($where2)->result();
 
 		// autodelete
-		$this->db->query("DELETE FROM booking WHERE DATEDIFF(CURDATE(), booking_tanggal) > 62");
-		$this->db->query("DELETE FROM anc WHERE DATEDIFF(CURDATE(), jadwal) > 62");
-		$this->db->query("DELETE FROM tumbang WHERE DATEDIFF(CURDATE(), jadwal) > 62");
-		$this->db->query("DELETE FROM dokter_jadwal_libur WHERE DATEDIFF(CURDATE(), tanggal) > 1");
+		// $this->db->query("DELETE FROM booking WHERE DATEDIFF(CURDATE(), booking_tanggal) > 62");
+		// $this->db->query("DELETE FROM anc WHERE DATEDIFF(CURDATE(), jadwal) > 62");
+		// $this->db->query("DELETE FROM tumbang WHERE DATEDIFF(CURDATE(), jadwal) > 62");
+		// $this->db->query("DELETE FROM dokter_jadwal_libur WHERE DATEDIFF(CURDATE(), tanggal) > 1");
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('booking/vMenu', $data);
