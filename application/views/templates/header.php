@@ -9,11 +9,11 @@
   <title><?php echo getTopTitle()." - ".$title ?></title>
 
   <!-- Bootstrap core CSS -->
-  <link href="<?php echo base_url() ?>assets/css/bootstrap.css" rel="stylesheet">
+  <link href="<?php echo getAssets() ?>css/bootstrap.css" rel="stylesheet">
 
   <!-- Add custom CSS here -->
-  <link href="<?php echo base_url() ?>assets/css/sb-admin.css" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo base_url() ?>assets/font-awesome/css/font-awesome.min.css">
+  <link href="<?php echo getAssets() ?>css/sb-admin.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo getAssets() ?>font-awesome/css/font-awesome.min.css">
 
   <style>
     .fixed-footer {

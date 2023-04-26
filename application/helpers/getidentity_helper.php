@@ -22,6 +22,13 @@ if (!function_exists('getCopyright')) {
 	}
 }
 
+if (!function_exists('getAssets')) {
+	function getAssets(){
+		$getAssets = "https://arditriheru.com/public/sb-admin/";
+		return $getAssets;
+	}
+}
+
 if (!function_exists('getVersion')) {
 	function getVersion(){
 		$getVersion = "Version 2.0 CI";
